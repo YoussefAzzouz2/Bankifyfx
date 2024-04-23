@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CategorieAssuranceController">
+   <children>
+      <ImageView fitHeight="410.0" fitWidth="740.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@gg.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="374.0" layoutY="336.0" mnemonicParsing="false" onAction="#addcategorie" text="Ajouter" />
+      <Button layoutX="465.0" layoutY="336.0" mnemonicParsing="false" onAction="#showcategorie" text="Show" />
+      <Button layoutX="545.0" layoutY="336.0" mnemonicParsing="false" onAction="#updatecategorie" text="Modifer" />
+      <Button layoutX="634.0" layoutY="336.0" mnemonicParsing="false" onAction="#deletecategorie" text="Supprimer" />
+       <Button layoutX="21.0" layoutY="343.0" mnemonicParsing="false" onAction="#goToAssuranceButtonClicked" text="GO TO Assurance" />
+      <Label layoutX="21.0" layoutY="55.0" text="Nom Categorie" />
+      <Label layoutX="21.0" layoutY="112.0" text="Description" />
+      <Label layoutX="18.0" layoutY="172.0" text="Type Couverture" />
+      <Label layoutX="18.0" layoutY="224.0" text="Agence Responsable" />
+      <TextField fx:id="nomcategorieTF" layoutX="139.0" layoutY="51.0" />
+      <TextField fx:id="decripTF" layoutX="139.0" layoutY="108.0" />
+      <TextField fx:id="typecouvertureTF" layoutX="140.0" layoutY="168.0" />
+      <TextField fx:id="agenceresponsableTF" layoutX="141.0" layoutY="220.0" />
+       <TableView fx:id="categorieTable" layoutX="340.0" layoutY="17.0" prefHeight="300.0" prefWidth="381.0">
+           <columns>
+               <TableColumn fx:id="idCategorieColumn" text="ID">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="idCategorie" />
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn fx:id="nomCategorieColumn" text="Nom Categorie">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="nomCategorie" />
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn fx:id="descriptionColumn" text="Description">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="description" />
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn fx:id="typeCouvertureColumn" text="Type Couverture">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="typeCouverture" />
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn fx:id="agenceResponsableColumn" text="Agence Responsable">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="agenceResponsable" />
+                   </cellValueFactory>
+               </TableColumn>
+           </columns>
+       </TableView>
+
+   </children>
+</AnchorPane>

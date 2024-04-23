@@ -1,0 +1,12 @@
+.background {
+    -fx-background-image: url("/image/bb.jpg");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.title {
+    -fx-text-fill: blue;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
