@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.event.ActionEvent?>
+<?import javafx.fxml.FXML?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.addCarte"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+
+        <ImageView fx:id="tf_image" fitHeight="1000.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Background_back.jpeg" />
+            </image>
+        </ImageView>
+
+        <Button layoutX="190.0" layoutY="350.0" mnemonicParsing="false" onAction="#addCarte" text="Add Carte" />
+        <TextField fx:id="num_cTF" layoutX="150.0" layoutY="138.0" />
+        <TextField fx:id="dateExpTF" layoutX="150.0" layoutY="188.0" />
+        <TextField fx:id="typeTF" layoutX="150.0" layoutY="238.0" />
+        <TextField fx:id="statutTF" layoutX="150.0" layoutY="288.0" />
+        <Label layoutX="60.0" layoutY="143.0" text="Numero" style="-fx-text-fill: white;" />
+        <Label layoutX="60.0" layoutY="193.0" text="Date Expiration" style="-fx-text-fill: white;" />
+        <Label layoutX="60.0" layoutY="243.0" text="Type" style="-fx-text-fill: white;" />
+        <Label layoutX="60.0" layoutY="293.0" text="Statue" style="-fx-text-fill: white;" />
+    </children>
+</AnchorPane>

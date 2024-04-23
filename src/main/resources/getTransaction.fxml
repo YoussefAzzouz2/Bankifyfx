@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.getTransaction">
+    <children>
+        <ImageView fitHeight="409.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@pink.jpg" />
+            </image>
+        </ImageView>
+        <TableView fx:id="transactionTable" layoutX="29.0" layoutY="113.0" prefHeight="217.0" prefWidth="542.0" style="-fx-background-color: #fbe6de;">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="39.0" text="ID" />
+                <TableColumn fx:id="montantColumn" prefWidth="73.0" text="Montant" />
+                <TableColumn fx:id="dateColumn" prefWidth="113.0" text="Date transaction" />
+                <TableColumn fx:id="typeColumn" prefWidth="68.0" text="Type" />
+                <TableColumn fx:id="statutColumn" text="Statut" />
+
+                <!-- Add new columns for Modify and Delete buttons -->
+                <TableColumn fx:id="modifyColumn" prefWidth="82.0" text="Modify"  />
+                <TableColumn fx:id="deleteColumn" prefWidth="88.0" text="Delete" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

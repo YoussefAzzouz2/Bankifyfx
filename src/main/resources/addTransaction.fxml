@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.event.ActionEvent?>
+<?import javafx.fxml.FXML?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.addTransaction"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+
+        <ImageView fx:id="tf_image" fitHeight="1000.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@pink.jpg" />
+            </image>
+        </ImageView>
+
+        <Button layoutX="190.0" layoutY="350.0" mnemonicParsing="false" onAction="#addTransaction" text="Ajouter" />
+        <TextField fx:id="montantTF" layoutX="150.0" layoutY="138.0" />
+        <TextField fx:id="dateTF" layoutX="150.0" layoutY="188.0" />
+        <TextField fx:id="typeTF" layoutX="150.0" layoutY="238.0" />
+        <TextField fx:id="statutTF" layoutX="150.0" layoutY="288.0" />
+        <Label layoutX="60.0" layoutY="143.0" text="Montant" />
+        <Label layoutX="60.0" layoutY="193.0" text="Date Transaction" />
+        <Label layoutX="60.0" layoutY="243.0" text="Type" />
+        <Label layoutX="60.0" layoutY="293.0" text="Statue" />
+    </children>
+</AnchorPane>

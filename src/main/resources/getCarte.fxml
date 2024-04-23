@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.getCarte">
+    <children>
+        <ImageView fx:id="tf_image" fitHeight="1000.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Background_back.jpeg" />
+            </image>
+        </ImageView>
+        <TableView fx:id="carteTable" layoutX="167.0" layoutY="99.0" prefHeight="217.0" prefWidth="682.0" style="-fx-background-color: #fbe6de;">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="57.0" text="ID" />
+                <TableColumn fx:id="numColumn" prefWidth="87.0" text="Numéro" />
+                <TableColumn fx:id="dateExpColumn" prefWidth="132.0" text="Date d'expiration" />
+                <TableColumn fx:id="typeColumn" prefWidth="93.0" text="Type" />
+                <TableColumn fx:id="statutColumn" prefWidth="104.0" text="Statut" />
+
+                <!-- Ajout des colonnes pour les boutons Modifier et Supprimer -->
+                <TableColumn fx:id="modifyColumn" prefWidth="108.0" text="Modifier" />
+                <TableColumn fx:id="deleteColumn" prefWidth="98.0" text="Supprimer" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
