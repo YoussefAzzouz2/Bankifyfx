@@ -17,13 +17,9 @@ public class Main {
 
 
 
-        Carte carte = new Carte("123456787", new Date(), "Credit", "Active");
 
-        try {
-            carteService.add(carte);
-        } catch (SQLException e) {
-            System.err.println("Error adding carte: " + e.getMessage());
-        }
+
+
 
         try {
             // Get the existing carte by id

@@ -14,6 +14,14 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Button;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
+import models.CompteClient;
+import services.CompteClientService;
+import java.util.List;
+import java.text.ParseException;
+
 
 public class addCarte {
 
@@ -31,54 +39,89 @@ public class addCarte {
     @FXML
     private TextField statutTF;
 
+    @FXML
+    private ComboBox<Integer> compteClientComboBox;
+
+    // Add an instance of CompteClientService to retrieve CompteClient objects
+    private final CompteClientService compteClientService = new CompteClientService();
+
+    public void initialize() {
+        // Load available CompteClient objects from the CompteClientService
+        List<CompteClient> compteClients = compteClientService.getAllCompteClients();
+
+
+
+        // Iterate through each CompteClient and add the desired attribute (ID) to the ComboBox
+        for (CompteClient compteClient : compteClients) {
+            // Retrieve the ID of the CompteClient
+            int clientId = compteClient.getId();
+
+            // Add the ID to the ComboBox
+            compteClientComboBox.getItems().add(clientId);
+        }
+    }
+
+
+
+
 
     @FXML
     void addCarte(ActionEvent event) throws SQLException {
+        // Check for empty fields
         if (num_cTF.getText().isEmpty()) {
-            System.out.println("Card number is empty");
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Le numéro de carte est vide !");
+            showAlert(Alert.AlertType.WARNING, "Input Validation Error", "Card number is empty");
+            return;
+        }
+        if (dateExpTF.getText().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Input Validation Error", "Expiration date is empty");
+            return;
+        }
+        if (typeTF.getText().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Input Validation Error", "Type is empty");
+            return;
+        }
+        if (compteClientComboBox.getValue() == null) {
+            showAlert(Alert.AlertType.WARNING, "Input Validation Error", "Please select a CompteClient");
             return;
         }
 
         try {
-            String num_c = num_cTF.getText();
-            // Convert date string to java.util.Date (assumes date format is yyyy-MM-dd)
+            // Parse card number
+            String cardNumber = num_cTF.getText();
+
+            // Parse expiration date
             java.util.Date dateExp = java.sql.Date.valueOf(dateExpTF.getText());
 
+            // Validate card type
             String type = typeTF.getText();
-            // Vérifier que le type de carte est "Visa" ou "Mastercard"
-            if (!type.equalsIgnoreCase("Visa") && !type.equalsIgnoreCase("Mastercard")) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Le type de carte doit être Visa ou Mastercard !");
+            if (!List.of("Visa", "Mastercard").contains(type)) {
+                showAlert(Alert.AlertType.WARNING, "Input Validation Error", "Invalid card type. Allowed values: Visa, Mastercard");
                 return;
             }
 
-            String statut = statutTF.getText();
-            // Vérifier que le statut est "active", "inactive" ou "bloquee"
-            if (!statut.equalsIgnoreCase("active") && !statut.equalsIgnoreCase("inactive") && !statut.equalsIgnoreCase("bloquee")) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Le statut doit être active, inactive ou bloquee !");
-                return;
-            }
+            // Retrieve the selected CompteClient ID from the ComboBox
+            int selectedClientId = compteClientComboBox.getValue();
 
-            // Vérifiez si le numéro de carte est unique
-            boolean isUnique = carteService.isCardNumberUnique(num_c);
-            if (!isUnique) {
-                System.out.println("Card number is not unique");
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Le numéro de carte existe déjà !");
-                return;
-            }
+            // Retrieve the corresponding CompteClient object
+            CompteClient selectedCompteClient = compteClientService.getById(selectedClientId);
 
-            // Ajouter la nouvelle carte
-            Carte carte = new Carte(num_c, dateExp, type, statut);
-            carteService.add(carte);
-            System.out.println("Carte ajoutée avec succès !");
+            // Create a new Carte object with the provided information
+            Carte newCarte = new Carte(cardNumber, dateExp, type, "active", selectedCompteClient);
 
-            // Afficher un message de succès à l'utilisateur
-            showAlert(Alert.AlertType.INFORMATION, "Succès", "Carte ajoutée avec succès !");
+            // Add the new Carte using the CarteService
+            carteService.add(newCarte);
+
+            // Show success message
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Carte added successfully!");
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Input Error", "Invalid number format for input");
         } catch (IllegalArgumentException e) {
             System.out.println("Format de date invalide");
             showAlert(Alert.AlertType.ERROR, "Erreur", "Format de date invalide !");
         }
     }
+
+
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

@@ -178,12 +178,14 @@
 
                         <Label layoutX="133.0" layoutY="147.0" style="-fx-text-fill: white;" text="Statut" />
                         <TextField fx:id="statutTF" layoutX="258.0" layoutY="143.0" />
-
-                        <Button layoutX="297.0" layoutY="188.0" mnemonicParsing="false" onAction="#addCarte" text="Add Carte" />
                         <!-- Add Carte button and input fields with labels -->
                         <Label layoutX="136.0" layoutY="13.0" style="-fx-text-fill: white;" text="Numero" />
                         <TextField fx:id="num_cTF" layoutX="258.0" layoutY="12.0" />
-                  <Button layoutX="630.0" layoutY="188.0" mnemonicParsing="false" text="Afficher les cartes" onAction="#openAfficherTransactionsWindow"/>
+                        <ComboBox fx:id="compteClientComboBox" layoutX="257.0" layoutY="188.0" prefWidth="150" promptText="Select Client"/>
+
+                  <Button layoutX="630.0" layoutY="188.0" mnemonicParsing="false" onAction="#openAfficherTransactionsWindow" text="Afficher les cartes" />
+   
+                        <Button layoutX="520.0" layoutY="188.0" mnemonicParsing="false" onAction="#addCarte" text="Add Carte" />
                     </Pane>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -25,16 +25,21 @@ public class Carte {
     @OneToMany(mappedBy = "carte", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactions;
 
+    @ManyToOne
+    @JoinColumn(name = "compte_client_id")
+    private CompteClient compteClient;
+
 
     // Constructors
     public Carte() {
     }
 
-    public Carte(String num_c, Date date_exp, String type_c, String statut_c) {
+    public Carte(String num_c, Date date_exp, String type_c, String statut_c, CompteClient compteClient) {
         this.num_c = num_c;
         this.date_exp = date_exp;
         this.type_c = type_c;
         this.statut_c = statut_c;
+        this.compteClient = compteClient;
     }
 
     // Getters and setters
@@ -86,6 +91,14 @@ public class Carte {
         this.transactions = transactions;
     }
 
+    public CompteClient getCompteClient() {
+        return compteClient;
+    }
+
+    public void setCompteClient(CompteClient compteClient) {
+        this.compteClient = compteClient;
+    }
+
     // toString method for debugging
     @Override
     public String toString() {
@@ -95,6 +108,7 @@ public class Carte {
                 ", date_exp=" + date_exp +
                 ", type_c='" + type_c + '\'' +
                 ", statut_c='" + statut_c + '\'' +
+                ", compteClient='" + compteClient + '\'' +
                 '}';
     }
 }

@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
-public class MainFX extends Application {
+public class MainFrontFX extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -16,7 +16,7 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL fxmlUrl = getClass().getResource("/addCarte.fxml");
+        URL fxmlUrl = getClass().getResource("/addTransaction.fxml");
         if (fxmlUrl == null) {
             System.err.println("FXML file not found.");
             return;
@@ -30,3 +30,4 @@ public class MainFX extends Application {
         primaryStage.show();
     }
 }
+
