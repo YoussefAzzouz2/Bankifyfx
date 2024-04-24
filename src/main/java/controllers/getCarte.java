@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -154,6 +155,47 @@ public class getCarte {
         } catch (SQLException e) {
             e.printStackTrace();
             // Gérez les exceptions ici...
+        }
+    }
+
+    public void openAjouterTransactionWindow(ActionEvent event) {
+        openWindow(event, "/addCarte.fxml", "Ajouter Transaction");
+    }
+
+    /**
+     * Opens the Afficher Transactions window.
+     *
+     * @param event The event that triggered this method.
+     */
+    public void openAfficherTransactionsWindow(ActionEvent event) {
+        openWindow(event, "/getCarte.fxml", "Afficher Transactions");
+    }
+
+    /**
+     * General method to open a new window based on the provided FXML file and title.
+     *
+     * @param event    The event that triggered this method.
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param title    The title of the new window.
+     */
+    private void openWindow(ActionEvent event, String fxmlPath, String title) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+            // Get the event source (Button) and retrieve the stage
+            Button button = (Button) event.getSource();
+            Scene scene = button.getScene();
+            Stage stage = (Stage) scene.getWindow();
+
+            // Set the new scene and title on the stage
+            stage.setTitle(title);
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            // Provide a user-friendly error message or log the error
+            System.err.println("Error opening window: " + e.getMessage());
+            // Optionally, you can display an alert to the user
+            // showAlert(Alert.AlertType.ERROR, "Erreur", "Failed to open window!");
         }
     }
 }

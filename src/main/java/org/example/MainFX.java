@@ -16,7 +16,7 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL fxmlUrl = getClass().getResource("/getCarte.fxml");
+        URL fxmlUrl = getClass().getResource("/addTransaction.fxml");
         if (fxmlUrl == null) {
             System.err.println("FXML file not found.");
             return;

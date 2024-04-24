@@ -99,4 +99,28 @@ public class CarteService implements IService<Carte> {
             return null;
         }
     }
+
+    public List<Carte> getAllCartes() {
+        List<Carte> cartes = new ArrayList<>();
+        String query = "SELECT * FROM carte";
+
+        try (Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                Carte carte = new Carte();
+                carte.setId(rs.getLong("id"));
+                carte.setNum_c(rs.getString("num_c"));
+                carte.setDate_exp(rs.getDate("date_exp"));
+                carte.setType_c(rs.getString("type_c"));
+                carte.setStatut_c(rs.getString("statut_c"));
+
+                cartes.add(carte);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cartes;
+    }
 }

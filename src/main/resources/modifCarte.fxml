@@ -4,18 +4,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #cf87c4;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.modifCarte">
+<AnchorPane prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.modifCarte">
 
     <children>
         <VBox alignment="CENTER" layoutX="50" layoutY="30" prefWidth="300" spacing="15">
             <children>
 
                 <!-- Label indiquant l'ID de la carte à modifier -->
-                <Label fx:id="carteLabel" text="Modification de la carte ID: " />
+                <Label fx:id="carteLabel" text="Modification de la carte ID: " style="-fx-text-fill: white;" />
 
                 <!-- Champs de texte pour la modification des détails de la carte -->
                 <HBox spacing="10">
-                    <Label text="Numéro:" />
+                    <Label text="Numéro:" style="-fx-text-fill: white;" />
                     <TextField fx:id="numField">
                   <HBox.margin>
                      <Insets left="46.0" />
@@ -23,7 +23,7 @@
                 </HBox>
 
                 <HBox spacing="10">
-                    <Label text="Date d'expiration:" />
+                    <Label text="Date d'expiration:" style="-fx-text-fill: white;" />
                     <TextField fx:id="dateExpField">
                         <HBox.margin>
                             <Insets />
@@ -32,7 +32,7 @@
                 </HBox>
 
                 <HBox spacing="10">
-                    <Label text="Type:" />
+                    <Label text="Type:" style="-fx-text-fill: white;"/>
                     <TextField fx:id="typeField">
                         <HBox.margin>
                             <Insets left="65.0" />
@@ -41,7 +41,7 @@
                 </HBox>
 
                 <HBox spacing="10">
-                    <Label text="Statut:" />
+                    <Label text="Statut:" style="-fx-text-fill: white;"/>
                     <TextField fx:id="statutField">
                         <HBox.margin>
                             <Insets left="59.0" />
@@ -50,7 +50,7 @@
                 </HBox>
 
                 <!-- Bouton de modification -->
-                <Button fx:id="modifierButton" onAction="#modifierCarte" style="-fx-background-color: #fbe6de;" text="Modifier" />
+                <Button fx:id="modifierButton" onAction="#modifierCarte"  text="Modifier" />
             </children>
         </VBox>
     </children>

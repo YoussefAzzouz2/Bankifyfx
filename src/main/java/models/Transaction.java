@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "transaction")
@@ -19,15 +21,21 @@ public class Transaction {
     private String type_t;
     private String statut_t;
 
+    @ManyToOne
+    @JoinColumn(name = "carte_id")
+    private Carte carte;
+
+
     // Constructors
     public Transaction() {
     }
 
-    public Transaction(double montant, Date date_t, String type_t, String statut_t) {
+    public Transaction(double montant, Date date_t, String type_t, String statut_t, Carte carte) {
         this.montant = montant;
         this.date_t = date_t;
         this.type_t = type_t;
         this.statut_t = statut_t;
+        this.carte = carte;
     }
 
     // Getters and setters
@@ -71,6 +79,15 @@ public class Transaction {
         this.statut_t = statut_t;
     }
 
+    public Carte getCarte() {
+        return carte;
+    }
+
+    public void setCarte(Carte carte) {
+        this.carte = carte;
+    }
+
+
     // toString method for debugging
     @Override
     public String toString() {
@@ -80,6 +97,7 @@ public class Transaction {
                 ", date_t=" + date_t +
                 ", type_t='" + type_t + '\'' +
                 ", statut_t='" + statut_t + '\'' +
+                ", carte=" + carte +
                 '}';
     }
 }

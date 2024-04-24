@@ -6,23 +6,87 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.getTransaction">
     <children>
-        <ImageView fitHeight="409.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+        <!-- Background image -->
+        <ImageView fx:id="tf_image" fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@pink.jpg" />
             </image>
         </ImageView>
-        <TableView fx:id="transactionTable" layoutX="29.0" layoutY="113.0" prefHeight="217.0" prefWidth="542.0" style="-fx-background-color: #fbe6de;">
-            <columns>
-                <TableColumn fx:id="idColumn" prefWidth="39.0" text="ID" />
-                <TableColumn fx:id="montantColumn" prefWidth="73.0" text="Montant" />
-                <TableColumn fx:id="dateColumn" prefWidth="113.0" text="Date transaction" />
-                <TableColumn fx:id="typeColumn" prefWidth="68.0" text="Type" />
-                <TableColumn fx:id="statutColumn" text="Statut" />
 
-                <!-- Add new columns for Modify and Delete buttons -->
-                <TableColumn fx:id="modifyColumn" prefWidth="82.0" text="Modify"  />
-                <TableColumn fx:id="deleteColumn" prefWidth="88.0" text="Delete" />
+        <!-- MenuBar with transparent background and purple text -->
+        <MenuBar layoutX="0.0" layoutY="0.0" prefHeight="30.0" prefWidth="600.0" style="-fx-background-color: transparent;">
+            <menus>
+                <!-- Compte Menu -->
+                <Menu style="-fx-text-fill: purple;" text="Compte">
+                    <items>
+                        <MenuItem style="-fx-text-fill: purple;" text="Ouvrir Compte" />
+                        <MenuItem style="-fx-text-fill: purple;" text="Fermer Compte" />
+                    </items>
+                </Menu>
+
+                <!-- Transaction Menu -->
+                <Menu style="-fx-text-fill: purple;" text="Transaction">
+                    <items>
+                        <MenuItem onAction="#openAjouterTransactionWindow" style="-fx-text-fill: purple;" text="Ajouter Transaction" />
+                        <MenuItem onAction="#openAfficherTransactionsWindow" style="-fx-text-fill: purple;" text="Afficher Transactions" />
+                    </items>
+                </Menu>
+
+                <!-- Crédit Menu -->
+                <Menu style="-fx-text-fill: purple;" text="Crédit">
+                    <items>
+                        <MenuItem style="-fx-text-fill: purple;" text="Demander Crédit" />
+                        <MenuItem style="-fx-text-fill: purple;" text="Rembourser Crédit" />
+                    </items>
+                </Menu>
+
+                <!-- Chèque Menu -->
+                <Menu style="-fx-text-fill: purple;" text="Chèque">
+                    <items>
+                        <MenuItem style="-fx-text-fill: purple;" text="Émettre Chèque" />
+                        <MenuItem style="-fx-text-fill: purple;" text="Annuler Chèque" />
+                    </items>
+                </Menu>
+
+                <!-- Assurances Menu -->
+                <Menu style="-fx-text-fill: purple;" text="Assurances">
+                    <items>
+                        <MenuItem style="-fx-text-fill: purple;" text="Souscrire Assurance" />
+                        <MenuItem style="-fx-text-fill: purple;" text="Résilier Assurance" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+
+        <!-- Styled TableView -->
+        <TableView fx:id="transactionTable" layoutX="18.0" layoutY="91.0" prefHeight="245.0" prefWidth="566.0" style="-fx-background-color: #fbe6de;">
+            <columns>
+                <!-- ID Column -->
+                <TableColumn fx:id="idColumn" prefWidth="39.0" style="-fx-background-color: #fbe6de; -fx-text-fill: purple;" text="ID" />
+
+                <!-- Montant Column -->
+                <TableColumn fx:id="montantColumn" prefWidth="73.0" style="-fx-background-color: #fbe6de; -fx-text-fill: purple;" text="Montant" />
+
+                <!-- Date transaction Column -->
+                <TableColumn fx:id="dateColumn" prefWidth="113.0" style="-fx-background-color: #fbe6de; -fx-text-fill: purple;" text="Date transaction" />
+
+                <!-- Type Column -->
+                <TableColumn fx:id="typeColumn" prefWidth="62.0" style="-fx-background-color: #fbe6de; -fx-text-fill: purple;" text="Type" />
+
+                <!-- Statut Column -->
+                <TableColumn fx:id="statutColumn" prefWidth="75.0" style="-fx-background-color: #fbe6de; -fx-text-fill: purple;" text="Statut" />
+
+                <!-- Modify Column -->
+                <TableColumn fx:id="modifyColumn" prefWidth="100.0" style="-fx-background-color: #fbe6de; -fx-text-fill: purple;" text="Modify">
+                    <!-- Custom cell factory can be added here for Modify button -->
+                </TableColumn>
+
+                <!-- Delete Column -->
+                <TableColumn fx:id="deleteColumn" prefWidth="101.0" style="-fx-background-color: #fbe6de; -fx-text-fill: purple;" text="Delete">
+                    <!-- Custom cell factory can be added here for Delete button -->
+                </TableColumn>
             </columns>
+
         </TableView>
     </children>
 </AnchorPane>

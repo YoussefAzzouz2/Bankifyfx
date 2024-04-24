@@ -15,7 +15,7 @@ public class Main {
         CarteService carteService = new CarteService();
         TransactionService transactionService = new TransactionService();
 
-        Transaction transaction = new Transaction(1000, new Date(), "Credit", "Pending");
+
 
         Carte carte = new Carte("123456787", new Date(), "Credit", "Active");
 
@@ -54,12 +54,7 @@ public class Main {
             System.err.println("Error getting carte by id: " + e.getMessage());
         }
 
-        try {
-            transactionService.add(transaction);
-            System.out.println("Transaction added successfully!");
-        } catch (SQLException e) {
-            System.err.println("Error adding transaction: " + e.getMessage());
-        }
+
 
         try {
             // Get the existing transaction by id

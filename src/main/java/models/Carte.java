@@ -6,6 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
+import javax.persistence.*;
+import java.util.List;
+
 
 @Entity
 @Table(name = "carte")
@@ -18,6 +21,10 @@ public class Carte {
     private Date date_exp;
     private String type_c;
     private String statut_c;
+
+    @OneToMany(mappedBy = "carte", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transaction> transactions;
+
 
     // Constructors
     public Carte() {
@@ -69,6 +76,14 @@ public class Carte {
 
     public void setStatut_c(String statut_c) {
         this.statut_c = statut_c;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     // toString method for debugging
