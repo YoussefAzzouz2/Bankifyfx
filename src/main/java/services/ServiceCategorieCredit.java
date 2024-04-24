@@ -1,6 +1,7 @@
 package services;
 
 import entities.CategorieCredit;
+import entities.Credit;
 import utils.MyDatabase;
 import java.sql.*;
 import java.util.ArrayList;
@@ -84,5 +85,32 @@ public class ServiceCategorieCredit implements IService<CategorieCredit>{
         statement.setString(1, nom);
         ResultSet rs = statement.executeQuery();
         return rs.next();
+    }
+
+    public boolean modifNom(String nom, int id) throws SQLException {
+        String req = "SELECT * FROM categorie_credit WHERE nom = ? and id not like ?";
+        PreparedStatement statement = connection.prepareStatement(req);
+        statement.setString(1, nom);
+        statement.setInt(2, id);
+        ResultSet rs = statement.executeQuery();
+        return rs.next();
+    }
+
+    public List<Credit> getCredits(int id) throws SQLException {
+        List<Credit> credits= new ArrayList<>();
+        String req="select * from credit where categorie_id ="+id+" and accepted = 1;";
+        Statement statement= connection.createStatement();
+        ResultSet rs= statement.executeQuery(req);
+
+        while (rs.next()){
+            Credit credit= new Credit();
+            credit.setMontantTotale(rs.getDouble("montant_totale"));
+            credit.setDureeTotale(rs.getInt("duree_totale"));
+            credit.setInteret(rs.getInt("interet"));
+            credit.setDateC(rs.getDate("date_c"));
+            credit.setId(rs.getInt("id"));
+            credits.add(credit);
+        }
+        return credits;
     }
 }

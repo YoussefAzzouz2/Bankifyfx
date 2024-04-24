@@ -7,14 +7,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.categorieCreditController.AddCategorieCredit">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-image: url('./background_back.jpeg'); -fx-background-size: 100% 100%;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.categorieCreditController.AddCategorieCredit">
     <children>
-        <ImageView fx:id="tf_image" fitHeight="1000.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../background_back.jpeg" />
-            </image>
-        </ImageView>
-        <Button layoutX="174.0" layoutY="287.0" mnemonicParsing="false" onAction="#addCategorieCredit" text="Button" />
+        <Button layoutX="174.0" layoutY="287.0" mnemonicParsing="false" onAction="#addCategorieCredit" text="Ajouter" />
         <TextField fx:id="nomTF" layoutX="200.0" layoutY="138.0" />
         <TextField fx:id="minMontantTF" layoutX="200.0" layoutY="188.0" />
         <TextField fx:id="maxMontantTF" layoutX="200.0" layoutY="238.0" />
