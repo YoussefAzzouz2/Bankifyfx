@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -28,8 +29,12 @@ public class Cheques  implements IService<Cheque> {
         stm.setInt(2, cheque.getCompteID());
         stm.setFloat(3, cheque.getMontantC());
 
-        stm.executeUpdate();
+
+
+            stm.executeUpdate();
+
     }
+
 
     public Cheque update1(int chequeID) throws SQLException {
         String query = "SELECT * FROM cheque WHERE id = ?";

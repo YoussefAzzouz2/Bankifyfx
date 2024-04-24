@@ -689,14 +689,14 @@ void addfill()
 
             private final ImageView notificationBell1=new ImageView();
 
-            final File file1 = new File("C:\\Users\\Yassin\\Desktop\\bankify\\src\\main\\resources\\bankify\\Cheques\\Front\\Images\\star.png");
-            final File file2 = new File("C:\\Users\\Yassin\\Desktop\\bankify\\src\\main\\resources\\bankify\\Cheques\\Front\\Images\\star1.png");
+            final File file1 = new File("C:\\Users\\balho\\Desktop\\bankify\\src\\main\\resources\\bankify\\Cheques\\Front\\Images\\star.png");
+            final File file2 = new File("C:\\Users\\balho\\Desktop\\bankify\\src\\main\\resources\\bankify\\Cheques\\Front\\Images\\star1.png");
             final Image image1 = new Image(file1.toURI().toString());
             final Image image2 = new Image(file2.toURI().toString());
 
-            final File file = new File("C:\\Users\\Yassin\\Desktop\\bankify\\src\\main\\resources\\bankify\\Cheques\\Front\\Images\\bell.png");
+            final File file = new File("C:\\Users\\balho\\Desktop\\bankify\\src\\main\\resources\\bankify\\Cheques\\Front\\Images\\bell.png");
 
-            final File file11 = new File("C:\\Users\\Yassin\\Desktop\\bankify\\src\\main\\resources\\bankify\\Cheques\\Front\\Images\\notification.png");
+            final File file11 = new File("C:\\Users\\balho\\Desktop\\bankify\\src\\main\\resources\\bankify\\Cheques\\Front\\Images\\notification.png");
 
 
 

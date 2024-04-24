@@ -490,7 +490,7 @@ populateComboBox();
 
             // Populate comboBox1 with data from the Compte table
             try (Statement statement = connection.createStatement();
-                 ResultSet resultSet = statement.executeQuery("SELECT id FROM Compte")) {
+                 ResultSet resultSet = statement.executeQuery("SELECT id FROM compte_client")) {
                 List<String> items5 = new ArrayList<>();
 
                 List<String> items1 = new ArrayList<>();
@@ -585,7 +585,6 @@ populateComboBox();
             }
 
 
-
             a.setMontantC(MonatantC);
             a.setDestinationCID(selectedUser.getId());
             a.setCompteID(compteID);
@@ -593,6 +592,7 @@ populateComboBox();
 
             c.add(a);
             cheque.getTabPane().getSelectionModel().select(cheque);
+
 
 
         } catch (SQLException ex) {

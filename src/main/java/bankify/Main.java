@@ -13,9 +13,14 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
 
-       //FXMLLoader loader = new FXMLLoader(getClass().getResource("/bankify/Cheques/Back/Cheques.fxml"));
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/bankify/Front/Front.fxml"));
-       FXMLLoader loader = new FXMLLoader(getClass().getResource("/bankify/Cheques/Front/FrontCheques.fxml"));
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("/bankify/Back/back.fxml"));
+       // FXMLLoader loader = new FXMLLoader(getClass().getResource("/bankify/Front/Front.fxml"));
+
+
+
+
+        // FXMLLoader loader = new FXMLLoader(getClass().getResource("/bankify/Cheques/Back/Cheques.fxml"));
+      //FXMLLoader loader = new FXMLLoader(getClass().getResource("/bankify/Cheques/Front/FrontCheques.fxml"));
 
 
 
