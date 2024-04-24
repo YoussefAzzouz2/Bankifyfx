@@ -1,0 +1,48 @@
+/* styles.css */
+.custom-button {
+    -fx-background-color: #FFA500; /* Orange background */
+    -fx-text-fill: white; /* Black text */
+    -fx-font-size: 12px; /* Smaller font size */
+    -fx-font-weight: bold; /* Bold font weight */
+    -fx-padding: 5px 10px; /* Smaller padding */
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-min-width: 80px; /* Smaller width */
+}
+/* CRUD button */
+.crud-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-min-width: 80px;
+}
+
+.goFront-button {
+    -fx-background-color: #1E90FF;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-min-width: 80px;
+}
+
+.custom-table-view {
+    -fx-background-color: #FFB6C1;
+}
+
+.custom-table-view .column-header-background {
+    -fx-background-color: #FFB6C1;
+    -fx-text-fill: blue;
+}
+
+.custom-table-view .table-row-cell {
+    -fx-background-color: #FFD9E6;
+}
+
+
