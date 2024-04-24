@@ -62,9 +62,9 @@
           </columns>
 
       </TableView>
-      <Button layoutX="14.0" layoutY="358.0" mnemonicParsing="false" onAction="#goToCategorieButtonClicked" styleClass="custom-button" stylesheets="@styles.css" text="Go to categories" />
-      <Button layoutX="140.0" layoutY="358.0" mnemonicParsing="false" onAction="#goToAssuranceeButtonClicked" styleClass="custom-button" stylesheets="@styles.css" text="GO TO Assurance" />
-      <Button layoutX="83.0" layoutY="414.0" mnemonicParsing="false" onAction="#goToFrontAGENCEButtonClicked" styleClass="goFront-button" stylesheets="@styles.css" text="GO TO FRONT" />
+      <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#goToCategorieButtonClicked" prefHeight="27.0" prefWidth="118.0" styleClass="custom-button" stylesheets="@styles.css" text="Go to categories" />
+      <Button layoutX="154.0" layoutY="344.0" mnemonicParsing="false" onAction="#goToAssuranceeButtonClicked" styleClass="custom-button" stylesheets="@styles.css" text="GO TO Assurance" />
+      <Button layoutX="14.0" layoutY="410.0" mnemonicParsing="false" onAction="#goToFrontAGENCEButtonClicked" prefHeight="27.0" prefWidth="118.0" styleClass="goFront-button" stylesheets="@styles.css" text="GO TO FRONT" />
       <Label layoutX="14.0" layoutY="12.0" text="Bankify Listes Des Agences" textFill="#140679" underline="true">
          <font>
             <Font name="Copperplate Gothic Bold" size="28.0" />
@@ -75,5 +75,7 @@
             <Font name="Arial Black" size="19.0" />
          </font>
       </Label>
+       <Button layoutX="154.0" layoutY="410.0" mnemonicParsing="false" onAction="#generatePDF" prefHeight="27.0" prefWidth="118.0" styleClass="PDF-button" stylesheets="@styles.css" text="Generate PDF" />
+
    </children>
 </AnchorPane>

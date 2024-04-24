@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.stage.Stage;
 import models.Agence;
+import utils.PDFGenerator;
 
 import java.io.IOException;
 import java.sql.*;
@@ -270,6 +271,13 @@ public class AgenceController {
             e.printStackTrace();
             // Handle any IOException properly in your application
         } }
+
+    @FXML
+    public void generatePDF(ActionEvent actionEvent) {
+        PDFGenerator pdfGenerator = new PDFGenerator();
+        pdfGenerator.generatePDF(actionEvent, agenceTable, "Bankify Agence Table");  // Provide the title
+    }
+
 }
 
 

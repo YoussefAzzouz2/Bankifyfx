@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import models.CategorieAssurance;
+import utils.PDFGenerator;
 
 import java.io.IOException;
 import java.sql.*;
@@ -232,13 +233,18 @@ public class CategorieAssuranceController {
             // Show the new stage
             stage.show();
 
-            // Close the current window if needed
-            // You can uncomment the following lines if you want to close the current window
+
+
             ((Node) actionEvent.getSource()).getScene().getWindow().hide();
 
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle any IOException properly in your application
+
         } }
+
+    public void generatePDF(ActionEvent actionEvent) {
+        PDFGenerator pdfGenerator = new PDFGenerator();
+        pdfGenerator.generatePDF(actionEvent, categorieTable, "Categorie Table");
+    }
 }
 

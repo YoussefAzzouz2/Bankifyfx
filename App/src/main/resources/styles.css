@@ -1,13 +1,13 @@
 /* styles.css */
 .custom-button {
-    -fx-background-color: #FFA500; /* Orange background */
-    -fx-text-fill: white; /* Black text */
-    -fx-font-size: 12px; /* Smaller font size */
-    -fx-font-weight: bold; /* Bold font weight */
-    -fx-padding: 5px 10px; /* Smaller padding */
+    -fx-background-color: #FFA500;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 10px;
     -fx-border-radius: 3px;
     -fx-background-radius: 3px;
-    -fx-min-width: 80px; /* Smaller width */
+    -fx-min-width: 80px;
 }
 /* CRUD button */
 .crud-button {
@@ -43,6 +43,17 @@
 
 .custom-table-view .table-row-cell {
     -fx-background-color: #FFD9E6;
+}
+
+.PDF-button {
+    -fx-background-color: #E12929;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-min-width: 80px;
 }
 
 

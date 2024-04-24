@@ -25,6 +25,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import utils.PDFGenerator;
 
 
 public class AssuranceController {
@@ -221,6 +222,12 @@ public class AssuranceController {
             alert.showAndWait();
         }
     }
+
+    public void generatePDF(ActionEvent actionEvent) {
+        PDFGenerator pdfGenerator = new PDFGenerator();
+        pdfGenerator.generatePDF(actionEvent, assuranceTable, "Assurance Table");  // Provide the title
+    }
+
 
 
     public static class Assurance {

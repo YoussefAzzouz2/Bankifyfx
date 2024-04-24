@@ -56,7 +56,7 @@
       <Button layoutX="522.0" layoutY="395.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="27.0" prefWidth="88.0" styleClass="crud-button" stylesheets="@styles.css" text="Modifier" />
       <Button layoutX="625.0" layoutY="395.0" mnemonicParsing="false" onAction="#deleteButton" prefHeight="27.0" prefWidth="88.0" styleClass="crud-button" stylesheets="@styles.css" text="Supprimer" />
       <Button layoutX="16.0" layoutY="343.0" mnemonicParsing="false" onAction="#goToAgenceButtonClicked" styleClass="custom-button" stylesheets="@styles.css" text="GO TO Agence" />
-      <Button layoutX="88.0" layoutY="421.0" mnemonicParsing="false" onAction="#goToFrontAssuranceButtonClicked" prefHeight="26.0" prefWidth="95.0" styleClass="goFront-button" stylesheets="@styles.css" text="GO TO Front" />
+      <Button layoutX="12.0" layoutY="408.0" mnemonicParsing="false" onAction="#goToFrontAssuranceButtonClicked" prefHeight="27.0" prefWidth="103.0" styleClass="goFront-button" stylesheets="@styles.css" text="GO TO Front" />
       <Button layoutX="129.0" layoutY="343.0" mnemonicParsing="false" onAction="#goToCategorieeButtonClicked" styleClass="custom-button" stylesheets="@styles.css" text="GO TO Categorie" />
       <Label layoutX="12.0" layoutY="12.0" text="Bankify Liste des Assurances" textFill="#140679" underline="true">
          <font>
@@ -68,6 +68,7 @@
             <Font name="Arial Black" size="19.0" />
          </font>
       </Label>
+      <Button layoutX="129.0" layoutY="408.0" mnemonicParsing="false" onAction="#generatePDF" prefHeight="28.0" prefWidth="116.0" styleClass="PDF-button" stylesheets="@styles.css" text="Generate PDF" />
 
 
    </children>
