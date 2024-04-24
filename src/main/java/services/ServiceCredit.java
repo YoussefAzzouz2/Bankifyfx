@@ -109,4 +109,89 @@ public class ServiceCredit implements IService<Credit> {
             return null;
         }
     }
+
+    public boolean clientExiste(int id) throws SQLException {
+        String req = "SELECT * FROM credit WHERE compte_id=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
+        preparedStatement.setInt(1, id);
+        ResultSet rs = preparedStatement.executeQuery();
+        return rs.next();
+    }
+
+    public void accept(int id) throws SQLException {
+        String req = "UPDATE credit SET accepted=1 WHERE id=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
+        preparedStatement.setInt(1,id);
+        preparedStatement.executeUpdate();
+        System.out.println("Crédit accepté");
+    }
+
+    public List<Credit> getCreditsAttente() throws SQLException {
+        List<Credit> credits = new ArrayList<>();
+        String req = "SELECT * FROM credit WHERE accepted=0";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(req);
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int interet = rs.getInt("interet");
+            int dureeTotale = rs.getInt("duree_totale");
+            double montantTotale = rs.getDouble("montant_totale");
+            Date dateC = rs.getDate("date_c");
+            boolean payed = rs.getBoolean("payed");
+            boolean accepted = rs.getBoolean("accepted");
+            int compteId = rs.getInt("compte_id");
+            CompteClient compte = new ServiceCompteClient().getById(compteId);
+            int categorieId = rs.getInt("categorie_id");
+            CategorieCredit categorie = new ServiceCategorieCredit().getById(categorieId);
+            Credit credit = new Credit(id, interet, dureeTotale, montantTotale, dateC, payed, accepted, compte, categorie);
+            credits.add(credit);
+        }
+        return credits;
+    }
+
+    public List<Credit> getCreditsAccepted() throws SQLException {
+        List<Credit> credits = new ArrayList<>();
+        String req = "SELECT * FROM credit WHERE accepted=1";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(req);
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int interet = rs.getInt("interet");
+            int dureeTotale = rs.getInt("duree_totale");
+            double montantTotale = rs.getDouble("montant_totale");
+            Date dateC = rs.getDate("date_c");
+            boolean payed = rs.getBoolean("payed");
+            boolean accepted = rs.getBoolean("accepted");
+            int compteId = rs.getInt("compte_id");
+            CompteClient compte = new ServiceCompteClient().getById(compteId);
+            int categorieId = rs.getInt("categorie_id");
+            CategorieCredit categorie = new ServiceCategorieCredit().getById(categorieId);
+            Credit credit = new Credit(id, interet, dureeTotale, montantTotale, dateC, payed, accepted, compte, categorie);
+            credits.add(credit);
+        }
+        return credits;
+    }
+
+    public List<Credit> getCreditsPayed() throws SQLException {
+        List<Credit> credits = new ArrayList<>();
+        String req = "SELECT * FROM credit WHERE payed=1";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(req);
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int interet = rs.getInt("interet");
+            int dureeTotale = rs.getInt("duree_totale");
+            double montantTotale = rs.getDouble("montant_totale");
+            Date dateC = rs.getDate("date_c");
+            boolean payed = rs.getBoolean("payed");
+            boolean accepted = rs.getBoolean("accepted");
+            int compteId = rs.getInt("compte_id");
+            CompteClient compte = new ServiceCompteClient().getById(compteId);
+            int categorieId = rs.getInt("categorie_id");
+            CategorieCredit categorie = new ServiceCategorieCredit().getById(categorieId);
+            Credit credit = new Credit(id, interet, dureeTotale, montantTotale, dateC, payed, accepted, compte, categorie);
+            credits.add(credit);
+        }
+        return credits;
+    }
 }

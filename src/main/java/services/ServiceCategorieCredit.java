@@ -113,4 +113,20 @@ public class ServiceCategorieCredit implements IService<CategorieCredit>{
         }
         return credits;
     }
+
+    public CategorieCredit getByNom(String nom) throws SQLException {
+        String req = "select * from categorie_credit WHERE nom =? ;";
+        PreparedStatement statement = connection.prepareStatement(req);
+        statement.setString(1, nom);
+        ResultSet rs = statement.executeQuery();
+        if (rs.next()) {
+            int id = rs.getInt("id");
+            double minMontant = rs.getDouble("min_montant");
+            double maxMontant = rs.getDouble("max_montant");
+            return new CategorieCredit(id, nom, minMontant, maxMontant);
+        } else {
+            return null;
+        }
+    }
+
 }

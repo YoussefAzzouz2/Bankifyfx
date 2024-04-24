@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-image: url('./background_front.jpg'); -fx-background-size: 100% 100%;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.creditController.AddCredit">
+    <children>
+        <Button layoutX="172.0" layoutY="347.0" mnemonicParsing="false" onAction="#addCredit" text="Ajouter" />
+        <Label layoutX="117.0" layoutY="142.0" text="Montant" />
+        <TextField fx:id="montantTF" layoutX="200.0" layoutY="138.0" />
+        <Label layoutX="90.0" layoutY="192.0" text="Interét et durée :" />
+      <VBox layoutX="200.0" layoutY="192.0" prefHeight="65.0" prefWidth="116.0">
+         <children>
+                  <RadioButton fx:id="option1RadioButton" selected="true" text="10% sur 36 mois">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggleGroup" />
+               </toggleGroup></RadioButton>
+                  <RadioButton fx:id="option2RadioButton" text="15% sur 48 mois" toggleGroup="$toggleGroup">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </RadioButton>
+                  <RadioButton fx:id="option3RadioButton" text="20% sur 60 mois" toggleGroup="$toggleGroup">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </RadioButton>
+         </children>
+      </VBox>
+        <Label layoutX="90.0" layoutY="280.0" text="Interét et durée :" />
+      <ComboBox fx:id="categorieComboBox" layoutX="199.0" layoutY="276.0" prefWidth="150.0">
+      </ComboBox>
+    </children>
+</AnchorPane>

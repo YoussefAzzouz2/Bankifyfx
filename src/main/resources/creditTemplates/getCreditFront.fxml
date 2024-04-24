@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-image: url('./background_front.jpg'); -fx-background-size: 100% 100%;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.creditController.GetCreditFront">
+    <VBox layoutX="201.0" layoutY="112.0" prefHeight="148.0" prefWidth="359.0">
+        <Label fx:id="creditIdLabel" text="test">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </Label>
+        <Label fx:id="montantTotalLabel" text="test">
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+        <Label fx:id="dureeTotaleLabel" text="test">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </Label>
+        <Label fx:id="interetLabel" text="test">
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+        <Label fx:id="dateCLabel" text="test">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </Label>
+        <Label fx:id="categorieLabel" text="test">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+    </VBox>
+   <VBox layoutX="55.0" layoutY="112.0" prefHeight="148.0" prefWidth="118.0">
+      <children>
+           <Label text="ID de credit : " textFill="#ff00a6">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets bottom="5.0" />
+            </VBox.margin>
+         </Label>
+           <Label text="Montant Totale : " textFill="#ff00a6">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets bottom="5.0" />
+            </VBox.margin>
+         </Label>
+           <Label text="Duree Totale : " textFill="#ff00a6">
+            <VBox.margin>
+               <Insets bottom="5.0" />
+            </VBox.margin>
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+           <Label text="Interet : " textFill="#ff00a6">
+            <VBox.margin>
+               <Insets bottom="5.0" />
+            </VBox.margin>
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+           <Label text="Date : " textFill="#ff00a6">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets bottom="5.0" />
+            </VBox.margin>
+         </Label>
+           <Label text="Categorie : " textFill="#ff00a6">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+      </children>
+   </VBox>
+   <Button layoutX="62.0" layoutY="287.0" mnemonicParsing="false" text="Payer une partie de credit" />
+   <Button layoutX="56.0" layoutY="329.0" mnemonicParsing="false" text="Suivre vos remboursements" />
+</AnchorPane>
