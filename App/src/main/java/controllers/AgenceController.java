@@ -19,6 +19,12 @@ import utils.PDFGenerator;
 import java.io.IOException;
 import java.sql.*;
 
+import javafx.scene.chart.PieChart;
+import utils.DatabaseConnector;
+
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 public class AgenceController {
 
     @FXML
@@ -277,6 +283,7 @@ public class AgenceController {
         PDFGenerator pdfGenerator = new PDFGenerator();
         pdfGenerator.generatePDF(actionEvent, agenceTable, "Bankify Agence Table");  // Provide the title
     }
+
 
 }
 
