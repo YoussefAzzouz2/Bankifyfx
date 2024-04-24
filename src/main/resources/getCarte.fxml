@@ -163,11 +163,12 @@
                 <Insets />
             </HBox.margin>
         </Label>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Ajouter une carte" onAction="#openAjouterTransactionWindow" >
-               <HBox.margin>
-                  <Insets left="350.0" />
-               </HBox.margin>
-            </Button>
+        <Button mnemonicParsing="false" onAction="#openAfficherTransactionsWindow" prefHeight="25.0" prefWidth="152.0" text="Afficher les Transactions">
+            <HBox.margin>
+                <Insets left="120.0" />
+            </HBox.margin>
+        </Button>
+            <Button mnemonicParsing="false" onAction="#openAjouterTransactionWindow" prefHeight="25.0" prefWidth="115.0" text="Ajouter une carte" />
     </HBox>
 
 

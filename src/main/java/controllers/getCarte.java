@@ -167,8 +167,12 @@ public class getCarte {
      *
      * @param event The event that triggered this method.
      */
-    public void openAfficherTransactionsWindow(ActionEvent event) {
+    public void openAfficherCarteWindow(ActionEvent event) {
         openWindow(event, "/getCarte.fxml", "Afficher Transactions");
+    }
+
+    public void openAfficherTransactionsWindow(ActionEvent event) {
+        openWindow(event, "/getTransactionback.fxml", "Afficher Transactions");
     }
 
     /**
