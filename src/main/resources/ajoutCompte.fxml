@@ -8,7 +8,7 @@
    <children>
       <ImageView fitHeight="324.0" fitWidth="740.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Back.jpeg" />
+            <Image url="@img.png" />
          </image>
       </ImageView>
       <!-- Ajout du titre "Ajouter le compte du client" -->
