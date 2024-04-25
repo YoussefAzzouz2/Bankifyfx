@@ -9,6 +9,14 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.Time;
+
 public class AjoutVirement {
 
     @FXML
@@ -41,40 +49,50 @@ public class AjoutVirement {
         Date date = null;
         Time heure = null;
 
-        // Validation: Check if the montant text field is not empty and is a valid float number
-        try {
-            montant = Float.parseFloat(montantTextField.getText());
-        } catch (NumberFormatException e) {
-            showAlert("Invalid Montant", "Please enter a valid numeric value for Montant.");
+        // Validation: Check if any field is empty
+        if (compteSource.isEmpty() || compteDestination.isEmpty() || montantTextField.getText().isEmpty() || dateTextField.getText().isEmpty() || heureTextField.getText().isEmpty()) {
+            showAlert("Champs obligatoires", "Tous les champs sont obligatoires!");
             return;
         }
 
-        // Validation: Check if the date and heure fields are not empty
-        String dateString = dateTextField.getText();
-        String heureString = heureTextField.getText();
-        if (dateString.isEmpty() || heureString.isEmpty()) {
-            showAlert("Incomplete Information", "Please enter both Date and Heure.");
+        // Validation: Check if compte_source contains only digits and has length = 16
+        if (!compteSource.matches("\\d{16}")) {
+            showAlert("Erreur", "Le compte source doit contenir exactement 16 chiffres !");
+            return;
+        }
+
+        // Validation: Check if compte_destination contains only digits, has length = 16, and is different from compte_source
+        if (!compteDestination.matches("\\d{16}") || compteDestination.equals(compteSource)) {
+            showAlert("Erreur", "Le compte destination doit contenir exactement 16 chiffres et être différent du compte source !");
+            return;
+        }
+
+        // Validation: Check if montant is a valid float number
+        try {
+            montant = Float.parseFloat(montantTextField.getText());
+        } catch (NumberFormatException e) {
+            showAlert("Erreur", "Le montant doit être un nombre !");
             return;
         }
 
         // Parse date and heure strings to Date and Time objects
         try {
-            date = Date.valueOf(dateString);
-            heure = Time.valueOf(heureString);
+            date = Date.valueOf(dateTextField.getText());
+            heure = Time.valueOf(heureTextField.getText());
         } catch (IllegalArgumentException e) {
-            showAlert("Invalid Date or Heure", "Please enter valid Date and Heure in the format yyyy-mm-dd for Date and hh:mm:ss for Heure.");
+            showAlert("Erreur", "Veuillez entrer une date et une heure valides au format yyyy-mm-dd pour la date et hh:mm:ss pour l'heure !");
             return;
         }
 
         // Perform actions with the retrieved data, such as processing the virement
 
         // Show a confirmation dialog
-        showAlert("Success", "Virement effectué avec succès!");
+        showAlert("Succès", "Virement effectué avec succès !");
     }
 
     // Method to show an alert dialog
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

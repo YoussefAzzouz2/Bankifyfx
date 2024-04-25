@@ -4,14 +4,17 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.getCompteClient">
+<AnchorPane prefHeight="320.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.getCompteClient">
     <children>
-        <ImageView fitHeight="482.0" fitWidth="778.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="392.0" fitWidth="778.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Back.jpeg" />
             </image>
         </ImageView>
-        <TableView fx:id="compteClientTable" layoutX="64.0" layoutY="63.0" prefHeight="355.0" prefWidth="596.0" style="-fx-background-color: #fbe6de;">
+        <!-- Ajout du titre en blanc -->
+        <Label layoutX="250" layoutY="20" style="-fx-font-size: 20px; -fx-text-fill: #ffffff;" text="Liste des comptes clients" />
+        <!-- Fin de l'ajout du titre -->
+        <TableView fx:id="compteClientTable" layoutX="64.0" layoutY="63.0" prefHeight="251.0" prefWidth="672.0" style="-fx-background-color: #fbe6de;">
             <columns>
                 <TableColumn fx:id="idColumn" prefWidth="57.0" text="ID" />
                 <TableColumn fx:id="nomColumn" prefWidth="87.0" text="Nom" />
@@ -26,5 +29,6 @@
                 <TableColumn fx:id="deleteColumn" prefWidth="98.0" text="Supprimer" />
             </columns>
         </TableView>
+        <Button layoutX="514.0" layoutY="22.0" mnemonicParsing="false" onAction="#ajouterCompte" text="Ajouter un Compte" />
     </children>
 </AnchorPane>

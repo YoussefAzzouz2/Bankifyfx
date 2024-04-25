@@ -5,9 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import java.util.regex.Pattern;
 import Models.CompteClient;
 import Services.CompteClientService;
-
 import java.sql.SQLException;
 
 public class AjoutCompte {
@@ -44,6 +44,36 @@ public class AjoutCompte {
             String mail = mailTF.getText();
             String tel = telTF.getText();
 
+            // Validating non-empty fields
+            if (nom.isEmpty() || prenom.isEmpty() || rib.isEmpty() || mail.isEmpty() || tel.isEmpty() || soldeTF.getText().isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
+                return;
+            }
+
+            // Validating nom and prenom fields (only letters)
+            if (!nom.matches("[a-zA-Z]+") || !prenom.matches("[a-zA-Z]+")) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Le nom et le prénom doivent contenir seulement des lettres !");
+                return;
+            }
+
+            // Validating rib (only digits and length = 16)
+            if (!rib.matches("\\d{16}")) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Le RIB doit contenir exactement 16 chiffres !");
+                return;
+            }
+
+            // Validating email format
+            if (!Pattern.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$", mail)) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Format d'adresse e-mail invalide !");
+                return;
+            }
+
+            // Validating tel (only digits and length = 8)
+            if (!tel.matches("\\d{8}")) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Le numéro de téléphone doit contenir exactement 8 chiffres !");
+                return;
+            }
+
             // Parsing the float value for solde
             float solde = Float.parseFloat(soldeTF.getText());
 
@@ -55,8 +85,8 @@ public class AjoutCompte {
             // Show a success message to the user
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Compte client ajouté avec succès !");
         } catch (NumberFormatException e) {
-            System.out.println("Invalid number format");
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Format de nombre invalide !");
+            System.out.println("Invalid solde format");
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Format de solde invalide !");
         }
     }
 

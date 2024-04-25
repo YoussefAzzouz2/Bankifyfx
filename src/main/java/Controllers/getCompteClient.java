@@ -1,6 +1,8 @@
 package Controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
@@ -147,6 +149,47 @@ public class getCompteClient {
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle exceptions here...
+        }
+    }
+
+    public void ajouterCompte(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajoutCompte.fxml"));
+            Parent root = loader.load();
+
+
+            Stage stage = new Stage();
+            stage.setTitle("Ajout Compte");
+            stage.setScene(new Scene(root));
+
+            // Show the new stage
+            stage.show();
+
+            // Close the current window
+            ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void NewCompte(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouCompteF.fxml"));
+            Parent root = loader.load();
+
+
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter un compte");
+            stage.setScene(new Scene(root));
+
+            // Show the new stage
+            stage.show();
+
+            // Close the current window
+            ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

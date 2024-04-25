@@ -12,6 +12,10 @@
             </image>
         </ImageView>
 
+        <!-- Ajout du titre "Ajouter un virement" en blanc -->
+        <Label layoutX="210.0" layoutY="20.0" text="Ajouter un virement" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" />
+        <!-- Fin de l'ajout du titre -->
+
         <Label layoutX="50.0" layoutY="91.0" text="Compte Source:" />
         <Label layoutX="43.0" layoutY="134.0" text="Compte Destination:" />
         <Label layoutX="68.0" layoutY="190.0" text="Montant:" />

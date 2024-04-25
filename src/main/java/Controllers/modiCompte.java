@@ -2,12 +2,15 @@ package Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import Services.CompteClientService;
 import Models.CompteClient;
-
+import Services.CompteClientService;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 public class modiCompte {
 
@@ -65,6 +68,37 @@ public class modiCompte {
             String rib = ribField.getText();
             String mail = mailField.getText();
             String tel = telField.getText();
+
+            // Validating non-empty fields
+            if (nom.isEmpty() || prenom.isEmpty() || rib.isEmpty() || mail.isEmpty() || tel.isEmpty() || soldeField.getText().isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
+                return;
+            }
+
+            // Validating nom and prenom fields (only letters)
+            if (!nom.matches("[a-zA-Z]+") || !prenom.matches("[a-zA-Z]+")) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Le nom et le prénom doivent contenir seulement des lettres !");
+                return;
+            }
+
+            // Validating rib (only digits and length = 16)
+            if (!rib.matches("\\d{16}")) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Le RIB doit contenir exactement 16 chiffres !");
+                return;
+            }
+
+            // Validating email format
+            if (!Pattern.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$", mail)) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Format d'adresse e-mail invalide !");
+                return;
+            }
+
+            // Validating tel (only digits and length = 8)
+            if (!tel.matches("\\d{8}")) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Le numéro de téléphone doit contenir exactement 8 chiffres !");
+                return;
+            }
+
             float solde = Float.parseFloat(soldeField.getText());
 
             // Mettre à jour les valeurs du compte client avec les valeurs modifiées

@@ -1,6 +1,8 @@
 package Controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
@@ -114,7 +116,7 @@ public class getVirement {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/modiVirement.fxml"));
             Parent root = loader.load();
             //modiVirement controller = loader.getController();
-           // controller.initData(virement);
+            // controller.initData(virement);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Modifier le virement");
@@ -143,6 +145,48 @@ public class getVirement {
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle exceptions here...
+        }
+    }
+
+    public void NewVirement(ActionEvent actionEvent) {
+        try {
+            // Load the FrontAgence GUI FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajoutVirement.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the FrontAgence GUI
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter un Virement");
+            stage.setScene(new Scene(root));
+
+            // Show the new stage
+            stage.show();
+
+            // Close the current window
+            ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void NewwVirementF(ActionEvent actionEvent) {
+        try {
+            // Load the FrontAgence GUI FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajoutVirementF.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the FrontAgence GUI
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter Virement");
+            stage.setScene(new Scene(root));
+
+            // Show the new stage
+            stage.show();
+
+            // Close the current window
+            ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

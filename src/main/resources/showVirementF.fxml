@@ -11,7 +11,10 @@
                 <Image url="@front.jpeg" />
             </image>
         </ImageView>
-        <TableView fx:id="virementTable" layoutX="212.0" layoutY="31.0" prefHeight="355.0" prefWidth="596.0" style="-fx-background-color: #fbe6de;">
+        <!-- Ajout du titre en blanc et en gras -->
+        <Label layoutX="321.0" layoutY="14.0" style="-fx-font-size: 20px; -fx-text-fill: #ffffff; -fx-font-weight: bold;" text="Liste des virements" />
+        <!-- Fin de l'ajout du titre -->
+        <TableView fx:id="virementTable" layoutX="170.0" layoutY="63.0" prefHeight="355.0" prefWidth="596.0" style="-fx-background-color: #fbe6de;">
             <columns>
                 <TableColumn fx:id="idColumn" prefWidth="57.0" text="ID" />
                 <TableColumn fx:id="compteSourceColumn" prefWidth="87.0" text="Compte Source" />
@@ -19,9 +22,8 @@
                 <TableColumn fx:id="montantColumn" prefWidth="93.0" text="Montant" />
                 <TableColumn fx:id="dateColumn" prefWidth="104.0" text="Date" />
                 <TableColumn fx:id="heureColumn" prefWidth="98.0" text="Heure" />
-
-
             </columns>
         </TableView>
+      <Button layoutX="613.0" layoutY="17.0" mnemonicParsing="false" onAction="#NewwVirementF" text="Ajouter un virement" />
     </children>
 </AnchorPane>

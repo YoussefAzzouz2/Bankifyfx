@@ -16,13 +16,13 @@ public class mainFX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load the FXML file
-        Parent root = FXMLLoader.load(getClass().getResource("/showVirement.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/ajoutVirement.fxml"));
 
         // Create a scene with the loaded FXML file
         Scene scene = new Scene(root, 600, 400);
 
         // Set the title of the stage
-        primaryStage.setTitle("Ajout de Compte");
+        //primaryStage.setTitle("Ajout du virement");
 
         // Set the scene to the stage and show it
         primaryStage.setScene(scene);

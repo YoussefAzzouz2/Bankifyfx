@@ -4,14 +4,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #cf87c4;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.modiCompte">
+<AnchorPane prefHeight="415.0" prefWidth="487.0" style="-fx-background-color: #cf87c4;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.modiCompte">
 
     <children>
         <VBox alignment="CENTER" layoutX="50" layoutY="30" prefWidth="300" spacing="15">
             <children>
 
+                <!-- Titre "Modifier Compte" en blanc -->
+                <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="Modifier Compte" />
+
                 <!-- Label indiquant l'ID du compte client à modifier -->
-                <Label fx:id="compteClientLabel" text="Modification du compte client ID: " />
+                <Label fx:id="compteClientLabel" />
 
                 <!-- Champs de texte pour la modification des détails du compte client -->
                 <HBox spacing="10">
@@ -67,10 +70,10 @@
                         </HBox.margin>
                     </TextField>
                 </HBox>
-
-                <!-- Bouton de modification -->
-                <Button fx:id="modifierButton" onAction="#modifierCompteClient" style="-fx-background-color: #fbe6de;" text="Modifier" />
             </children>
         </VBox>
+
+          <!-- Bouton de modification -->
+          <Button fx:id="modifierButton" layoutX="163.0" layoutY="366.0" onAction="#modifierCompteClient" style="-fx-background-color: #fbe6de;" text="Confirmer les modifications" />
     </children>
 </AnchorPane>

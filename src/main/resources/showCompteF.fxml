@@ -11,7 +11,10 @@
                 <Image url="@front.jpeg" />
             </image>
         </ImageView>
-        <TableView fx:id="compteClientTable" layoutX="212.0" layoutY="31.0" prefHeight="355.0" prefWidth="596.0" style="-fx-background-color: #fbe6de;">
+        <!-- Ajout du titre en blanc et en gras -->
+        <Label layoutX="212" layoutY="5" style="-fx-font-size: 20px; -fx-text-fill: #ffffff; -fx-font-weight: bold;" text="Liste des comptes Clients" />
+        <!-- Fin de l'ajout du titre -->
+        <TableView fx:id="compteClientTable" layoutX="116.0" layoutY="72.0" prefHeight="355.0" prefWidth="596.0" style="-fx-background-color: #fbe6de;">
             <columns>
                 <TableColumn fx:id="idColumn" prefWidth="57.0" text="ID" />
                 <TableColumn fx:id="nomColumn" prefWidth="87.0" text="Nom" />
@@ -26,5 +29,6 @@
                 <TableColumn fx:id="deleteColumn" prefWidth="98.0" text="Supprimer" />
             </columns>
         </TableView>
+      <Button layoutX="570.0" layoutY="23.0" mnemonicParsing="false" onAction="#NewCompte" text="Ajouter un Compte" />
     </children>
 </AnchorPane>
