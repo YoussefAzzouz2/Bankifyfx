@@ -104,6 +104,6 @@
          </Label>
       </children>
    </VBox>
-   <Button layoutX="62.0" layoutY="287.0" mnemonicParsing="false" text="Payer une partie de credit" />
-   <Button layoutX="56.0" layoutY="329.0" mnemonicParsing="false" text="Suivre vos remboursements" />
+   <Button layoutX="62.0" layoutY="287.0" mnemonicParsing="false" onAction="#goToAddRemboursement" text="Payer une partie de credit" />
+   <Button layoutX="56.0" layoutY="329.0" mnemonicParsing="false" onAction="#goToListeRemboursement" text="Suivre vos remboursements" />
 </AnchorPane>

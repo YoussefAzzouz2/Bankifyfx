@@ -106,4 +106,22 @@ public class ServiceRemboursement implements IService<Remboursement> {
             return null;
         }
     }
+
+    public List<Remboursement> getByCredit(int creditId) throws SQLException {
+        List<Remboursement> remboursements = new ArrayList<>();
+        String req = "SELECT * FROM remboursement WHERE credit_id="+creditId+";";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(req);
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int dureeRestante = rs.getInt("duree_restante");
+            double montantR = rs.getDouble("montant_r");
+            double montantRestant = rs.getDouble("montant_restant");
+            Date dateR = rs.getDate("date_r");
+            Credit credit = new ServiceCredit().getById(creditId);
+            Remboursement remboursement = new Remboursement(id, dureeRestante, montantR, montantRestant, dateR, credit);
+            remboursements.add(remboursement);
+        }
+        return remboursements;
+    }
 }

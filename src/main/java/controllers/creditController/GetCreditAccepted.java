@@ -1,5 +1,7 @@
 package controllers.creditController;
 import controllers.categorieCreditController.ListeCredits;
+import controllers.remboursementController.GetRemboursementBack;
+import controllers.remboursementController.GetRemboursementFront;
 import entities.Credit;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -91,13 +93,13 @@ public class GetCreditAccepted {
     }
     private void handleRemboursements(Credit credit) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/categorieCreditTemplates/listeCredits.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/remboursementTemplates/getRemboursementBack.fxml"));
             Parent root = loader.load();
-            ListeCredits controller = loader.getController();
-            controller.initData(credit.getCategorie());
+            GetRemboursementBack controller = loader.getController();
+            controller.initData(credit);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Liste des credits");
+            stage.setTitle("Liste des remboursements");
             stage.showAndWait();
             loadData();
         } catch (IOException e) {

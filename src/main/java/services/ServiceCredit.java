@@ -194,4 +194,28 @@ public class ServiceCredit implements IService<Credit> {
         }
         return credits;
     }
+
+    public Credit getByClient(int clientId) throws SQLException {
+        String req = "SELECT * FROM credit WHERE compte_id=? ;";
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
+        preparedStatement.setInt(1, clientId);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        if (rs.next()) {
+            int interet = rs.getInt("interet");
+            int dureeTotale = rs.getInt("duree_totale");
+            double montantTotale = rs.getDouble("montant_totale");
+            Date dateC = rs.getDate("date_c");
+            boolean payed = rs.getBoolean("payed");
+            boolean accepted = rs.getBoolean("accepted");
+            int id = rs.getInt("id");
+            CompteClient compte = new ServiceCompteClient().getById(clientId);
+            int categorieId = rs.getInt("categorie_id");
+            CategorieCredit categorie = new ServiceCategorieCredit().getById(categorieId);
+
+            return new Credit(id, interet, dureeTotale, montantTotale, dateC, payed, accepted, compte, categorie);
+        } else {
+            return null;
+        }
+    }
 }

@@ -124,6 +124,19 @@ public class AddCredit {
         } else {
             credit.setMontantTotale(Double.parseDouble(montantTF.getText()));
             service.add(credit);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/creditTemplates/getCreditFront.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            GetCreditFront controller = loader.getController();
+            controller.initData(credit.getCompte().getId());
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Modifier la categorie");
+            stage.show();
         }
     }
 }
