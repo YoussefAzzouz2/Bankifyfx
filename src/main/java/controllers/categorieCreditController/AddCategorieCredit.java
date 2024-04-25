@@ -2,6 +2,7 @@ package controllers.categorieCreditController;
 
 import entities.CategorieCredit;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import services.ServiceCategorieCredit;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +25,9 @@ public class AddCategorieCredit {
 
     @FXML
     private TextField maxMontantTF;
+
+    @FXML
+    private Button addButton;
 
     @FXML
     void addCategorieCredit(ActionEvent event) throws SQLException {
@@ -73,17 +77,9 @@ public class AddCategorieCredit {
             alert.setContentText("Le montant maximale doit être supérieur au montant minimale");
             alert.showAndWait();
         } else {
-            try{
             service.add(new CategorieCredit(nomTF.getText(),Double.parseDouble(minMontantTF.getText()),Double.parseDouble(maxMontantTF.getText())));
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/categorieCreditTemplates/getCategorieCredit.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Stage stage = (Stage) addButton.getScene().getWindow();
+            stage.close();
         }
     }
 }

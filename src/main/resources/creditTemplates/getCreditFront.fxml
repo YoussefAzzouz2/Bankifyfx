@@ -7,7 +7,53 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
 <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-image: url('./background_front.jpg'); -fx-background-size: 100% 100%;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.creditController.GetCreditFront">
+    <MenuBar layoutX="0.0" layoutY="0.0" prefHeight="30.0" prefWidth="600.0" style="-fx-background-color: transparent;">
+        <menus>
+            <!-- Compte Menu -->
+            <Menu style="-fx-text-fill: purple;" text="Compte">
+                <items>
+                    <MenuItem style="-fx-text-fill: purple;" text="Ouvrir Compte" />
+                    <MenuItem style="-fx-text-fill: purple;" text="Fermer Compte" />
+                </items>
+            </Menu>
+
+            <!-- Transaction Menu -->
+            <Menu style="-fx-text-fill: purple;" text="Transaction">
+                <items>
+                    <MenuItem style="-fx-text-fill: purple;" text="Ajouter Transaction" />
+                    <MenuItem style="-fx-text-fill: purple;" text="Afficher Transactions" />
+                </items>
+            </Menu>
+
+            <!-- Crédit Menu -->
+            <Menu style="-fx-text-fill: purple;" text="Crédit">
+                <items>
+                    <MenuItem style="-fx-text-fill: purple;" onAction="#demanderCredit" text="Demander Crédit" />
+                    <MenuItem style="-fx-text-fill: purple;" onAction="#consulterCredit" text="Consulter Crédit" />
+                </items>
+            </Menu>
+
+            <!-- Chèque Menu -->
+            <Menu style="-fx-text-fill: purple;" text="Chèque">
+                <items>
+                    <MenuItem style="-fx-text-fill: purple;" text="Émettre Chèque" />
+                    <MenuItem style="-fx-text-fill: purple;" text="Annuler Chèque" />
+                </items>
+            </Menu>
+
+            <!-- Assurances Menu -->
+            <Menu style="-fx-text-fill: purple;" text="Assurances">
+                <items>
+                    <MenuItem style="-fx-text-fill: purple;" text="Souscrire Assurance" />
+                    <MenuItem style="-fx-text-fill: purple;" text="Résilier Assurance" />
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
     <VBox layoutX="201.0" layoutY="112.0" prefHeight="148.0" prefWidth="359.0">
         <Label fx:id="creditIdLabel" text="test">
          <font>
@@ -104,6 +150,6 @@
          </Label>
       </children>
    </VBox>
-   <Button layoutX="62.0" layoutY="287.0" mnemonicParsing="false" onAction="#goToAddRemboursement" text="Payer une partie de credit" />
-   <Button layoutX="56.0" layoutY="329.0" mnemonicParsing="false" onAction="#goToListeRemboursement" text="Suivre vos remboursements" />
+   <Button layoutX="62.0" layoutY="287.0" mnemonicParsing="false" onAction="#goToAddRemboursement" text="Payer une partie de credit" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;"/>
+   <Button layoutX="56.0" layoutY="329.0" mnemonicParsing="false" onAction="#goToListeRemboursement" text="Suivre vos remboursements" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
 </AnchorPane>

@@ -4,15 +4,15 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #cf87c4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.categorieCreditController.ListeCredits">
+<AnchorPane prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #3498db;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.categorieCreditController.ListeCredits">
     <children>
-        <TableView fx:id="creditsTable" layoutX="26.0" layoutY="19.0" prefHeight="262.0" prefWidth="348.0" style="-fx-background-color: #fbe6de;">
+        <TableView fx:id="creditsTable" layoutX="93.0" layoutY="40.0" prefHeight="319.0" prefWidth="513.0" style="-fx-background-color: #1a1a2e; -fx-text-background-color: #1a1a2e; -fx-control-inner-background: #1a1a2e; -fx-table-cell-border-color: #2a2a3e;">
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="39.0" text="ID" />
-                <TableColumn fx:id="montantTotaleColumn" prefWidth="97.60003662109375" text="Montant Totale" />
-                <TableColumn fx:id="dureeTotaleColumn" prefWidth="77.59991455078125" text="Duree Totale" />
-                <TableColumn fx:id="interetColumn" prefWidth="52.7999267578125" text="Interet" />
-                <TableColumn fx:id="dateCColumn" prefWidth="77.60003662109375" text="Date" />
+                <TableColumn fx:id="idColumn" prefWidth="39.0" style="-fx-text-fill: white; -fx-alignment: CENTER;" text="ID" />
+                <TableColumn fx:id="montantTotaleColumn" prefWidth="120.79998779296875" style="-fx-text-fill: white; -fx-alignment: CENTER;" text="Montant Totale" />
+                <TableColumn fx:id="dureeTotaleColumn" prefWidth="121.5999755859375" style="-fx-text-fill: white; -fx-alignment: CENTER;" text="Duree Totale" />
+                <TableColumn fx:id="interetColumn" prefWidth="112.79998779296875" style="-fx-text-fill: white; -fx-alignment: CENTER;" text="Interet" />
+                <TableColumn fx:id="dateCColumn" prefWidth="119.99990844726562" style="-fx-text-fill: white; -fx-alignment: CENTER;" text="Date" />
             </columns>
         </TableView>
     </children>

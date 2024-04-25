@@ -1,15 +1,16 @@
 package controllers.creditController;
+import controllers.categorieCreditController.GetCategorieCredit;
+import controllers.categorieCreditController.ListeCredits;
 import controllers.categorieCreditController.ModifCategorieCredit;
 import entities.CategorieCredit;
 import entities.CompteClient;
 import entities.Credit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import services.ServiceCategorieCredit;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -21,9 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import services.ServiceCredit;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.ComboBox;
+
 import java.util.List;
 
 public class AddCredit {
@@ -70,7 +69,7 @@ public class AddCredit {
             e.printStackTrace();
         }
     }
-    public void addCredit() throws SQLException{
+    public void addCredit(ActionEvent event) throws SQLException{
         credit.setDateC(new Date());
         credit.setAccepted(false);
         credit.setPayed(false);
@@ -132,11 +131,73 @@ public class AddCredit {
                 throw new RuntimeException(e);
             }
             GetCreditFront controller = loader.getController();
-            controller.initData(credit.getCompte().getId());
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Modifier la categorie");
+            controller.initData(compte.getId());
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
             stage.show();
+        }
+    }
+    @FXML
+    private void demanderCredit(ActionEvent event) throws IOException {
+        try {
+            if (!new ServiceCredit().clientExiste(1)==false) {
+                System.out.println("Client existe");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("Vous avez déjà un crédit en cours");
+                alert.showAndWait();
+            } else {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/creditTemplates/addCredit.fxml"));
+                    Parent root = loader.load();
+                    MenuItem menuItem = (MenuItem) event.getSource();
+                    Scene scene = menuItem.getParentPopup().getOwnerWindow().getScene();
+                    Stage stage = (Stage) scene.getWindow();
+                    stage.setScene(new Scene(root));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    private void consulterCredit(ActionEvent event) throws IOException {
+        try {
+            if (new ServiceCredit().clientExiste(1)==false) {
+                System.out.println("Client n'existe pas");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("Vous n'avez pas un crédit");
+                alert.showAndWait();
+            } else if (new ServiceCredit().getByClient(1).isAccepted()==false) {
+                System.out.println("Demande en cours");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("Votre demande est en attente");
+                alert.showAndWait();
+            } else {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/creditTemplates/getCreditFront.fxml"));
+                    Parent root = loader.load();
+                    MenuItem menuItem = (MenuItem) event.getSource();
+                    GetCreditFront controller = loader.getController();
+                    controller.initData(1);
+                    Scene scene = menuItem.getParentPopup().getOwnerWindow().getScene();
+                    Stage stage = (Stage) scene.getWindow();
+                    stage.setScene(new Scene(root));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

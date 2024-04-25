@@ -7,44 +7,52 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #cf87c4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.categorieCreditController.ModifCategorieCredit">
+<AnchorPane prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #1a1a2e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.categorieCreditController.ModifCategorieCredit">
     <children>
-        <VBox alignment="CENTER" layoutX="50" layoutY="30" prefWidth="300" spacing="15">
+        <VBox alignment="CENTER" layoutX="143.0" layoutY="55.0" prefHeight="166.0" prefWidth="410.0" spacing="15">
             <children>
-                <Label fx:id="categorieLabel" text="" />
+                <Label fx:id="categorieLabel" text="" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
                 <HBox spacing="10">
-                    <Label text="Nom:">
-                  <HBox.margin>
-                     <Insets top="4.0" />
-                  </HBox.margin></Label>
-                    <TextField fx:id="nomField">
-                    <HBox.margin>
-                        <Insets left="90.0" />
-                    </HBox.margin></TextField>
-                </HBox>
-                <HBox spacing="10">
-                    <Label text="Montant minimale:">
-                  <HBox.margin>
-                     <Insets top="4.0" />
-                  </HBox.margin></Label>
-                    <TextField fx:id="minMontantField">
+                    <Label text="Nom:" textFill="WHITE">
                         <HBox.margin>
-                            <Insets left="20.0" />
-                        </HBox.margin></TextField>
+                            <Insets top="4.0" />
+                        </HBox.margin>
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Label>
                 </HBox>
                 <HBox spacing="10">
-                    <Label text="Montant maximale:">
-                  <HBox.margin>
-                     <Insets top="4.0" />
-                  </HBox.margin></Label>
-                    <TextField fx:id="maxMontantField">
+                    <Label text="Montant minimale:" textFill="WHITE">
                         <HBox.margin>
-                            <Insets left="18.0" />
-                        </HBox.margin></TextField>
+                            <Insets top="4.0" />
+                        </HBox.margin>
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Label>
                 </HBox>
-                <Button fx:id="modifierButton" onAction="#modifierCategorie" style="-fx-background-color: #fbe6de;" text="Modifier" />
+                <HBox spacing="10">
+                    <Label text="Montant maximale:" textFill="WHITE">
+                        <HBox.margin>
+                            <Insets top="4.0" />
+                        </HBox.margin>
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Label>
+                </HBox>
             </children>
         </VBox>
+          <Button fx:id="modifierButton" layoutX="319.0" layoutY="271.0" onAction="#modifierCategorie" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" text="Modifier" />
+           <TextField fx:id="maxMontantField" layoutX="403.0" layoutY="187.0" />
+           <TextField fx:id="nomField" layoutX="403.0" layoutY="95.0" />
+           <TextField fx:id="minMontantField" layoutX="403.0" layoutY="141.0" />
     </children>
 </AnchorPane>

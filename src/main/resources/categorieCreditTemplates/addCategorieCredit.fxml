@@ -4,15 +4,28 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-image: url('./background_back.jpeg'); -fx-background-size: 100% 100%;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.categorieCreditController.AddCategorieCredit">
+<AnchorPane prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #1a1a2e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.categorieCreditController.AddCategorieCredit">
     <children>
-        <Button layoutX="174.0" layoutY="287.0" mnemonicParsing="false" onAction="#addCategorieCredit" text="Ajouter" />
-        <TextField fx:id="nomTF" layoutX="200.0" layoutY="138.0" />
-        <TextField fx:id="minMontantTF" layoutX="200.0" layoutY="188.0" />
-        <TextField fx:id="maxMontantTF" layoutX="200.0" layoutY="238.0" />
-        <Label layoutX="126.0" layoutY="142.0" text="Nom" textFill="WHITE" />
-        <Label layoutX="90.0" layoutY="192.0" text="Montant Minimale" textFill="WHITE" />
-        <Label layoutX="90.0" layoutY="242.0" text="Montant Maximale" textFill="WHITE" />
+        <Button fx:id="addButton" layoutX="306.0" layoutY="295.0" mnemonicParsing="false" onAction="#addCategorieCredit" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" text="Ajouter">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+        <TextField fx:id="nomTF" layoutX="360.0" layoutY="116.0" />
+        <TextField fx:id="minMontantTF" layoutX="360.0" layoutY="166.0" />
+        <TextField fx:id="maxMontantTF" layoutX="360.0" layoutY="216.0" />
+        <Label layoutX="243.0" layoutY="115.0" text="Nom" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+        <Label layoutX="184.0" layoutY="165.0" text="Montant Minimale" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+        <Label layoutX="182.0" layoutY="215.0" text="Montant Maximale" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
     </children>
 </AnchorPane>

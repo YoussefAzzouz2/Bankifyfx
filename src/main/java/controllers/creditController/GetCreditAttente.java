@@ -3,6 +3,8 @@ import entities.Credit;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import entities.CategorieCredit;
 import services.ServiceCategorieCredit;
@@ -11,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import javafx.stage.StageStyle;
@@ -19,6 +22,40 @@ import services.ServiceCredit;
 import javafx.beans.property.SimpleStringProperty;
 
 public class GetCreditAttente {
+    @FXML
+    private VBox pnItems = null;
+    @FXML
+    private Button btnOverview;
+
+    @FXML
+    private Button btnOrders;
+
+    @FXML
+    private Button btnCustomers;
+
+    @FXML
+    private Button btnMenus;
+
+    @FXML
+    private Button btnPackages;
+
+    @FXML
+    private Button btnSettings;
+
+    @FXML
+    private Button btnSignout;
+
+    @FXML
+    private Pane pnlCustomer;
+
+    @FXML
+    private Pane pnlOrders;
+
+    @FXML
+    private Pane pnlOverview;
+
+    @FXML
+    private Pane pnlMenus;
     private final ServiceCredit service = new ServiceCredit();
 
     @FXML
@@ -74,6 +111,7 @@ public class GetCreditAttente {
                             Credit credit = getTableView().getItems().get(getIndex());
                             handleAccepter(credit);
                         });
+                        accepterButton.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;");
                     }
 
                     @Override
@@ -99,6 +137,7 @@ public class GetCreditAttente {
                             Credit credit = getTableView().getItems().get(getIndex());
                             handleRefuser(credit);
                         });
+                        refuserButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;");
                     }
 
                     @Override
@@ -166,5 +205,56 @@ public class GetCreditAttente {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void handleClicks(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == btnCustomers) {
+            try {
+                // Load aff.fxml
+                FXMLLoader loader = new FXMLLoader();
+                URL affFXMLUrl = getClass().getResource("/aff.fxml");
+                loader.setLocation(affFXMLUrl);
+                Pane affPane = loader.load();
+
+                // Set the loaded pane as the background of pnlCustomer
+                pnlCustomer.getChildren().setAll(affPane.getChildren());
+                pnlCustomer.toFront();
+            } catch (IOException e) {
+                e.printStackTrace(); // Handle the exception appropriately
+            }
+        }
+        if (actionEvent.getSource() == btnMenus) {
+            pnlMenus.setStyle("-fx-background-color : #53639F");
+            pnlMenus.toFront();
+        }
+        if (actionEvent.getSource() == btnOverview) {
+            pnlOverview.setStyle("-fx-background-color : #02030A");
+            pnlOverview.toFront();
+        }
+        if(actionEvent.getSource()==btnOrders)
+        {
+            pnlOrders.setStyle("-fx-background-color : #464F67");
+            pnlOrders.toFront();
+        }
+
+
+    }
+    @FXML
+    private void goToBack(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/back.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void goToCategorie(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/categorieCreditTemplates/getCategorieCredit.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 }
