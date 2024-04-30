@@ -6,6 +6,8 @@ import utils.MyDatabase;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class CarteService implements IService<Carte> {
 
@@ -123,6 +125,30 @@ public class CarteService implements IService<Carte> {
 
         return cartes;
     }
+
+
+    public Map<String, Integer> getCardTypeStatistics() throws SQLException {
+        Map<String, Integer> cardTypeStatistics = new HashMap<>();
+
+        // Define the SQL query to count the number of cards for each type
+        String sql = "SELECT type_c, COUNT(*) AS count FROM carte WHERE type_c IN ('Visa', 'MasterCard') GROUP BY type_c";
+
+        // Execute the query and process the results
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            // Iterate through the results and populate the map
+            while (resultSet.next()) {
+                String cardType = resultSet.getString("type_c");
+                int count = resultSet.getInt("count");
+                cardTypeStatistics.put(cardType, count);
+            }
+        }
+
+        return cardTypeStatistics;
+    }
+
+
 
 
 }

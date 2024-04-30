@@ -88,5 +88,7 @@
             </columns>
 
         </TableView>
+
+        <Button layoutX="242.0" layoutY="358.0" mnemonicParsing="false" onAction="#generatePDF" prefHeight="28.0" prefWidth="116.0" style="-fx-background-color: #fbe6de; -fx-text-fill: purple;" text="Generate PDF" />
     </children>
 </AnchorPane>

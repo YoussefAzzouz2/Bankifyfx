@@ -169,6 +169,7 @@
             </HBox.margin>
         </Button>
             <Button mnemonicParsing="false" onAction="#openAjouterTransactionWindow" prefHeight="25.0" prefWidth="115.0" text="Ajouter une carte" />
+        <Button text="Go to Statistics" onAction="#handleGoToStatistics" />
     </HBox>
 
 

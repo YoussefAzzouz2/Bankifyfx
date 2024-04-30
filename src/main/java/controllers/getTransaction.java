@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import utils.PDF;
 
 public class getTransaction {
 
@@ -199,6 +200,11 @@ public class getTransaction {
         } catch (Exception e) {
             e.printStackTrace(); // Handle the exception (e.g., log it)
         }
+    }
+
+    public void generatePDF(ActionEvent actionEvent) {
+        PDF pdfGenerator = new PDF();
+        pdfGenerator.generatePDF(actionEvent, transactionTable, "Table des transactions");  // Provide the title
     }
 
 

@@ -15,6 +15,16 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import javafx.scene.chart.PieChart;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.layout.StackPane;
+
+import java.sql.SQLException;
+import java.util.Map;
+import javafx.scene.Node;
 
 public class getCarte {
 
@@ -45,7 +55,12 @@ public class getCarte {
     private TableColumn<Carte, Void> deleteColumn;
 
     @FXML
+    private PieChart pieChart;
+
+    @FXML
     public void initialize() {
+
+
         // Configuration des colonnes de la table
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         numColumn.setCellValueFactory(new PropertyValueFactory<>("num_c"));
@@ -105,6 +120,8 @@ public class getCarte {
 
         // Charger les données dans la table
         loadData();
+
+
     }
 
     private void handleModify(Carte carte) {
@@ -202,4 +219,78 @@ public class getCarte {
             // showAlert(Alert.AlertType.ERROR, "Erreur", "Failed to open window!");
         }
     }
+
+
+    public void showCardTypeStatistics() {
+        // Create a stage for the pie chart
+        Stage stage = new Stage();
+        stage.setTitle("Card Type Statistics");
+
+        // Create an ObservableList for the PieChart data
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        try {
+            // Get the card type statistics from the CarteService
+            Map<String, Integer> cardTypeStatistics = carteService.getCardTypeStatistics();
+
+            // Populate the pie chart data from the statistics
+            for (Map.Entry<String, Integer> entry : cardTypeStatistics.entrySet()) {
+                String cardType = entry.getKey();
+                int count = entry.getValue();
+                // Add the data to the ObservableList
+                pieChartData.add(new PieChart.Data(cardType, count));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exceptions as needed
+        }
+
+        // Create the PieChart with the data
+        PieChart pieChart = new PieChart(pieChartData);
+        pieChart.setTitle("Card Type Distribution");
+
+        // Add the PieChart to a layout pane
+        StackPane root = new StackPane();
+        root.getChildren().add(pieChart);
+
+        // Create a scene with the root pane and set it on the stage
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+
+        // Show the stage with the pie chart
+        stage.show();
+    }
+
+    public void handleGoToStatistics(ActionEvent event) {
+        // Define the FXML file path and the title of the new window
+        String fxmlPath = "/getstat.fxml";
+        String windowTitle = "les statistiques";
+
+        try {
+            // Load the FXML file for the new page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+            // Create a new stage for the new window
+            Stage newStage = new Stage();
+
+            // Set the title for the new window
+            newStage.setTitle(windowTitle);
+
+            // Create a new scene with the loaded FXML content
+            Scene scene = new Scene(root);
+
+            // Set the scene to the new stage
+            newStage.setScene(scene);
+
+            // Show the new stage (window)
+            newStage.show();
+        } catch (IOException e) {
+            // Handle any exceptions that may occur during the loading of the FXML file
+            e.printStackTrace();
+            // Optionally, you can display an alert to the user
+            // showAlert(Alert.AlertType.ERROR, "Erreur", "Failed to open window!");
+        }
+    }
+
 }
