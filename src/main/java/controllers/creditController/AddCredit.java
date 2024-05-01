@@ -123,15 +123,13 @@ public class AddCredit {
         } else {
             credit.setMontantTotale(Double.parseDouble(montantTF.getText()));
             service.add(credit);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/creditTemplates/getCreditFront.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/front.fxml"));
             Parent root = null;
             try {
                 root = loader.load();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            GetCreditFront controller = loader.getController();
-            controller.initData(compte.getId());
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);

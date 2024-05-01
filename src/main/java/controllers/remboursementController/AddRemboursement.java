@@ -70,6 +70,7 @@ public class AddRemboursement {
                 int diffInMonths = period.getMonths();
                 Remboursement remboursement = new Remboursement(credit.getDureeTotale()-diffInMonths,Double.parseDouble(montantTF.getText()),montantRestant,new Date(),credit);
                 service.add(remboursement);
+                service.sendSms(remboursement);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/creditTemplates/getCreditFront.fxml"));
                 Parent root = loader.load();
                 GetCreditFront controller = loader.getController();
