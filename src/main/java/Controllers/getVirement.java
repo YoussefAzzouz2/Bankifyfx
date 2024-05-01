@@ -171,11 +171,11 @@ public class getVirement {
 
     public void NewwVirementF(ActionEvent actionEvent) {
         try {
-            // Load the FrontAgence GUI FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajoutVirementF.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the FrontAgence GUI
+
             Stage stage = new Stage();
             stage.setTitle("Ajouter Virement");
             stage.setScene(new Scene(root));

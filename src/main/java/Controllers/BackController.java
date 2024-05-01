@@ -107,13 +107,13 @@ public class BackController {
 
     public void handleClicksFF(ActionEvent actionEvent) {
         try {
-            // Load the FrontAgence GUI FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/showCompte.fxml"));
             Parent root = loader.load();
 
             // Create a new stage for the FrontAgence GUI
             Stage stage = new Stage();
-            stage.setTitle("Front Categorie");
+            stage.setTitle("Liste des comptes");
             stage.setScene(new Scene(root));
 
             // Show the new stage
@@ -128,13 +128,13 @@ public class BackController {
 
     public void HeznyLelVirement(ActionEvent actionEvent) {
         try {
-            // Load the FrontAgence GUI FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/showVirement.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the FrontAgence GUI
+
             Stage stage = new Stage();
-            stage.setTitle("Front Categorie");
+            stage.setTitle("Liste des virements");
             stage.setScene(new Scene(root));
 
             // Show the new stage

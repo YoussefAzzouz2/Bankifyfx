@@ -16,7 +16,7 @@ public class mainFX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load the FXML file
-        Parent root = FXMLLoader.load(getClass().getResource("/ajoutVirement.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/showCompte.fxml"));
 
         // Create a scene with the loaded FXML file
         Scene scene = new Scene(root, 600, 400);

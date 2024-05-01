@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import java.util.regex.Pattern;
 import Models.CompteClient;
@@ -33,6 +34,9 @@ public class AjoutCompte {
     private TextField soldeTF;
 
     @FXML
+    private ComboBox<String> genderComboBox; // Inject the ComboBox for gender
+
+    @FXML
     private Button confirmButton;
 
     @FXML
@@ -43,9 +47,10 @@ public class AjoutCompte {
             String rib = ribTF.getText();
             String mail = mailTF.getText();
             String tel = telTF.getText();
+            String sexe = genderComboBox.getValue(); // Retrieve the selected gender
 
             // Validating non-empty fields
-            if (nom.isEmpty() || prenom.isEmpty() || rib.isEmpty() || mail.isEmpty() || tel.isEmpty() || soldeTF.getText().isEmpty()) {
+            if (nom.isEmpty() || prenom.isEmpty() || rib.isEmpty() || mail.isEmpty() || tel.isEmpty() || soldeTF.getText().isEmpty() || sexe == null){
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
                 return;
             }
@@ -78,7 +83,7 @@ public class AjoutCompte {
             float solde = Float.parseFloat(soldeTF.getText());
 
             // Adding the new compteClient
-            CompteClient compteClient = new CompteClient(nom, prenom, rib, mail, tel, solde);
+            CompteClient compteClient = new CompteClient(nom, prenom, rib, mail, tel, solde, sexe);
             compteClientService.add(compteClient);
             System.out.println("Compte client ajouté avec succès !");
 

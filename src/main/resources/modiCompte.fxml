@@ -70,10 +70,20 @@
                         </HBox.margin>
                     </TextField>
                 </HBox>
+
+                <!-- Ajout du ComboBox pour le sexe -->
+                <HBox spacing="10">
+                    <Label text="Sexe:" />
+                    <ComboBox fx:id="sexeComboBox">
+                        <HBox.margin>
+                            <Insets left="79.0" />
+                        </HBox.margin>
+                    </ComboBox>
+                </HBox>
             </children>
         </VBox>
 
-          <!-- Bouton de modification -->
-          <Button fx:id="modifierButton" layoutX="163.0" layoutY="366.0" onAction="#modifierCompteClient" style="-fx-background-color: #fbe6de;" text="Confirmer les modifications" />
+        <!-- Bouton de modification -->
+        <Button fx:id="modifierButton" layoutX="188.0" layoutY="388.0" onAction="#modifierCompteClient" style="-fx-background-color: #fbe6de;" text="Confirmer les modifications" />
     </children>
 </AnchorPane>
