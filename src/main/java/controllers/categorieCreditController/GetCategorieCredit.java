@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.List;
 import javafx.stage.StageStyle;
 import javafx.event.ActionEvent;
+import javafx.scene.chart.*;
 public class GetCategorieCredit {
     @FXML
     private VBox pnItems = null;
@@ -285,5 +286,20 @@ public class GetCategorieCredit {
         Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    private void goToStats(ActionEvent event) throws IOException {
+        BarChart<String, Number> barChart = null;
+        try {
+            barChart = service.generateCreditCategoryChart();
+            Scene scene = new Scene(barChart, 700, 400);
+            Stage stage = new Stage();
+            stage.setTitle("Statistiques");
+            stage.setScene(scene);
+            stage.show();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

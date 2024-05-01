@@ -2,6 +2,8 @@ package services;
 
 import entities.CategorieCredit;
 import entities.Credit;
+import javafx.geometry.Side;
+import javafx.scene.chart.*;
 import utils.MyDatabase;
 import java.sql.*;
 import java.util.ArrayList;
@@ -129,4 +131,25 @@ public class ServiceCategorieCredit implements IService<CategorieCredit>{
         }
     }
 
+    public BarChart<String, Number> generateCreditCategoryChart() throws SQLException {
+        List<CategorieCredit> categories = this.getAll();
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle("Nombre de crédits par catégorie");
+
+        for (CategorieCredit categorie : categories) {
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName(categorie.getNom());
+
+            PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) FROM credit WHERE categorie_id = ?");
+            statement.setInt(1, categorie.getId());
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            int nombreDeCredits = resultSet.getInt(1);
+            series.getData().add(new XYChart.Data<>(categorie.getNom(), nombreDeCredits));
+            barChart.getData().add(series);
+        }
+        return barChart;
+    }
 }
