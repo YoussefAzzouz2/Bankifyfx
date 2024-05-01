@@ -107,7 +107,7 @@ public class User {
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
-                ", dateNaissance=" + dateNaissance +
+                ", date de naissance=" + dateNaissance +
                 ", genre='" + genre + '\'' +
                 '}';
     }

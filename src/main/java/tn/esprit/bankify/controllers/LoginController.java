@@ -1,7 +1,9 @@
 package tn.esprit.bankify.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -25,6 +27,11 @@ public class LoginController {
 
     @FXML
     private Button btnLogin;
+
+    @FXML
+    private Button switchToSignUp;
+
+    private Button resetPassword;
 
 
     private ServiceUser serviceUser;
@@ -67,6 +74,11 @@ public class LoginController {
                 // Create a new stage
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+
+                // Set the title of the stage
+                stage.setTitle("Bankify");
+
+                // Show the stage
                 stage.show();
 
                 // Close the current login stage
@@ -75,6 +87,7 @@ public class LoginController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         } else {
             showAlert("Error", "Adresse email ou mot de passe incorrect.");
         }
@@ -86,5 +99,40 @@ public class LoginController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+
+    @FXML
+    private void navigateToRegister(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/register.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) switchToSignUp.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Bankify");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void resetPassword(ActionEvent actionEvent) throws IOException {
+        // Get a reference to the stage of the current window
+        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+        // Load resetPassword.fxml
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resetPassword.fxml"));
+        Parent root = loader.load();
+
+        // Create a new stage for the resetPassword scene
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
+        // Close the current stage
+        currentStage.close();
+
+        // Show the new stage
+        stage.show();
     }
 }

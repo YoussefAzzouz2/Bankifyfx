@@ -99,6 +99,7 @@ public class AffController implements Initializable, ModifierController.OnUserMo
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setTitle("Bankify");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -116,6 +117,7 @@ public class AffController implements Initializable, ModifierController.OnUserMo
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setTitle("Bankify");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

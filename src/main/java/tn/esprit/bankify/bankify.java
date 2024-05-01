@@ -17,7 +17,7 @@ public class bankify extends Application {
 
         try {
 
-            FXMLLoader loader= new FXMLLoader(getClass().getResource("/back.fxml"));
+            FXMLLoader loader= new FXMLLoader(getClass().getResource("/login.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 

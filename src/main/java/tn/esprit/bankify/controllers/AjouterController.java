@@ -16,6 +16,7 @@ import java.util.Date;
 
 public class AjouterController {
 
+    public Button btnClear1;
     @FXML
     private Button btnAjouter;
 
@@ -66,6 +67,8 @@ public class AjouterController {
             showAlert("Error", "Veuillez entrer une adresse email valide.");
         } else if (!isValidPassword(motDePasse)) {
             showAlert("Error", "Le mot de passe doit contenir au moins 8 caractères et inclure au moins un chiffre, une lettre majuscule, une lettre minuscule ");
+        } else if (serviceUser.emailExists(email)) {
+            showAlert("Error", "Cette adresse email est déjà utilisée.");
         } else {
             // Convert LocalDate to java.util.Date
             Date utilDate = java.sql.Date.valueOf(dateNaissance);
@@ -113,5 +116,15 @@ public class AjouterController {
     // Define OnUserAddedListener interface
     public interface OnUserAddedListener {
         void onUserAdded(User newUser);
+    }
+
+    @FXML
+    private void clearFields() {
+        txtEmail.clear();
+        txtMotDePasse.clear();
+        txtNom.clear();
+        txtPrenom.clear();
+        choiceGenre.getSelectionModel().clearSelection();
+        txtDateNaissance.getEditor().clear();
     }
 }

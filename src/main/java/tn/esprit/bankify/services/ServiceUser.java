@@ -130,6 +130,40 @@ public class ServiceUser implements IService<User> {
         }
         return userList;
     }
+
+    public boolean emailExists(String email) {
+        String sql = "SELECT COUNT(*) AS count FROM user WHERE email = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void changePassword(String email, String newPassword) {
+        String query = "UPDATE user SET password=? WHERE email=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, newPassword);
+            preparedStatement.setString(2, email);
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Mot de passe modifié avec succès");
+            } else {
+                System.out.println("Aucun utilisateur trouvé avec cet email");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
 
 
