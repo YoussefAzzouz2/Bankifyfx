@@ -14,6 +14,7 @@
                 <TableColumn fx:id="montantRestantColumn" prefWidth="170.40005493164062" text="Montant restant" style="-fx-text-fill: white; -fx-alignment: CENTER;"/>
                 <TableColumn fx:id="dateRColumn" prefWidth="126.39996337890625" text="Date" style="-fx-text-fill: white; -fx-alignment: CENTER;"/>
                 <TableColumn fx:id="dureeRestanteColumn" prefWidth="127.19998168945312" text="Duree restante" style="-fx-text-fill: white; -fx-alignment: CENTER;"/>
+                <TableColumn fx:id="pdfColumn" prefWidth="176.800048828125" text="Obtenir votre réçu" />
             </columns>
         </TableView>
     </children>

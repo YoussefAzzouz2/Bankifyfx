@@ -40,6 +40,9 @@ public class GetRemboursementFront {
     private TableColumn<Remboursement, Integer> dureeRestanteColumn;
 
     @FXML
+    private TableColumn<Remboursement, Void> pdfColumn;
+
+    @FXML
     public void initData(Credit credit) {
         this.credit = credit;
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -47,6 +50,40 @@ public class GetRemboursementFront {
         montantRestantColumn.setCellValueFactory(new PropertyValueFactory<>("montantRestant"));
         dateRColumn.setCellValueFactory(new PropertyValueFactory<>("dateR"));
         dureeRestanteColumn.setCellValueFactory(new PropertyValueFactory<>("dureeRestante"));
+        pdfColumn.setCellFactory(new Callback<TableColumn<Remboursement, Void>, TableCell<Remboursement, Void>>() {
+            @Override
+            public TableCell<Remboursement, Void> call(final TableColumn<Remboursement, Void> param) {
+                return new TableCell<Remboursement, Void>() {
+                    private final Button pdfButton = new Button("Obtenir votre réçu");
+                    {
+                        pdfButton.setOnAction(event -> {
+                            Remboursement remboursement = getTableView().getItems().get(getIndex());
+                            handlePdf(remboursement);
+                        });
+                        pdfButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;");
+                    }
+
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(pdfButton);
+                            setAlignment(javafx.geometry.Pos.CENTER);
+                        }
+                    }
+                };
+            }
+        });
+        loadData();
+    }
+
+    private void handlePdf(Remboursement remboursement) {
+        service.generatePdf(remboursement);
+    }
+
+    private void loadData() {
         try {
             List<Remboursement> remboursements = service.getByCredit(credit.getId());
             remboursementsTable.getItems().setAll(remboursements);
