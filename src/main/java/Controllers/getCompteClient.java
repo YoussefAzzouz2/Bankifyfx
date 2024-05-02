@@ -246,7 +246,9 @@ public class getCompteClient {
     }
 
 
-    public void ajouterCompte(ActionEvent actionEvent) {
+
+
+    public void NewCompte(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajoutCompte.fxml"));
             Parent root = loader.load();
@@ -262,29 +264,19 @@ public class getCompteClient {
         }
     }
 
-    public void NewCompte(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouCompteF.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Ajouter un compte");
-            stage.setScene(new Scene(root));
-            stage.show();
-
-            ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public void generatePDF(ActionEvent actionEvent) {
         PDFGenerator pdfGenerator = new PDFGenerator();
         pdfGenerator.generatePDF(actionEvent, compteClientTable, "CompteClient Table");
     }
 
     private Image generateQRCodeImage(int qrCodeData) {
-        int qrCodeSize = 200; // Set the size of the QR code image
+        int qrCodeSize = 100; // Set the size of the QR code image (reduced size)
+
+        // Title to be displayed when scanning the QR code
+        String title = "L'id de ce compte est : ";
+
+        // Combine title and qrCodeData
+        String qrCodeText = title + qrCodeData;
 
         // Create QR code writer
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
@@ -292,7 +284,7 @@ public class getCompteClient {
         try {
             Map<EncodeHintType, Object> hints = new HashMap<>();
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-            bitMatrix = qrCodeWriter.encode(String.valueOf(qrCodeData), BarcodeFormat.QR_CODE, qrCodeSize, qrCodeSize, hints);
+            bitMatrix = qrCodeWriter.encode(qrCodeText, BarcodeFormat.QR_CODE, qrCodeSize, qrCodeSize, hints);
         } catch (WriterException e) {
             e.printStackTrace();
             return null;

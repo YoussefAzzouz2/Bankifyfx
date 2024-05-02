@@ -12,7 +12,7 @@
             </image>
         </ImageView>
         <Label layoutX="212" layoutY="5" style="-fx-font-size: 20px; -fx-text-fill: #ffffff; -fx-font-weight: bold;" text="Liste des comptes Clients" />
-        <TableView fx:id="compteClientTable" layoutX="16.0" layoutY="56.0" prefHeight="268.0" prefWidth="766.0" style="-fx-background-color: #fbe6de;">
+        <TableView fx:id="compteClientTable" layoutY="55.0" prefHeight="268.0" prefWidth="800.0" style="-fx-background-color: #fbe6de;">
             <columns>
                 <TableColumn fx:id="nomColumn" prefWidth="87.0" text="Nom" />
                 <TableColumn fx:id="prenomColumn" prefWidth="132.0" text="Prénom" />
