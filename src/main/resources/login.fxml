@@ -29,7 +29,11 @@
                         <Font name="Montserrat Bold" size="42.0" />
                     </font>
                 </Label>
-                <Button fx:id="btnLogin" layoutX="177.0" layoutY="392.0" mnemonicParsing="false" onAction="#login" prefHeight="54.0" prefWidth="190.0" style="-fx-background-color: white;" styleClass="long-buttons" text="LOG IN" textAlignment="CENTER" textFill="#242422" />
+                <Button fx:id="btnLogin" layoutX="211.0" layoutY="392.0" mnemonicParsing="false" onAction="#login" prefHeight="42.0" prefWidth="133.0" styleClass="AjouterUtilisateur" text="Login" textFill="#2b2929">
+                    <font>
+                        <Font name="Arial Black" size="17.0" />
+                    </font>
+                </Button>
 
 <Button fx:id="btnResetPassword" layoutX="147.0" layoutY="344.0" mnemonicParsing="false" onAction="#resetPassword" prefHeight="27.0" prefWidth="250.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Forgot your Password ? Click here to Reset" textAlignment="CENTER" textFill="#242422" />
 

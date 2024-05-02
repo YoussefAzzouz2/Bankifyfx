@@ -163,7 +163,51 @@ public class ServiceUser implements IService<User> {
             throw new RuntimeException(e);
         }
     }
+    public User authenticateUser(String email, String password) {
+        String query = "SELECT * FROM user WHERE email = ? AND password = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                // User found, return user object
+                int id = resultSet.getInt("id");
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                Date dateNaissance= resultSet.getDate("dateNaissance");
+                String genre = resultSet.getString("genre");
+                boolean verified = resultSet.getBoolean("verified");
+                // Additional fields to fetch from database as needed
 
+                return new User(id, nom, prenom, email, password, dateNaissance, genre,verified);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // User not found
+    }
+
+    public void setVerified(String email, boolean verified) {
+        String query = "UPDATE user SET verified = ? WHERE email = ?";
+
+        try{ PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            // Set parameters
+            preparedStatement.setBoolean(1, verified);
+            preparedStatement.setString(2, email);
+
+            // Execute update
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected == 0) {
+                System.out.println("No user found with email: " + email);
+            } else {
+                System.out.println("User verified status updated successfully.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error updating user verified status: " + e.getMessage());
+        }
+    }
 }
 
 

@@ -11,8 +11,21 @@ public class User {
     private String password;
     private Date dateNaissance;
     private String genre;
+    private boolean verified;
+
 
     public Button supprimer;
+
+    public User(int id, String nom, String prenom, String email, String password, Date dateNaissance, String genre, boolean verified) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.password = password;
+        this.dateNaissance = dateNaissance;
+        this.genre = genre;
+        this.verified = verified;
+    }
 
     public Button getSupprimer() {
         return supprimer;
@@ -32,6 +45,7 @@ public class User {
         this.password = password;
         this.dateNaissance = dateNaissance;
         this.genre = genre;
+        this.verified = false;
     }
 
     public User(int id, String nom, String prenom, String email, String password, Date dateNaissance, String genre) {
@@ -42,6 +56,7 @@ public class User {
         this.password = password;
         this.dateNaissance = dateNaissance;
         this.genre = genre;
+        this.verified = false;
     }
 
     public int getId() {
@@ -98,6 +113,14 @@ public class User {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
     }
 
     @Override

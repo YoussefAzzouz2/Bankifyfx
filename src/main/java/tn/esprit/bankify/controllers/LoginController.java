@@ -1,21 +1,24 @@
 package tn.esprit.bankify.controllers;
 
+import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import tn.esprit.bankify.entities.User;
+import tn.esprit.bankify.services.ServiceEmail;
 import tn.esprit.bankify.services.ServiceUser;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public class LoginController {
 
@@ -41,58 +44,75 @@ public class LoginController {
     }
 
     @FXML
-    void login() {
+    void login(ActionEvent event) {
         String email = txtEmail.getText();
         String password = txtPassword.getText();
 
-        // Check if email and password fields are empty
+        // Validate email and password
         if (email.isEmpty() || password.isEmpty()) {
             showAlert("Error", "Veuillez remplir tous les champs.");
             return;
         }
-
-        // Call the service to retrieve all users from the database
-        List<User> userList = serviceUser.getAllUsers();
-
-        // Check if the provided email and password match any user in the database
-        boolean loggedIn = false;
-        for (User user : userList) {
-            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
-                loggedIn = true;
-                break;
+        // Authenticate user
+        User user = serviceUser.authenticateUser(email, password);
+        if (user != null) {
+            if (user.isVerified()) {
+                showAlert("Success", "Vous êtes connecté avec succès.");
+                navigateToMainScreen(event);
+            } else {
+                handleVerification(user.getEmail(), event);
             }
-        }
-
-        if (loggedIn) {
-            showAlert("Success", "Vous êtes connecté avec succès.");
-
-            // Load aff.fxml and display it
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/back.fxml"));
-                Parent root = loader.load();
-
-                // Create a new stage
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-
-                // Set the title of the stage
-                stage.setTitle("Bankify");
-
-                // Show the stage
-                stage.show();
-
-                // Close the current login stage
-                Stage loginStage = (Stage) btnLogin.getScene().getWindow();
-                loginStage.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
         } else {
             showAlert("Error", "Adresse email ou mot de passe incorrect.");
         }
     }
+    private Optional<String> showVerificationDialog() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Enter Verification Code");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Entrez le code de vérification reçu par email:");
+        return dialog.showAndWait();
+    }
+    private void handleVerification(String email, ActionEvent event) {
+        // Generate verification code
+        String verificationCode = generateVerificationCode();
 
+        try {
+            // Send verification email
+            ServiceEmail.sendEmail(email, "Login Verification", "Your verification code is: " + verificationCode);
+            showAlert("Verification Email Sent", "Un code de vérification a été envoyé à votre adresse email.");
+
+            // Prompt user for verification code
+            Optional<String> enteredCode = showVerificationDialog();
+            if (enteredCode.isPresent() && enteredCode.get().equals(verificationCode)) {
+                // Update user as verified in the database
+                ServiceUser serviceUser = new ServiceUser();
+                serviceUser.setVerified(email, true); // Assuming you have a method to update user's verified status
+
+                showAlert("Success", "Vous êtes connecté avec succès.");
+                navigateToMainScreen(event);
+            } else {
+                showAlert("Error", "Le code de vérification est incorrect.");
+            }
+        } catch (Exception e) {
+            showAlert("Error", "Failed to send verification email: " + e.getMessage());
+        }
+    }
+
+    private void navigateToMainScreen(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/back.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private String generateVerificationCode() {
+        return UUID.randomUUID().toString().substring(0, 6); // Extract a 6-character substring
+    }
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -115,7 +135,6 @@ public class LoginController {
             e.printStackTrace();
         }
     }
-
     public void resetPassword(ActionEvent actionEvent) throws IOException {
         // Get a reference to the stage of the current window
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
