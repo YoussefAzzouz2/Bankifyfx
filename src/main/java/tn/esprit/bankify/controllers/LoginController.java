@@ -1,6 +1,7 @@
 package tn.esprit.bankify.controllers;
 
 import javafx.animation.ScaleTransition;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -18,10 +20,14 @@ import tn.esprit.bankify.services.ServiceUser;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 public class LoginController {
 
+    public Label captchaLabel;
+    public TextField captchaInput;
+    public ToggleButton toggleButton;
     @FXML
     private TextField txtEmail;
 
@@ -32,15 +38,57 @@ public class LoginController {
     private Button btnLogin;
 
     @FXML
+    private Label ShownPassword;
+
+    @FXML
     private Button switchToSignUp;
 
     private Button resetPassword;
+    
+    private String captchaChallenge;
 
 
     private ServiceUser serviceUser;
 
     public LoginController() {
         serviceUser = new ServiceUser();
+    }
+    @FXML
+    public void initialize() {
+        captchaChallenge = generateCaptcha();
+        captchaLabel.setText(captchaChallenge);
+    }
+
+
+    @FXML
+    void toggleButton(ActionEvent event) {
+        if (toggleButton.isSelected()) {
+            txtPassword.setVisible(false);
+            ShownPassword.setText(txtPassword.getText());
+            ShownPassword.setVisible(true);
+            toggleButton.setText("Hide");
+        } else {
+            ShownPassword.setVisible(false);
+            txtPassword.setVisible(true);
+            toggleButton.setText("Show");
+        }
+    }
+
+    @FXML
+    void passwordFieldKeyTyped(KeyEvent event) {
+        if (toggleButton.isSelected()) {
+            ShownPassword.setText(txtPassword.getText());
+        }
+    }
+    private String generateCaptcha() {
+        int length = 6; // Length of the CAPTCHA challenge
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder captcha = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            captcha.append(chars.charAt(random.nextInt(chars.length())));
+        }
+        return captcha.toString();
     }
 
     @FXML
@@ -56,11 +104,15 @@ public class LoginController {
         // Authenticate user
         User user = serviceUser.authenticateUser(email, password);
         if (user != null) {
+            String userInput = captchaInput.getText().trim();
+            if (userInput.equals(captchaChallenge)) {
             if (user.isVerified()) {
                 showAlert("Success", "Vous êtes connecté avec succès.");
                 navigateToMainScreen(event, user.getRole());
             } else {
                 handleVerification(user.getEmail(), event);
+            }} else {
+                showAlert("Login Failed", "Invalid CAPTCHA. Please try again.");
             }
         } else {
             showAlert("Error", "Adresse email ou mot de passe incorrect.");
