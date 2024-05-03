@@ -3,6 +3,8 @@ package tn.esprit.bankify.services;
 import tn.esprit.bankify.entities.User;
 import tn.esprit.bankify.utils.MyDatabase;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +23,13 @@ public class ServiceUser implements IService<User> {
     @Override
     public void Ajouter(User t) {
         try {
+            String passwordencrypted = encrypt(t.getPassword());
             String req = "INSERT INTO user (nom, prenom, email, password, dateNaissance, genre) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(req);
             preparedStatement.setString(1, t.getNom());
             preparedStatement.setString(2, t.getPrenom());
             preparedStatement.setString(3, t.getEmail());
-            preparedStatement.setString(4, t.getPassword());
+            preparedStatement.setString(4, passwordencrypted);
             preparedStatement.setDate(5, new java.sql.Date(t.getDateNaissance().getTime()));
             preparedStatement.setString(6, t.getGenre());
             preparedStatement.executeUpdate();
@@ -148,10 +151,11 @@ public class ServiceUser implements IService<User> {
     }
 
     public void changePassword(String email, String newPassword) {
+        String passwordencrypted = encrypt(newPassword);
         String query = "UPDATE user SET password=? WHERE email=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, newPassword);
+            preparedStatement.setString(1, passwordencrypted);
             preparedStatement.setString(2, email);
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
@@ -163,11 +167,27 @@ public class ServiceUser implements IService<User> {
             throw new RuntimeException(e);
         }
     }
+    public static String encrypt(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public User authenticateUser(String email, String password) {
         String query = "SELECT * FROM user WHERE email = ? AND password = ?";
+        String encryptedPassword = encrypt(password);
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, email);
-            statement.setString(2, password);
+            statement.setString(2, encryptedPassword);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 // User found, return user object
@@ -177,9 +197,10 @@ public class ServiceUser implements IService<User> {
                 Date dateNaissance= resultSet.getDate("dateNaissance");
                 String genre = resultSet.getString("genre");
                 boolean verified = resultSet.getBoolean("verified");
+                String role = resultSet.getString("role");
                 // Additional fields to fetch from database as needed
 
-                return new User(id, nom, prenom, email, password, dateNaissance, genre,verified);
+                return new User(id, nom, prenom, email, password, dateNaissance, genre,verified,role);
             }
         } catch (SQLException e) {
             e.printStackTrace();

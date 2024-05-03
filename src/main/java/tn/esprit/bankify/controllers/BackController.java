@@ -98,6 +98,7 @@ public class BackController  {
             // Create a new stage for the login screen
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setTitle("Bankify");
             stage.show();
 
             // Close the current stage

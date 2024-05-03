@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="514.0" prefWidth="777.0" style="-fx-background-image: url('/images/background_front.jpg'); -fx-background-size: 100% 100%;" stylesheets="@css/modern_styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.bankify.controllers.FrontController">
+    <ImageView fitHeight="558.0" fitWidth="777.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/background_front.jpg" />
+        </image>
+    </ImageView>
+
+    <MenuBar layoutX="0.0" layoutY="0.0" prefHeight="30.0" prefWidth="701.0" style="-fx-background-color: transparent;">
+        <!-- Compte Menu -->
+        <Menu text="Compte">
+            <MenuItem text="Ouvrir Compte" />
+            <MenuItem text="Fermer Compte" />
+        </Menu>
+
+        <!-- Transaction Menu -->
+        <Menu text="Transaction">
+            <MenuItem text="Ajouter Transaction" />
+            <MenuItem text="Afficher Transactions" />
+        </Menu>
+
+        <!-- Crédit Menu -->
+        <Menu text="Crédit">
+            <MenuItem text="Demander Crédit" />
+            <MenuItem text="Consulter Crédit" />
+        </Menu>
+
+        <!-- Chèque Menu -->
+        <Menu text="Chèque">
+            <MenuItem text="Émettre Chèque" />
+            <MenuItem text="Annuler Chèque" />
+        </Menu>
+
+        <!-- Assurances Menu -->
+        <Menu text="Assurances">
+            <MenuItem text="Souscrire Assurance" />
+            <MenuItem text="Résilier Assurance" />
+        </Menu>
+
+    </MenuBar>
+    <Button fx:id="signoutBtn" layoutX="669.0" layoutY="475.0" mnemonicParsing="false" onAction="#signout" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: red;" styleClass="modern-button" text="Sign Out" />
+
+</AnchorPane>

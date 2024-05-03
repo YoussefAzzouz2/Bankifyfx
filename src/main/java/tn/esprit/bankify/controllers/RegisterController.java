@@ -64,6 +64,7 @@ public class RegisterController {
             Parent root = loader.load();
             Stage stage = (Stage) switchToLogin.getScene().getWindow();
             stage.setScene(new Scene(root));
+            stage.setTitle("Bankify");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -124,6 +125,7 @@ public class RegisterController {
             Parent root = loader.load();
             Stage stage = (Stage) btnRegister.getScene().getWindow();
             stage.setScene(new Scene(root));
+            stage.setTitle("Bankify");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

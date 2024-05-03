@@ -61,6 +61,7 @@ public class resetPasswordController {
             Parent root = loader.load();
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(root));
+            stage.setTitle("Bankify");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

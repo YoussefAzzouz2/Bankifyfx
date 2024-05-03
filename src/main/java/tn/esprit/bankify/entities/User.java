@@ -12,11 +12,12 @@ public class User {
     private Date dateNaissance;
     private String genre;
     private boolean verified;
+    private String role;
 
 
     public Button supprimer;
 
-    public User(int id, String nom, String prenom, String email, String password, Date dateNaissance, String genre, boolean verified) {
+    public User(int id, String nom, String prenom, String email, String password, Date dateNaissance, String genre, boolean verified,String role) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -25,6 +26,7 @@ public class User {
         this.dateNaissance = dateNaissance;
         this.genre = genre;
         this.verified = verified;
+        this.role = role;
     }
 
     public Button getSupprimer() {
@@ -57,6 +59,14 @@ public class User {
         this.dateNaissance = dateNaissance;
         this.genre = genre;
         this.verified = false;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public int getId() {

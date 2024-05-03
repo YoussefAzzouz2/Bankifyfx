@@ -58,7 +58,7 @@ public class LoginController {
         if (user != null) {
             if (user.isVerified()) {
                 showAlert("Success", "Vous êtes connecté avec succès.");
-                navigateToMainScreen(event);
+                navigateToMainScreen(event, user.getRole());
             } else {
                 handleVerification(user.getEmail(), event);
             }
@@ -90,7 +90,7 @@ public class LoginController {
                 serviceUser.setVerified(email, true); // Assuming you have a method to update user's verified status
 
                 showAlert("Success", "Vous êtes connecté avec succès.");
-                navigateToMainScreen(event);
+                navigateToMainScreen(event, "client");
             } else {
                 showAlert("Error", "Le code de vérification est incorrect.");
             }
@@ -99,12 +99,14 @@ public class LoginController {
         }
     }
 
-    private void navigateToMainScreen(ActionEvent event) {
+    private void navigateToMainScreen(ActionEvent event, String role) {
+        String mainScreenPath = role.equalsIgnoreCase("admin") ? "/back.fxml" : "/front.fxml";
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/back.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(mainScreenPath));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
+            stage.setTitle("Bankify");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
