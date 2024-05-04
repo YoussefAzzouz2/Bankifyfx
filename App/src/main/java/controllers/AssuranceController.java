@@ -20,6 +20,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
@@ -349,11 +350,11 @@ public class AssuranceController {
 
     @FXML
     void deleteButton(ActionEvent event) {
-        // Get  selected item  TableView
+        // Get selected item from TableView
         Assurance selectedAssurance = assuranceTable.getSelectionModel().getSelectedItem();
 
         if (selectedAssurance == null) {
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText(null);
             alert.setContentText("Please select a record to delete.");
@@ -361,42 +362,52 @@ public class AssuranceController {
             return;
         }
 
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String sql = "DELETE FROM assurance WHERE type_assurance = ? AND nom_assure = ? AND nom_beneficiaire = ? AND montant_prime = ? AND info_assurance = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        // Show confirmation dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Delete Assurance");
+        alert.setContentText("Are you sure you want to delete this record?");
 
-            stmt.setString(1, selectedAssurance.getTypeAssurance());
-            stmt.setString(2, selectedAssurance.getNomAssure());
-            stmt.setString(3, selectedAssurance.getNomBeneficiaire());
-            stmt.setString(4, selectedAssurance.getMontantPrime());
-            stmt.setString(5, selectedAssurance.getInfoAssurance());
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+                String sql = "DELETE FROM assurance WHERE type_assurance = ? AND nom_assure = ? AND nom_beneficiaire = ? AND montant_prime = ? AND info_assurance = ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
 
-            int rowsDeleted = stmt.executeUpdate();
+                stmt.setString(1, selectedAssurance.getTypeAssurance());
+                stmt.setString(2, selectedAssurance.getNomAssure());
+                stmt.setString(3, selectedAssurance.getNomBeneficiaire());
+                stmt.setString(4, selectedAssurance.getMontantPrime());
+                stmt.setString(5, selectedAssurance.getInfoAssurance());
 
-            if (rowsDeleted > 0) {
-                // Remove  selected  TableView
-                assuranceTable.getItems().remove(selectedAssurance);
-                updatePieChart();
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText(null);
-                alert.setContentText("Record deleted successfully.");
-                alert.showAndWait();
-            } else {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Error deleting record.");
-                alert.showAndWait();
+                int rowsDeleted = stmt.executeUpdate();
+
+                if (rowsDeleted > 0) {
+                    // Remove selected item from TableView
+                    assuranceTable.getItems().remove(selectedAssurance);
+                    updatePieChart();
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setTitle("Success");
+                    successAlert.setHeaderText(null);
+                    successAlert.setContentText("Record deleted successfully.");
+                    successAlert.showAndWait();
+                } else {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Error");
+                    errorAlert.setHeaderText(null);
+                    errorAlert.setContentText("Error deleting record.");
+                    errorAlert.showAndWait();
+                }
+            } catch (SQLException e) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText(null);
+                errorAlert.setContentText("Error deleting record: " + e.getMessage());
+                errorAlert.showAndWait();
             }
-        } catch (SQLException e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Error deleting record: " + e.getMessage());
-            alert.showAndWait();
         }
     }
+
 
     @FXML
     public void goToAgenceButtonClicked(ActionEvent event) {

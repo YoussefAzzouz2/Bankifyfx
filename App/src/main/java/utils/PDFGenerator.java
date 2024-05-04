@@ -3,18 +3,17 @@ package utils;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.controlsfx.control.Notifications;
-import java.io.IOException;
 
-import javafx.scene.paint.Color;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import java.io.File;
+import java.io.IOException;
 
 public class PDFGenerator {
 
@@ -65,8 +64,16 @@ public class PDFGenerator {
                 .showInformation();
 
         try {
-            document.save(title + ".pdf");
-            document.close();
+            // Choose file location and name using FileChooser
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save PDF File");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+            File file = fileChooser.showSaveDialog(new Stage());
+
+            if (file != null) {
+                document.save(file);
+                document.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

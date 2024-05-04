@@ -1,4 +1,5 @@
 package controllers;
+import javafx.scene.control.*;
 import org.controlsfx.control.Notifications;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,10 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
@@ -26,6 +23,8 @@ import utils.DatabaseConnector;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
+
 import models.EmailSender;
 
 import javax.mail.MessagingException;
@@ -146,22 +145,31 @@ public class AgenceController {
     void deleteAgence(ActionEvent event) {
         Agence selectedAgence = agenceTable.getSelectionModel().getSelectedItem();
         if (selectedAgence != null) {
-            try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-                 PreparedStatement stmt = conn.prepareStatement("DELETE FROM agence WHERE id = ?")) {
+            // Show confirmation dialog
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Supprimer Agence");
+            alert.setContentText("Êtes-vous sûr de vouloir supprimer cette Agence ");
 
-                stmt.setInt(1, selectedAgence.getId());  // Assuming getId() returns the id of Agence
-                stmt.executeUpdate();
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                     PreparedStatement stmt = conn.prepareStatement("DELETE FROM agence WHERE id = ?")) {
 
-                showAgence(null);
+                    stmt.setInt(1, selectedAgence.getId());
+                    stmt.executeUpdate();
 
-            } catch (SQLException e) {
-                showAlert("Error deleting record: " + e.getMessage());
+                    showAgence(null);
+
+                } catch (SQLException e) {
+                    showAlert("Error deleting record: " + e.getMessage());
+                }
             }
         } else {
             showAlert("Please select an agence.");
         }
-        loadAgenceTypeDistribution();  }
-
+        loadAgenceTypeDistribution();
+    }
 
 
     @FXML

@@ -87,5 +87,6 @@
        <PieChart fx:id="agencePieChart" layoutX="679.0" layoutY="52.0" prefHeight="370.0" prefWidth="338.0" />
 
 
+
    </children>
 </AnchorPane>
