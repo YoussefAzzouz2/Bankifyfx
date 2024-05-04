@@ -76,17 +76,23 @@ public class Back  {
 
     @FXML
     private void fillCheques(ActionEvent event) {
-        // Check if the content is already loaded
+        try {
+            // Load the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Back/back.fxml"));
+            Parent root = loader.load();
 
-            // Load Cheques.fxml into panel_scroll VBox when the button is clicked
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Cheques/Back/Cheques.fxml"));
-                Node chequesNode = loader.load();
-                pnItems.getChildren().setAll(chequesNode);
-            } catch (IOException e) {
-                e.printStackTrace();
-                // Handle the exception if the FXML file cannot be loaded
-            }
+            // Create a new scene
+            Scene scene = new Scene(root);
+
+            // Get the stage from the button
+            Stage stage = (Stage) pnItems.getScene().getWindow();
+
+            // Set the scene on the stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
 
     }
     public void handleClicks(ActionEvent actionEvent) {

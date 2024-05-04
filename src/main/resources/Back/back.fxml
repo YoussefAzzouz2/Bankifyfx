@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="823.0" prefWidth="1391.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1324.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
    <effect>
       <DropShadow color="#1b1eeb" />
    </effect>
@@ -29,7 +29,7 @@
             <Insets bottom="20.0" />
          </VBox.margin>
       </Label>
-      <Button fx:id="btnOverview" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@css/style.css" text="Overview" textFill="#e7e5e5">
+      <Button fx:id="btnOverview" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#loadMacarte" prefHeight="42.0" prefWidth="259.0" stylesheets="@css/style.css" text="Carte" textFill="#e7e5e5">
          <graphic>
             <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@images/icons8_Home_32px.png" />
@@ -45,7 +45,7 @@
             <Insets left="50.0" />
          </padding>
       </Button>
-      <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@css/style.css" text="Comptes">
+      <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@css/style.css" text="Comptes">
          <graphic>
             <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@images/icons8_Open_Envelope_32px.png" />
@@ -55,7 +55,7 @@
             <Insets left="50.0" />
          </padding>
       </Button>
-      <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@css/style.css" text="Utilisateurs">
+      <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@css/style.css" text="Utilisateurs">
          <graphic>
             <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@images/icons8_Person_32px.png" />
@@ -65,7 +65,7 @@
             <Insets left="50.0" />
          </padding>
       </Button>
-      <Button fx:id="affichercheques" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#fillCheques" prefHeight="42.0" prefWidth="259.0" stylesheets="@css/style.css" text="Cheques">
+      <Button fx:id="btnMenus" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#fillCheques" prefHeight="42.0" prefWidth="259.0" stylesheets="@css/style.css" text="Cheques">
          <graphic>
             <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@images/icons8_Xbox_Menu_32px.png" />
@@ -95,7 +95,7 @@
             <Insets left="50.0" />
          </padding>
       </Button>
-      <Button fx:id="btnSignout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@css/style.css" text="Sign Out">
+      <Button fx:id="btnSignout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#Signout" prefHeight="42.0" prefWidth="259.0" stylesheets="@css/style.css" text="Sign Out">
          <graphic>
             <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@images/icons8_Sign_Out_32px.png" />
