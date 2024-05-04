@@ -27,7 +27,7 @@ public class MainFrontFX extends Application {
        // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Cheques/Back/Cheques.fxml"));
      //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Cheques/Front/FrontCheques.fxml"));
 
-        URL fxmlUrl = getClass().getResource("/addTransaction.fxml");
+        URL fxmlUrl = getClass().getResource("/front.fxml");
         if (fxmlUrl == null) {
             System.err.println("FXML file not found.");
             return;

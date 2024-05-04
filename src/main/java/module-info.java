@@ -7,17 +7,22 @@ module org.example {
     requires com.google.gson;
     requires java.persistence;
     requires org.apache.pdfbox;
-
+    requires twilio;
 
 
     opens models to javafx.base;
 
 
-    exports controller;
-    opens controller to javafx.fxml;
+    exports controllers;
+    opens controllers to javafx.fxml;
 
-    exports controller.Cheques;
-    opens controller.Cheques to javafx.fxml;
+    exports controllers.Cheques;
+    opens controllers.Cheques to javafx.fxml;
+
+
+    opens controllers.creditController to javafx.fxml;
+    opens controllers.categorieCreditController to javafx.fxml;
+    opens controllers.remboursementController to javafx.fxml;
 
 
     exports org.example;

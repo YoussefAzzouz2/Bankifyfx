@@ -1,9 +1,9 @@
 package org.example;
 
-import models.Carte;
+import models.*;
 import services.CarteService;
 
-import models.Transaction;
+import services.ServiceCredit;
 import services.TransactionService;
 
 import java.sql.SQLException;
@@ -81,5 +81,18 @@ public class Main {
         } catch (SQLException e) {
             System.err.println("Error getting transaction by id: " + e.getMessage());
         }
+
+        ServiceCredit services = new ServiceCredit();
+        try {
+            CompteClient client = new CompteClient(1,"Ghazouani","Samer","aaaaaaaaaaaa","aaaaaaaaaaaaaaaaa","+21628352443", 10000.0F);
+            CategorieCredit categorie = new CategorieCredit(1,"prêt immobilier",10000.0,100000.0);
+            Credit credit = new Credit(10,36,50000.0,new Date(),false,false,client,categorie);
+            Remboursement remboursement = new Remboursement(31,40,100.0,700,new Date(),credit);
+            services.add(credit);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
+
 }

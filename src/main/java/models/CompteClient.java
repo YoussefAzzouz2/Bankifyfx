@@ -1,45 +1,12 @@
 package models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Date;
-import javax.persistence.*;
-import java.util.List;
-
-@Entity
-@Table(name = "compte_client")
 public class CompteClient {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private String nom;
-    private String prenom;
-    private String rib;
-    private String mail;
-    private String tel;
+    private String nom, prenom, rib, mail, tel;
     private float solde;
 
-    @OneToMany(mappedBy = "compteClient")
-    private List<Carte> cartes;
-
-    // Getter and setter for the list of `Carte` objects
-    public List<Carte> getCartes() {
-        return cartes;
-    }
-
-    public void setCartes(List<Carte> cartes) {
-        this.cartes = cartes;
-    }
-
-    // Constructors
-    public CompteClient() {
-    }
-
-    public CompteClient(String nom, String prenom, String rib,String mail, String tel, float solde) {
+    public CompteClient(int id, String nom, String prenom, String rib, String mail, String tel, float solde) {
+        this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.rib = rib;
@@ -47,8 +14,10 @@ public class CompteClient {
         this.tel = tel;
         this.solde = solde;
     }
+    public CompteClient() {
 
-    // Getters and setters
+    }
+
     public int getId() {
         return id;
     }
@@ -80,6 +49,7 @@ public class CompteClient {
     public void setRib(String rib) {
         this.rib = rib;
     }
+
     public String getMail() {
         return mail;
     }
@@ -104,7 +74,6 @@ public class CompteClient {
         this.solde = solde;
     }
 
-    // toString method for debugging
     @Override
     public String toString() {
         return "CompteClient{" +

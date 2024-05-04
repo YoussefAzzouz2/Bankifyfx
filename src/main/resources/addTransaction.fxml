@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="pnItems" prefHeight="723.0" prefWidth="1084.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addTransaction">
+<AnchorPane  prefHeight="723.0" prefWidth="1084.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.addTransaction">
 
     <children>
         <!-- Background image -->
@@ -44,8 +44,8 @@
                 <!-- Menu: Crédit -->
                 <Menu style="-fx-text-fill: purple;" text="Crédit">
                     <items>
-                        <MenuItem style="-fx-text-fill: purple;" text="Demander Crédit" />
-                        <MenuItem style="-fx-text-fill: purple;" text="Rembourser Crédit" />
+                        <MenuItem onAction="#demanderCredit" onMenuValidation="#consulterCredit" style="-fx-text-fill: purple;" text="Demander Crédit" />
+                        <MenuItem onAction="#consulterCredit" style="-fx-text-fill: purple;" text="Consulter Crédit" />
                     </items>
                 </Menu>
 

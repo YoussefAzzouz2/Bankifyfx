@@ -1,7 +1,7 @@
 package Cheques;
 
 import models.Cheques.Cheque;
-import util.MyDatabase;
+import utils.MyDatabase;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

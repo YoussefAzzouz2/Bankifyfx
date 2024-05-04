@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="723.0" prefWidth="1084.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontController">
+<AnchorPane prefHeight="723.0" prefWidth="1084.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FrontController">
    <children>
       <ImageView fx:id="tf_image" fitHeight="732.0" fitWidth="1101.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -38,8 +38,8 @@
             <!-- Menu: Crédit -->
             <Menu style="-fx-text-fill: purple;" text="Crédit">
                <items>
-                  <MenuItem style="-fx-text-fill: purple;" text="Demander Crédit" />
-                  <MenuItem style="-fx-text-fill: purple;" text="Rembourser Crédit" />
+                  <MenuItem onAction="#demanderCredit" style="-fx-text-fill: purple;" text="Demander Crédit" />
+                  <MenuItem onAction="#consulterCredit" style="-fx-text-fill: purple;" text="Rembourser Crédit" />
                </items>
             </Menu>
 

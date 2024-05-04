@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-image: url('./Background_front.jpg'); -fx-background-size: 100% 100%;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Front">
+   <children>
+       <ImageView fx:id="tf_image" fitHeight="732.0" fitWidth="1084.0" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@pink.jpg" />
+           </image>
+       </ImageView>
+       <MenuBar layoutX="0.0" layoutY="0.0" prefHeight="30.0" prefWidth="1091.0" style="-fx-background-color: transparent;">
+           <menus>
+               <!-- Compte Menu -->
+               <Menu style="-fx-text-fill: purple;" text="Compte">
+                   <items>
+                       <MenuItem style="-fx-text-fill: purple;" text="Ouvrir Compte" />
+                       <MenuItem style="-fx-text-fill: purple;" text="Fermer Compte" />
+                   </items>
+               </Menu>
+
+               <!-- Transaction Menu -->
+               <Menu style="-fx-text-fill: purple;" text="Transaction">
+                   <items>
+                       <MenuItem onAction="#openAjouterTransactionWindow" style="-fx-text-fill: purple;" text="Ajouter Transaction" />
+                       <MenuItem onAction="#openAfficherTransactionsWindow" style="-fx-text-fill: purple;" text="Afficher Transactions" />
+                   </items>
+               </Menu>
+
+               <!-- Crédit Menu -->
+               <Menu style="-fx-text-fill: purple;" text="Crédit">
+                   <items>
+                       <MenuItem onAction="#demanderCredit" style="-fx-text-fill: purple;" text="Demander Crédit" />
+                       <MenuItem onAction="#consulterCredit" style="-fx-text-fill: purple;" text="Consulter Crédit" />
+                   </items>
+               </Menu>
+
+               <!-- Chèque Menu -->
+               <Menu style="-fx-text-fill: purple;" text="Chèque">
+                   <items>
+                       <MenuItem fx:id="pnItems" onAction="#fillCheques" style="-fx-text-fill: purple;" text="Émettre Chèque" />
+                   </items>
+               </Menu>
+
+               <!-- Assurances Menu -->
+               <Menu style="-fx-text-fill: purple;" text="Assurances">
+                   <items>
+                       <MenuItem style="-fx-text-fill: purple;" text="Souscrire Assurance" />
+                       <MenuItem style="-fx-text-fill: purple;" text="Résilier Assurance" />
+                   </items>
+               </Menu>
+           </menus>
+       </MenuBar>
+   </children>
+</AnchorPane>

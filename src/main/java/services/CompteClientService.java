@@ -1,7 +1,7 @@
 package services;
 
 import models.CompteClient;
-import util.MyDatabase;
+import utils.MyDatabase;
 
 import java.sql.*;
 import java.util.ArrayList;

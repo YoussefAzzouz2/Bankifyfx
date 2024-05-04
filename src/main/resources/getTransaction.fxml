@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="726.0" prefWidth="1091.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.getTransaction">
+<AnchorPane prefHeight="726.0" prefWidth="1091.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.getTransaction">
     <children>
         <!-- Background image -->
         <ImageView fx:id="tf_image" fitHeight="732.0" fitWidth="1091.0" pickOnBounds="true" preserveRatio="true">
@@ -42,8 +42,8 @@
                 <!-- Crédit Menu -->
                 <Menu style="-fx-text-fill: purple;" text="Crédit">
                     <items>
-                        <MenuItem style="-fx-text-fill: purple;" text="Demander Crédit" />
-                        <MenuItem style="-fx-text-fill: purple;" text="Rembourser Crédit" />
+                        <MenuItem onAction="#demanderCredit" style="-fx-text-fill: purple;" text="Demander Crédit" />
+                        <MenuItem onAction="#consulterCredit" style="-fx-text-fill: purple;" text="Consulter Crédit" />
                     </items>
                 </Menu>
 

@@ -11,7 +11,7 @@
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="651.0" prefWidth="1274.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Cheques.cheques">
+<AnchorPane prefHeight="651.0" prefWidth="1274.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Cheques.cheques">
     <children>
         <AnchorPane prefHeight="601.0" prefWidth="984.0" style="-fx-background-color: #f0f0f0;">
             <children>
