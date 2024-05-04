@@ -75,8 +75,24 @@ public class BackController  {
             pnlMenus.toFront();
         }
         if (actionEvent.getSource() == btnOverview) {
-            pnlOverview.setStyle("-fx-background-color : #02030A");
-            pnlOverview.toFront();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/back.fxml"));
+                Parent root = loader.load();
+
+                // Get the reference to the current stage
+                Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+                // Create a new stage for the login screen
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Bankify");
+                stage.show();
+
+                // Close the current stage
+                currentStage.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         if(actionEvent.getSource()==btnOrders)
         {

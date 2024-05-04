@@ -106,18 +106,24 @@ public class LoginController {
         if (user != null) {
             String userInput = captchaInput.getText().trim();
             if (userInput.equals(captchaChallenge)) {
-            if (user.isVerified()) {
-                showAlert("Success", "Vous êtes connecté avec succès.");
-                navigateToMainScreen(event, user.getRole());
+                if (user.isVerified()) {
+                    if (user.getIsActive()) { // Check if the user account is active
+                        showAlert("Success", "Vous êtes connecté avec succès.");
+                        navigateToMainScreen(event, user.getRole());
+                    } else {
+                        showAlert("Account Deactivated", "Votre compte est désactivé. Veuillez contacter un administrateur.");
+                    }
+                } else {
+                    handleVerification(user.getEmail(), event);
+                }
             } else {
-                handleVerification(user.getEmail(), event);
-            }} else {
                 showAlert("Login Failed", "Invalid CAPTCHA. Please try again.");
             }
         } else {
             showAlert("Error", "Adresse email ou mot de passe incorrect.");
         }
     }
+
     private Optional<String> showVerificationDialog() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Enter Verification Code");

@@ -2,6 +2,8 @@ package tn.esprit.bankify.controllers;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableCell;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import tn.esprit.bankify.controllers.AjouterController;
 import tn.esprit.bankify.entities.User;
@@ -20,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class AffController implements Initializable, ModifierController.OnUserModifiedListener, AjouterController.OnUserAddedListener {
+
     ServiceUser sp = new ServiceUser();
 
     @FXML
@@ -27,6 +30,9 @@ public class AffController implements Initializable, ModifierController.OnUserMo
 
     @FXML
     private TableColumn<User, String> dnclm;
+
+    @FXML
+    private TableColumn<User, Boolean> status;
 
     @FXML
     private TableColumn<User, String> emclm;
@@ -42,6 +48,8 @@ public class AffController implements Initializable, ModifierController.OnUserMo
 
     @FXML
     private TableView<User> table;
+    @FXML
+    private TableColumn<User, Void> actionColumn;
 
     @FXML
     void supprimer(ActionEvent event) {
@@ -73,17 +81,66 @@ public class AffController implements Initializable, ModifierController.OnUserMo
         emclm.setCellValueFactory(new PropertyValueFactory<>("email"));
         grclm.setCellValueFactory(new PropertyValueFactory<>("genre"));
         dnclm.setCellValueFactory(new PropertyValueFactory<>("dateNaissance"));
+        status.setCellValueFactory(new PropertyValueFactory<>("isActive"));
         table.setItems(listef);
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         loadUsers();
+        initActionColumn();
         // Add double-click event handler to table rows
         table.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) { // Check for double-click
                 User selectedUser = table.getSelectionModel().getSelectedItem();
                 openModifier(selectedUser);
+            }
+        });
+
+        // Custom cell factory for status column
+        status.setCellValueFactory(new PropertyValueFactory<>("isActive"));
+        status.setCellFactory(column -> new TableCell<User, Boolean>() {
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item ? "Activated" : "Deactivated");
+                }
+            }
+        });
+    }
+    private void initActionColumn() {
+        actionColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button activateButton = new Button("Activate");
+            private final Button deactivateButton = new Button("Deactivate");
+
+            {
+                activateButton.setOnAction(event -> {
+                    User user = getTableView().getItems().get(getIndex());
+                    sp.activateUser(user.getEmail());
+                    loadUsers(); // Reload the table to reflect changes
+                });
+
+                deactivateButton.setOnAction(event -> {
+                    User user = getTableView().getItems().get(getIndex());
+                    sp.deactivateUser(user.getEmail());
+                    loadUsers(); // Reload the table to reflect changes
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    HBox buttons = new HBox(10);
+                    buttons.getChildren().addAll(activateButton, deactivateButton);
+                    setGraphic(buttons);
+                }
             }
         });
     }

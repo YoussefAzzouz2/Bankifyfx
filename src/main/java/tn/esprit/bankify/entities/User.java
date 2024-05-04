@@ -13,11 +13,12 @@ public class User {
     private String genre;
     private boolean verified;
     private String role;
+    private boolean isActive;
 
 
     public Button supprimer;
 
-    public User(int id, String nom, String prenom, String email, String password, Date dateNaissance, String genre, boolean verified,String role) {
+    public User(int id, String nom, String prenom, String email, String password, Date dateNaissance, String genre, boolean verified,String role,boolean isActive) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -27,6 +28,7 @@ public class User {
         this.genre = genre;
         this.verified = verified;
         this.role = role;
+        this.isActive = isActive;
     }
 
     public Button getSupprimer() {
@@ -131,6 +133,14 @@ public class User {
 
     public void setVerified(boolean verified) {
         this.verified = verified;
+    }
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 
     @Override

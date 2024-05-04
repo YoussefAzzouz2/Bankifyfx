@@ -101,6 +101,7 @@ public class ServiceUser implements IService<User> {
                 user.setPassword(rs.getString("password"));
                 user.setDateNaissance(rs.getDate("dateNaissance"));
                 user.setGenre(rs.getString("genre"));
+                user.setIsActive(rs.getBoolean("isActive"));
                 users.add(user);
             }
         } catch (SQLException ex) {
@@ -198,9 +199,10 @@ public class ServiceUser implements IService<User> {
                 String genre = resultSet.getString("genre");
                 boolean verified = resultSet.getBoolean("verified");
                 String role = resultSet.getString("role");
+                boolean isActive = resultSet.getBoolean("isActive");
                 // Additional fields to fetch from database as needed
 
-                return new User(id, nom, prenom, email, password, dateNaissance, genre,verified,role);
+                return new User(id, nom, prenom, email, password, dateNaissance, genre,verified,role,isActive);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -229,6 +231,33 @@ public class ServiceUser implements IService<User> {
             System.out.println("Error updating user verified status: " + e.getMessage());
         }
     }
+
+    public void activateUser(String email) {
+        setisActive(email, true);
+    }
+
+    public void deactivateUser(String email) {
+        setisActive(email, false);
+    }
+
+    public void setisActive(String email, boolean isActive) {
+        String query = "UPDATE user SET isActive = ? WHERE email = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setBoolean(1, isActive);
+            preparedStatement.setString(2, email);
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("No user found with email: " + email);
+            } else {
+                String status = isActive ? "activated" : "deactivated";
+                System.out.println("User account " + status + " successfully.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error updating user account status: " + e.getMessage());
+        }
+    }
+
 }
 
 
