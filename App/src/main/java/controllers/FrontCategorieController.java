@@ -30,7 +30,7 @@ public class FrontCategorieController {
     @FXML
     private ImageView frontimg;
 
-    // Sample data for demonstration
+
     private ObservableList<CategorieAssurance> categories = FXCollections.observableArrayList();
 
     private static final String URL = "jdbc:mysql://127.0.0.1/bankify";
@@ -39,14 +39,14 @@ public class FrontCategorieController {
 
     @FXML
     public void initialize() {
-        // Initialize the TableView columns
+
         TableColumn<CategorieAssurance, Integer> idCol = new TableColumn<>("ID");
         TableColumn<CategorieAssurance, String> nomCategorieCol = new TableColumn<>("Nom Categorie");
         TableColumn<CategorieAssurance, String> descriptionCol = new TableColumn<>("Description");
         TableColumn<CategorieAssurance, String> typeCouvertureCol = new TableColumn<>("Type Couverture");
         TableColumn<CategorieAssurance, String> agenceResponsableCol = new TableColumn<>("Agence Responsable");
 
-        // Define how to get values from CategorieAssurance properties
+
         idCol.setCellValueFactory(new PropertyValueFactory<>("idCategorie"));
         nomCategorieCol.setCellValueFactory(new PropertyValueFactory<>("nomCategorie"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -56,7 +56,7 @@ public class FrontCategorieController {
         // Add columns to TableView
         categorieTable.getColumns().addAll(idCol, nomCategorieCol, descriptionCol, typeCouvertureCol, agenceResponsableCol);
 
-        // Populate TableView with data
+        // Popu TableView data
         try {
             Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
             String query = "SELECT * FROM categorie_assurance";
@@ -74,17 +74,17 @@ public class FrontCategorieController {
                 categories.add(categorie);
             }
 
-            // Close the connections
+            // Closeconnections
             rs.close();
             stmt.close();
             conn.close();
 
-            // Set items to TableView
+            // Set items TableView
             categorieTable.setItems(categories);
 
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle exceptions properly in your application
+
         }
 
 
@@ -92,11 +92,11 @@ public class FrontCategorieController {
 
     public void goToFrontAssuranceeButtonClicked(ActionEvent actionEvent) {
         try {
-            // Load the Assurance GUI FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FrontAssuranceGUI.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the Assurance GUI
+
             Stage stage = new Stage();
             stage.setTitle("Assurance Form");
             stage.setScene(new Scene(root));
@@ -104,36 +104,36 @@ public class FrontCategorieController {
             // Show the new stage
             stage.show();
 
-            // Close the current window if needed
-            // You can uncomment the following lines if you want to close the current window
+            // Close  needed
+
             ((Node) actionEvent.getSource()).getScene().getWindow().hide();
 
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle any IOException properly in your application
+
         }
     }
 
     public void goToFrontAgenceeButtonClicked(ActionEvent actionEvent) {
         try {
-            // Load the FrontAgence GUI FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FrontAgenceGUI.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the FrontAgence GUI
+
             Stage stage = new Stage();
             stage.setTitle("Front Agence");
             stage.setScene(new Scene(root));
 
-            // Show the new stage
+
             stage.show();
 
-            // Close the current window
+            // Close  window
             ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
 
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the exception properly in your application
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);

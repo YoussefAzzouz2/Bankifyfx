@@ -37,15 +37,15 @@ public class BackController {
         if (event.getSource() == btnOverview) {
             // Handle Overview button click
         } else if (event.getSource() == btnOrders) {
-            // Handle Orders button click
+            //  button click
         } else if (event.getSource() == btnCustomers) {
-            // Handle Customers button click
+            //   button click
         } else if (event.getSource() == btnMenus) {
-            // Handle Menus button click
+            // Handle Menu button click
         } else if (event.getSource() == btnPackages) {
-            // Handle Packages button click
+            // Handle Pack button click
         } else if (event.getSource() == btnSettings) {
-            // Handle Settings button click
+            // Handle  button click
         }
     }
 
@@ -61,7 +61,7 @@ public class BackController {
             // Get the stage from the action event
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
-            // Set the new scene
+            // Set  new scene
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

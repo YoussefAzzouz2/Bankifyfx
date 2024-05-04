@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import models.CategorieAssurance;
 import utils.PDFGenerator;
-
+import org.controlsfx.control.Notifications;
 import java.io.IOException;
 import java.sql.*;
 
@@ -69,7 +69,7 @@ public class CategorieAssuranceController {
 
             showAlert("Categorie added successfully!");
 
-            showcategorie(null); // Refresh the TableView
+            showcategorie(null); // Refresh Table
 
         } catch (SQLException e) {
             showAlert("Error adding categorie: " + e.getMessage());
@@ -133,7 +133,7 @@ public class CategorieAssuranceController {
             String typeCouverture = typecouvertureTF.getText();
             String agenceResponsable = agenceresponsableTF.getText();
 
-            // Input validation
+            // Input vald
             if (nomCategorie.length() < 3 || description.length() < 3 || typeCouverture.length() < 3 || agenceResponsable.length() < 3) {
                 showAlert("All fields must have at least 3 characters.");
                 return;
@@ -174,14 +174,14 @@ public class CategorieAssuranceController {
     @FXML
     public void goToAssuranceButtonClicked(ActionEvent actionEvent) {
         try {
-            // Load AssuranceGUI.fxml
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AssuranceGUI.fxml"));
             Parent root = loader.load();
 
-            // Get the stage from the action event
+
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
-            // Set the new scene
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -193,24 +193,24 @@ public class CategorieAssuranceController {
 
     public void goToAgenceeButtonClicked(ActionEvent actionEvent) {
         try {
-            // Load the FrontAgence GUI FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AgenceGUI.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the FrontAgence GUI
+
             Stage stage = new Stage();
             stage.setTitle("bACK aGENCE");
             stage.setScene(new Scene(root));
 
-            // Show the new stage
+
             stage.show();
 
-            // Close the current window
+
             ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
 
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the exception properly in your application
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -221,16 +221,16 @@ public class CategorieAssuranceController {
 
     public void goToFrontCATEGORIEButtonClicked(ActionEvent actionEvent) {
         try {
-            // Load the Assurance GUI FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FrontCategorieGUI.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the Assurance GUI
+
             Stage stage = new Stage();
             stage.setTitle("Categorie Form");
             stage.setScene(new Scene(root));
 
-            // Show the new stage
+
             stage.show();
 
 

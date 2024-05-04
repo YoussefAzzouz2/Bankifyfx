@@ -1,5 +1,5 @@
 package controllers;
-
+import org.controlsfx.control.Notifications;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import javafx.collections.ObservableList;
@@ -25,8 +26,17 @@ import utils.DatabaseConnector;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import models.EmailSender;
+
+import javax.mail.MessagingException;
+
+
 public class AgenceController {
 
+    public TextField recipientTextField;
+    public TextArea bodyTextArea;
+    @FXML
+    private PieChart agencePieChart;
     @FXML
     private TableView<Agence> agenceTable;
 
@@ -48,6 +58,28 @@ public class AgenceController {
     @FXML
     void initialize() {
         showAgence(null);
+        loadAgenceTypeDistribution();
+    }
+
+    private void loadAgenceTypeDistribution() {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String sql = "SELECT nom_agence, COUNT(*) AS frequency FROM agence GROUP BY nom_agence";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String nomAgence = rs.getString("nom_agence");
+                int frequency = rs.getInt("frequency");
+                pieChartData.add(new PieChart.Data(nomAgence, frequency));
+            }
+
+            agencePieChart.setData(pieChartData);
+            agencePieChart.setPrefSize(350, 400);
+        } catch (SQLException e) {
+            showAlert("Error loading pie chart data: " + e.getMessage());
+        }
     }
 
     @FXML
@@ -70,6 +102,7 @@ public class AgenceController {
         if (!isValidEmail(emailAgence)) { // Check if emailAgence is a valid email
             showAlert("Invalid email format.");
             return;
+
         }
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
@@ -86,8 +119,9 @@ public class AgenceController {
                 int id = rs.getInt(1);
                 Agence newAgence = new Agence(id, nomAgence, emailAgence, telAgence);
                 agenceTable.getItems().add(newAgence);
+                loadAgenceTypeDistribution();
             }
-
+            showNotification("AGENCE AJOUTER AVEC SUCCES!!!");
             clearFields();
 
         } catch (SQLException e) {
@@ -100,7 +134,12 @@ public class AgenceController {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         return email.matches(regex);
     }
-
+    private void showNotification(String message) {
+        Notifications.create()
+                .title("Notification")
+                .text(message)
+                .showInformation();
+    }
 
 
     @FXML
@@ -121,7 +160,7 @@ public class AgenceController {
         } else {
             showAlert("Please select an agence.");
         }
-    }
+        loadAgenceTypeDistribution();  }
 
 
 
@@ -184,7 +223,7 @@ public class AgenceController {
                 stmt.setString(1, nomAgence);
                 stmt.setString(2, emailAgence);
                 stmt.setString(3, telAgence);
-                stmt.setInt(4, selectedAgence.getId());  // Assuming getId() returns the id of Agence
+                stmt.setInt(4, selectedAgence.getId());  //  getId() returns  id
 
                 stmt.executeUpdate();
 
@@ -197,7 +236,7 @@ public class AgenceController {
         } else {
             showAlert("Please select an agence.");
         }
-    }
+        loadAgenceTypeDistribution();}
 
 
 
@@ -216,17 +255,18 @@ public class AgenceController {
     }
 
 
+
     @FXML
     void goToCategorieButtonClicked(ActionEvent event) {
         try {
-            // Load CategorieAssuranceGUI.fxml
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/CategorieAssuranceGUI.fxml"));
             Parent root = loader.load();
 
-            // Get the stage from the action event
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Set the new scene
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -238,14 +278,14 @@ public class AgenceController {
 
     public void goToAssuranceeButtonClicked(ActionEvent actionEvent) {
         try {
-            // Load AssuranceGUI.fxml
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AssuranceGUI.fxml"));
             Parent root = loader.load();
 
-            // Get the stage from the action event
+            // Get  stage  f action event
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
-            // Set the new scene
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -257,32 +297,66 @@ public class AgenceController {
 
     public void goToFrontAGENCEButtonClicked(ActionEvent actionEvent) {
         try {
-            // Load the Assurance GUI FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FrontAgenceGUI.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the Assurance GUI
             Stage stage = new Stage();
             stage.setTitle("Agence Form");
             stage.setScene(new Scene(root));
 
-            // Show the new stage
+            // Close the new window only when the main application is closed
+            stage.setOnCloseRequest(event -> {
+                // Handle close request if needed
+            });
+
             stage.show();
-
-            // Close the current window if needed
-            // You can uncomment the following lines if you want to close the current window
-            ((Node) actionEvent.getSource()).getScene().getWindow().hide();
-
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle any IOException properly in your application
-        } }
+        }
+    }
+
 
     @FXML
     public void generatePDF(ActionEvent actionEvent) {
         PDFGenerator pdfGenerator = new PDFGenerator();
-        pdfGenerator.generatePDF(actionEvent, agenceTable, "Bankify Agence Table");  // Provide the title
+        pdfGenerator.generatePDF(actionEvent, agenceTable, "Bankify Agence Table");
     }
+
+
+    @FXML
+    void sendEmailButtonClicked(ActionEvent event) {
+        String recipient = recipientTextField.getText();
+        String subject = "Subject of the email"; // You can define subject dynamically if needed
+        String body = bodyTextArea.getText();
+
+        try {
+            EmailSender.sendEmail(recipient, subject, body);
+            showAlert("Email sent successfully.");
+        } catch (MessagingException e) {
+            showAlert("Error sending email: " + e.getMessage());
+        }
+    }
+
+    public void gotosendemail(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/emailGUI.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Email Form");
+            stage.setScene(new Scene(root));
+
+            // Close the new window only when the main application is closed
+            stage.setOnCloseRequest(event -> {
+                // Handle close request if needed
+            });
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }

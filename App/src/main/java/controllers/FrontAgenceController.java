@@ -35,27 +35,27 @@ public class FrontAgenceController {
     @FXML
     private ImageView frontimg;
 
-    // ObservableList to hold Agence objects
+
     private ObservableList<Agence> agences = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        // Initialize the TableView columns
+        // Init TableView col
         TableColumn<Agence, Integer> idCol = new TableColumn<>("ID");
         TableColumn<Agence, String> nomAgenceCol = new TableColumn<>("Nom Agence");
         TableColumn<Agence, String> emailAgenceCol = new TableColumn<>("Email Agence");
         TableColumn<Agence, String> telAgenceCol = new TableColumn<>("Tel Agence");
 
-        // Define how to get values from Agence properties
+
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nomAgenceCol.setCellValueFactory(new PropertyValueFactory<>("nomAgence"));
         emailAgenceCol.setCellValueFactory(new PropertyValueFactory<>("emailAgence"));
         telAgenceCol.setCellValueFactory(new PropertyValueFactory<>("telAgence"));
 
-        // Add columns to TableView
+        // Add columns  TableView
         agenceTable.getColumns().addAll(idCol, nomAgenceCol, emailAgenceCol, telAgenceCol);
 
-        // Populate TableView with data
+        // Pop TableView data
         try {
             Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
             String query = "SELECT * FROM Agence";
@@ -72,7 +72,7 @@ public class FrontAgenceController {
                 agences.add(agence);
             }
 
-            // Close the connections
+            // Close the conn
             rs.close();
             stmt.close();
             conn.close();
@@ -82,55 +82,55 @@ public class FrontAgenceController {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle exceptions properly in your application
+            //  exceptions
         }
     }
 
     @FXML
     public void goToFrontAssuranceButtonClicked(ActionEvent actionEvent) {
         try {
-            // Load the Assurance GUI FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FrontAssuranceGUI.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the Assurance GUI
+            // Create stage
             Stage stage = new Stage();
             stage.setTitle("Assurance Form");
             stage.setScene(new Scene(root));
 
-            // Show the new stage
+
             stage.show();
 
-            // Close the current window if needed
-            // You can uncomment the following lines if you want to close the current window
+            // Close window if needed
+
              ((Node) actionEvent.getSource()).getScene().getWindow().hide();
 
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle any IOException properly in your application
+            // Handle IOException
         }
     }
 
     public void goToFrontCategorieButtonClicked(ActionEvent actionEvent) {
         try {
-            // Load the FrontAgence GUI FXML file
+            // Load  FrontAgence
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FrontCategorieGUI.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the FrontAgence GUI
+            // Create stage
             Stage stage = new Stage();
             stage.setTitle("Front Categorie");
             stage.setScene(new Scene(root));
 
-            // Show the new stage
+
             stage.show();
 
-            // Close the current window
+            // Close  window
             ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
 
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the exception properly in your application
+            // Handle the exception
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);

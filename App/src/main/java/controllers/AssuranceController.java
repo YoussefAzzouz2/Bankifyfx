@@ -1,11 +1,14 @@
 package controllers;
 
+import org.controlsfx.control.Notifications;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.fxml.Initializable;
@@ -62,11 +65,13 @@ public class AssuranceController {
     @FXML
     private TableColumn<Assurance, String> infoAssuranceColumn;
 
-
+    @FXML
+    private PieChart assurancePieChart;
     // Database connection details
     private static final String DB_URL = "jdbc:mysql://127.0.0.1/bankify";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
+
 
     @FXML
     void addButton(ActionEvent event) {
@@ -78,11 +83,7 @@ public class AssuranceController {
 
         // Validate input
         if (type.length() < 3 || nomAssure.length() < 3 || nomBeneficiaire.length() < 3) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Input Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Fields must have at least 3 characters.");
-            alert.showAndWait();
+            showAlert("Fields must have at least 3 characters.");
             return;
         }
 
@@ -92,11 +93,7 @@ public class AssuranceController {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Input Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Montant prime must be a valid number greater than 0.");
-            alert.showAndWait();
+            showAlert("Montant prime must be a valid number greater than 0.");
             return;
         }
 
@@ -114,15 +111,31 @@ public class AssuranceController {
             if (rowsInserted > 0) {
                 // Refresh TableView by updating the existing data
                 assuranceTable.setItems(loadDataIntoTableView());
+                updatePieChart();
+
+                // Show notification
+                showNotification("ASSURANCE AJOUTER AVEC SUCCES!!!");
             }
         } catch (SQLException e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Error adding record: " + e.getMessage());
-            alert.showAndWait();
+            showAlert("Error adding record: " + e.getMessage());
         }
     }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showNotification(String message) {
+        Notifications.create()
+                .title("Notification")
+                .text(message)
+                .showInformation();
+    }
+
 
 
     private ObservableList<Assurance> loadDataIntoTableView() {
@@ -197,19 +210,19 @@ public class AssuranceController {
 
     public void goToCategorieeButtonClicked(ActionEvent actionEvent) {
         try {
-            // Load the FrontAgence GUI FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/CategorieAssuranceGUI.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the FrontAgence GUI
+            // Create  stage
             Stage stage = new Stage();
             stage.setTitle("Categorie Assurance");
             stage.setScene(new Scene(root));
 
-            // Show the new stage
+
             stage.show();
 
-            // Close the current window
+            // Close  window
             ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
 
         } catch (IOException e) {
@@ -321,8 +334,9 @@ public class AssuranceController {
 
             int rowsUpdated = stmt.executeUpdate();
             if (rowsUpdated > 0) {
-                // Refresh TableView by updating the existing data
+                // Refresh TableView  updat existing data
                 assuranceTable.setItems(loadDataIntoTableView());
+                updatePieChart();
             }
         } catch (SQLException e) {
             Alert alert = new Alert(AlertType.ERROR);
@@ -335,7 +349,7 @@ public class AssuranceController {
 
     @FXML
     void deleteButton(ActionEvent event) {
-        // Get the selected item from the TableView
+        // Get  selected item  TableView
         Assurance selectedAssurance = assuranceTable.getSelectionModel().getSelectedItem();
 
         if (selectedAssurance == null) {
@@ -360,9 +374,9 @@ public class AssuranceController {
             int rowsDeleted = stmt.executeUpdate();
 
             if (rowsDeleted > 0) {
-                // Remove the selected item from the TableView
+                // Remove  selected  TableView
                 assuranceTable.getItems().remove(selectedAssurance);
-
+                updatePieChart();
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Success");
                 alert.setHeaderText(null);
@@ -387,19 +401,19 @@ public class AssuranceController {
     @FXML
     public void goToAgenceButtonClicked(ActionEvent event) {
         try {
-            // Load the Agence GUI FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AgenceGUI.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the Agence GUI
+
             Stage stage = new Stage();
             stage.setTitle("Agence Form");
             stage.setScene(new Scene(root));
 
-            // Show the new stage
+
             stage.show();
 
-            // Close the current window
+            // Close window
             ((Node) (event.getSource())).getScene().getWindow().hide();
 
         } catch (IOException e) {
@@ -415,19 +429,19 @@ public class AssuranceController {
     @FXML
     public void goToFrontAssuranceButtonClicked(ActionEvent event) {
         try {
-            // Load the FrontAssurance GUI FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FrontAssuranceGUI.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the FrontAssurance GUI
+
             Stage stage = new Stage();
             stage.setTitle("Front Assurance Form");
             stage.setScene(new Scene(root));
 
-            // Show the new stage
+
             stage.show();
 
-            // Close the current window
+
             ((Node) (event.getSource())).getScene().getWindow().hide();
 
         } catch (IOException e) {
@@ -441,6 +455,46 @@ public class AssuranceController {
     }
 
 
+    private void loadAssuranceTypeDistribution() {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String sql = "SELECT type_assurance, COUNT(*) AS frequency FROM assurance GROUP BY type_assurance";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String type = rs.getString("type_assurance");
+                int frequency = rs.getInt("frequency");
+                pieChartData.add(new PieChart.Data(type, frequency));
+            }
+
+            assurancePieChart.setData(pieChartData);
+            assurancePieChart.setPrefSize(350, 400);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }    @FXML
+    public void initialize() {
+        updatePieChart();
+    }
+    private void updatePieChart() {
+        assurancePieChart.getData().clear();
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String sql = "SELECT type_assurance, COUNT(*) AS count FROM assurance GROUP BY type_assurance";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String type = rs.getString("type_assurance");
+                int count = rs.getInt("count");
+                assurancePieChart.getData().add(new PieChart.Data(type, count));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception properly
+        }
+
+    }
 }
 

@@ -56,4 +56,24 @@
     -fx-min-width: 80px;
 }
 
+/* Style the pie chart */
+.chart {
+    -fx-background-color: #f0f0f0; /* Set background color */
+}
+
+/* Style the pie chart data labels */
+.chart-pie-label {
+    -fx-font-size: 12px; /* Set font size for labels */
+    -fx-fill: #333333; /* Set text color */
+}
+
+/* Style the pie chart data colors */
+.chart-pie {
+    /* Define colors for different sections */
+    -fx-pie-color-1: #ff0000;
+    -fx-pie-color-2: #00ff00;
+    -fx-pie-color-3: #0000ff;
+    /* Add more colors as needed */
+}
+
 

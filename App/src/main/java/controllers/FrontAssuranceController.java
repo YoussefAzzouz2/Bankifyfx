@@ -99,24 +99,24 @@ public class FrontAssuranceController {
     @FXML
     public void goToFrontAgenceButtonClicked(ActionEvent actionEvent) {
         try {
-            // Load the FrontAgence GUI FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FrontAgenceGUI.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the FrontAgence GUI
+
             Stage stage = new Stage();
             stage.setTitle("Front Agence");
             stage.setScene(new Scene(root));
 
-            // Show the new stage
+
             stage.show();
 
-            // Close the current window
+            // Close  window
             ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
 
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the exception properly in your application
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -127,24 +127,24 @@ public class FrontAssuranceController {
 
     public void goToFrontCategorieeButtonClicked(ActionEvent actionEvent) {
         try {
-            // Load the FrontAgence GUI FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FrontCategorieGUI.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the FrontAgence GUI
+
             Stage stage = new Stage();
             stage.setTitle("Front Categorie");
             stage.setScene(new Scene(root));
 
-            // Show the new stage
+
             stage.show();
 
-            // Close the current window
+            //clo win
             ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
 
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the exception properly in your application
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);

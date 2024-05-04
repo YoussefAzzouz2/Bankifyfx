@@ -9,10 +9,12 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.controlsfx.control.Notifications;
+import java.io.IOException;
+
+import javafx.scene.paint.Color;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import java.io.IOException;
-import javafx.scene.paint.Color;
 
 public class PDFGenerator {
 
@@ -33,10 +35,9 @@ public class PDFGenerator {
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.newLineAtOffset(25, 700);
 
-            // Add headers
             for (TableColumn<?, ?> column : tableView.getColumns()) {
                 contentStream.showText(column.getText());
-                contentStream.newLineAtOffset(100, 0);  // Fixed offset for headers
+                contentStream.newLineAtOffset(100, 0);
             }
 
             contentStream.newLineAtOffset(-100 * tableView.getColumns().size(), -20); // Adjust Y offset
@@ -47,7 +48,7 @@ public class PDFGenerator {
                     TableColumn<Object, ?> col = (TableColumn<Object, ?>) column;
                     String cellData = col.getCellData(item) != null ? col.getCellData(item).toString() : "";
                     contentStream.showText(cellData);
-                    contentStream.newLineAtOffset(100, 0); // Fixed offset for data cells
+                    contentStream.newLineAtOffset(100, 0);
                 }
                 contentStream.newLineAtOffset(-100 * tableView.getColumns().size(), -20); // Adjust Y offset
             }
@@ -57,19 +58,17 @@ public class PDFGenerator {
             e.printStackTrace();
         }
 
-        // Show alert after successful download
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("PDF Downloaded");
-        alert.setHeaderText(null);
-        alert.setContentText("PDF downloaded successfully!");
-        alert.showAndWait();
+        // Show notification
+        Notifications.create()
+                .title("PDF Downloaded")
+                .text("PDF downloaded successfully!")
+                .showInformation();
 
         try {
-            document.save(title + ".pdf");  // Use the provided title for filename
+            document.save(title + ".pdf");
             document.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-

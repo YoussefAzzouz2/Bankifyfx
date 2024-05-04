@@ -15,11 +15,11 @@ public class MainassuranceFX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Load the FXML file
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/back.fxml"));
         Scene scene = new Scene(loader.load());
 
-        // Set the title and scene for the primary stage
+
         primaryStage.setTitle("Bankify Assurance Page");
         primaryStage.setScene(scene);
         primaryStage.show();
