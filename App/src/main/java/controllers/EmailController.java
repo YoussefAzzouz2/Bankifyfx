@@ -50,10 +50,10 @@ public class EmailController {
         try {
             EmailSender.sendEmail(recipient, subject, body);
             showAlert("Email sent successfully.");
+            showNotification("E-mail ENVOYÉ AVEC SUCCÈS");
         } catch (MessagingException e) {
             showAlert("Error sending email: " + e.getMessage());
         }
-        showNotification("E-mail ENVOYÉ AVEC SUCCÈS");
     }
 
     private void showNotification(String message) {

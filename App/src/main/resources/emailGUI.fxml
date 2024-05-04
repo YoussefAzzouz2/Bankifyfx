@@ -10,12 +10,17 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EmailController">
-   <ImageView fitHeight="435.0" fitWidth="668.0" layoutX="-2.0">
+   <ImageView fitHeight="446.0" fitWidth="694.0" layoutX="-2.0">
       <image>
          <Image url="@DD.png" />
       </image>
    </ImageView>
-   <ImageView fitHeight="249.0" fitWidth="237.0" layoutX="406.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="190.0" fitWidth="241.0" layoutX="421.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@WW.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="104.0" fitWidth="102.0" layoutX="475.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@vv.png" />
       </image>

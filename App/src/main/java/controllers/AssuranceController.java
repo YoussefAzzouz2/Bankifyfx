@@ -158,7 +158,7 @@ public class AssuranceController {
                 data.add(assurance);
             }
 
-            // Assuming you have a TableView named assuranceTable
+
             assuranceTable.setItems(data);
 
         } catch (SQLException e) {

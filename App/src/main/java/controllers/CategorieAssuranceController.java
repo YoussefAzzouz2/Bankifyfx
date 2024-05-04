@@ -51,6 +51,8 @@ public class CategorieAssuranceController {
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
 
+
+
     @FXML
     void addcategorie(ActionEvent event) {
         String nomCategorie = nomcategorieTF.getText();
@@ -64,6 +66,29 @@ public class CategorieAssuranceController {
             return;
         }
 
+        // Check if the data already exists
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM categorie_assurance WHERE nom_categorie = ? AND description = ? AND TypeCouverture = ? AND agenceResponsable = ?")) {
+
+            stmt.setString(1, nomCategorie);
+            stmt.setString(2, description);
+            stmt.setString(3, typeCouverture);
+            stmt.setString(4, agenceResponsable);
+
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            int count = rs.getInt(1);
+
+            if (count > 0) {
+                showAlert("This category already exists!");
+                return;
+            }
+        } catch (SQLException e) {
+            showAlert("Error checking for existing category: " + e.getMessage());
+            return;
+        }
+
+        // If data does not exist, proceed to add
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO categorie_assurance (nom_categorie, description, TypeCouverture, agenceResponsable) VALUES (?, ?, ?, ?)")) {
 
@@ -74,14 +99,16 @@ public class CategorieAssuranceController {
 
             stmt.executeUpdate();
 
-            showAlert("Categorie added successfully!");
+            showAlert("Category added successfully!");
 
             showcategorie(null); // Refresh Table
 
         } catch (SQLException e) {
-            showAlert("Error adding categorie: " + e.getMessage());
+            showAlert("Error adding category: " + e.getMessage());
         }
     }
+
+
 
 
     @FXML
@@ -274,11 +301,13 @@ public class CategorieAssuranceController {
             if (file != null) {
                 ExcelGenerator.generateExcel(categorieTable.getItems(), file);
                 showAlert("Excel file generated successfully!");
+                Notifications.create().title("Notification").text("Excel file generated successfully!").showInformation();
             }
         } catch (IOException e) {
             showAlert("Error generating Excel file: " + e.getMessage());
         }
     }
+
 }
 
 
