@@ -46,6 +46,44 @@ public class FrontController   implements Initializable {
             }
 
     }
+    public void handleClicksFF(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Compte/showVirementF.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the FrontAgence GUI
+            Stage stage = new Stage();
+            stage.setTitle("Liste des comptes");
+            stage.setScene(new Scene(root));
+
+            // Show the new stage
+            stage.show();
+
+            // Close the current window
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void handleClicksFF1(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Compte/showCompteF.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the FrontAgence GUI
+            Stage stage = new Stage();
+            stage.setTitle("Liste des comptes");
+            stage.setScene(new Scene(root));
+
+            // Show the new stage
+            stage.show();
+
+            // Close the current window
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     private void demanderCredit(ActionEvent event) throws IOException {

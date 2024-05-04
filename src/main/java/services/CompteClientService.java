@@ -2,10 +2,11 @@ package services;
 
 import models.CompteClient;
 import utils.MyDatabase;
-
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CompteClientService implements IService<CompteClient> {
 
@@ -17,7 +18,7 @@ public class CompteClientService implements IService<CompteClient> {
 
     @Override
     public void add(CompteClient compteClient) throws SQLException {
-        String sql = "INSERT INTO compte_client (nom, prenom, rib,mail, tel, solde) VALUES (?, ?, ?, ? , ?, ?)";
+        String sql = "INSERT INTO compte_client (nom, prenom, rib,mail, tel, solde , sexe) VALUES (?, ?, ?, ? , ?, ? , ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, compteClient.getNom());
         preparedStatement.setString(2, compteClient.getPrenom());
@@ -25,6 +26,7 @@ public class CompteClientService implements IService<CompteClient> {
         preparedStatement.setString(4, compteClient.getMail());
         preparedStatement.setString(5, compteClient.getTel());
         preparedStatement.setFloat(6, compteClient.getSolde());
+        preparedStatement.setString(7, compteClient.getSexe());
         preparedStatement.executeUpdate();
 
         // Récupérer l'ID généré pour l'entité
@@ -38,7 +40,7 @@ public class CompteClientService implements IService<CompteClient> {
 
     @Override
     public void update(CompteClient compteClient) throws SQLException {
-        String sql = "UPDATE compte_client SET nom = ?, prenom = ?, rib = ?,mail = ? , tel = ?, solde = ? WHERE id = ?";
+        String sql = "UPDATE compte_client SET nom = ?, prenom = ?, rib = ?,mail = ? , tel = ?, solde = ? , sexe = ? WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, compteClient.getNom());
         preparedStatement.setString(2, compteClient.getPrenom());
@@ -46,7 +48,8 @@ public class CompteClientService implements IService<CompteClient> {
         preparedStatement.setString(4, compteClient.getMail());
         preparedStatement.setString(5, compteClient.getTel());
         preparedStatement.setFloat(6, compteClient.getSolde());
-        preparedStatement.setInt(7, compteClient.getId());
+        preparedStatement.setString(7, compteClient.getSexe());
+        preparedStatement.setInt(8, compteClient.getId());
         preparedStatement.executeUpdate();
     }
 
@@ -73,6 +76,7 @@ public class CompteClientService implements IService<CompteClient> {
             compteClient.setRib(rs.getString("rib"));
             compteClient.setTel(rs.getString("tel"));
             compteClient.setSolde(rs.getFloat("solde"));
+            compteClient.setSexe(rs.getString("sexe"));
             compteClients.add(compteClient);
         }
         return compteClients;
@@ -93,12 +97,33 @@ public class CompteClientService implements IService<CompteClient> {
             compteClient.setRib(resultSet.getString("rib"));
             compteClient.setTel(resultSet.getString("tel"));
             compteClient.setSolde(resultSet.getFloat("solde"));
+            compteClient.setSexe(resultSet.getString("sexe"));
             return compteClient;
         } else {
             return null;
         }
     }
 
+    public Map<String, Integer> getSexeStatistics() throws SQLException {
+        Map<String, Integer> sexeStatistics = new HashMap<>();
+
+        // Define the SQL query to count the number of accounts for each sexe category
+        String sql = "SELECT sexe, COUNT(*) AS count FROM compte_client GROUP BY sexe";
+
+        // Execute the query and process the results
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            // Iterate through the results and populate the map
+            while (resultSet.next()) {
+                String sexe = resultSet.getString("sexe");
+                int count = resultSet.getInt("count");
+                sexeStatistics.put(sexe, count);
+            }
+        }
+
+        return sexeStatistics;
+    }
     public List<CompteClient> getAllCompteClients() {
         List<CompteClient> compteClients = new ArrayList<>();
         String query = "SELECT * FROM compte_client";
@@ -124,4 +149,5 @@ public class CompteClientService implements IService<CompteClient> {
 
         return compteClients;
     }
+
 }

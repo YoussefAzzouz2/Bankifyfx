@@ -1,23 +1,40 @@
 package models;
 
-public class CompteClient {
-    private int id;
-    private String nom, prenom, rib, mail, tel;
-    private float solde;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-    public CompteClient(int id, String nom, String prenom, String rib, String mail, String tel, float solde) {
-        this.id = id;
+@Entity
+@Table(name = "compte_client")
+public class CompteClient {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private String nom;
+    private String prenom;
+    private String rib;
+    private String mail;
+    private String tel;
+    private float solde;
+    private  String sexe;
+    // Constructors
+    public CompteClient() {
+    }
+
+    public CompteClient(String nom, String prenom, String rib,String mail, String tel, float solde,String sexe) {
         this.nom = nom;
         this.prenom = prenom;
         this.rib = rib;
         this.mail = mail;
         this.tel = tel;
         this.solde = solde;
-    }
-    public CompteClient() {
-
+        this.sexe = sexe;
     }
 
+    // Getters and setters
     public int getId() {
         return id;
     }
@@ -49,7 +66,6 @@ public class CompteClient {
     public void setRib(String rib) {
         this.rib = rib;
     }
-
     public String getMail() {
         return mail;
     }
@@ -69,11 +85,17 @@ public class CompteClient {
     public float getSolde() {
         return solde;
     }
+    public String getSexe() {
+        return sexe;
+    }
 
     public void setSolde(float solde) {
         this.solde = solde;
     }
-
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+    // toString method for debugging
     @Override
     public String toString() {
         return "CompteClient{" +
@@ -84,6 +106,7 @@ public class CompteClient {
                 ", mail='" + mail + '\'' +
                 ", tel='" + tel + '\'' +
                 ", solde=" + solde +
+                ", sexe=" + sexe +
                 '}';
     }
 }

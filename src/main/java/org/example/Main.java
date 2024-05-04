@@ -5,9 +5,12 @@ import services.CarteService;
 
 import services.ServiceCredit;
 import services.TransactionService;
+import services.VirementService;
 
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 public class Main {
 
@@ -84,7 +87,7 @@ public class Main {
 
         ServiceCredit services = new ServiceCredit();
         try {
-            CompteClient client = new CompteClient(1,"Ghazouani","Samer","aaaaaaaaaaaa","aaaaaaaaaaaaaaaaa","+21628352443", 10000.0F);
+            CompteClient client=new CompteClient("Ghazouani","Samer","aaaaaaaaaaaa","aaaaaaaaaaaaaaaaa","+21628352443", 10000.0F,"femme");
             CategorieCredit categorie = new CategorieCredit(1,"prêt immobilier",10000.0,100000.0);
             Credit credit = new Credit(10,36,50000.0,new Date(),false,false,client,categorie);
             Remboursement remboursement = new Remboursement(31,40,100.0,700,new Date(),credit);
@@ -92,6 +95,7 @@ public class Main {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
     }
 
 

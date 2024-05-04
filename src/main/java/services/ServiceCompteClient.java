@@ -49,8 +49,10 @@ public class ServiceCompteClient implements IService1<CompteClient> {
             String mail = rs.getString("mail");
             String tel = rs.getString("tel");
             float solde = rs.getFloat("solde");
+            String sexe = rs.getString("sexe");
 
-            return new CompteClient(id, nom, prenom, rib, mail, tel, solde);
+
+            return new CompteClient( nom, prenom, rib, mail, tel, solde,sexe);
         } else {
             return null;
         }

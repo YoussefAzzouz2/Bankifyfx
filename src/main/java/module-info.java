@@ -8,6 +8,7 @@ module org.example {
     requires java.persistence;
     requires org.apache.pdfbox;
     requires twilio;
+    requires com.google.zxing;
 
 
     opens models to javafx.base;
@@ -20,6 +21,8 @@ module org.example {
     opens controllers.Cheques to javafx.fxml;
 
 
+
+    opens controllers.Compte to javafx.fxml;
     opens controllers.creditController to javafx.fxml;
     opens controllers.categorieCreditController to javafx.fxml;
     opens controllers.remboursementController to javafx.fxml;
