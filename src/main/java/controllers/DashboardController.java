@@ -99,6 +99,25 @@ public class DashboardController implements Initializable {
             }
 
     }
+    public void gotoassuranceback(ActionEvent actionEvent) {
+        try {
+            // Load AssuranceGUI.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Assurance/AssuranceGUI.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+
+            stage.setScene(new Scene(root));
+
+            // Show the new stage
+            stage.show();
+
+        } catch (IOException e) {
+            showAlert("Error loading AssuranceGUI: " + e.getMessage());
+        }}
+
+    private void showAlert(String s) {
+    }
     @FXML
     private void goToBack(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/back.fxml"));

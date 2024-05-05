@@ -54,8 +54,8 @@
             <!-- Menu: Assurances -->
             <Menu style="-fx-text-fill: purple;" text="Assurances">
                <items>
-                  <MenuItem style="-fx-text-fill: purple;" text="Souscrire Assurance" />
-                  <MenuItem style="-fx-text-fill: purple;" text="Résilier Assurance" />
+                  <MenuItem onAction="#goToFrontAssuranceeButtonClicked"  style="-fx-text-fill: purple;" text="ConsulterAssurance" />
+
                </items>
             </Menu>
          </menus>

@@ -87,6 +87,28 @@ public class addTransaction {
             throw new RuntimeException(e);
         }
     }
+    public void goToFrontAssuranceeButtonClicked(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Assurance/FrontAssuranceGUI.fxml"));
+            Parent root = loader.load();
+
+
+            Stage stage = new Stage();
+            stage.setTitle("Assurance Form");
+            stage.setScene(new Scene(root));
+
+            // Show the new stage
+            stage.show();
+
+            // Close  needed
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
     public void handleClicksFF1(ActionEvent actionEvent) {
         try {
 

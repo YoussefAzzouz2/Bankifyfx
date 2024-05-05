@@ -29,6 +29,28 @@ public class FrontController   implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         fillCheques(null); // Call fillCheques when the page is loaded
     }
+    public void goToFrontAssuranceeButtonClicked(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Assurance/FrontAssuranceGUI.fxml"));
+            Parent root = loader.load();
+
+
+            Stage stage = new Stage();
+            stage.setTitle("Assurance Form");
+            stage.setScene(new Scene(root));
+
+            // Show the new stage
+            stage.show();
+
+            // Close  needed
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
 
 
     @FXML

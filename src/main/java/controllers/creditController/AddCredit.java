@@ -2,6 +2,7 @@ package controllers.creditController;
 import controllers.categorieCreditController.GetCategorieCredit;
 import controllers.categorieCreditController.ListeCredits;
 import controllers.categorieCreditController.ModifCategorieCredit;
+import javafx.scene.Node;
 import models.CategorieCredit;
 import models.CompteClient;
 import models.Credit;
@@ -272,6 +273,28 @@ public class AddCredit {
             // Close the current window
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+    public void goToFrontAssuranceeButtonClicked(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Assurance/FrontAssuranceGUI.fxml"));
+            Parent root = loader.load();
+
+
+            Stage stage = new Stage();
+            stage.setTitle("Assurance Form");
+            stage.setScene(new Scene(root));
+
+            // Show the new stage
+            stage.show();
+
+            // Close  needed
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
         }
     }
     public void handleClicksFF1(ActionEvent actionEvent) {
