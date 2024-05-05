@@ -6,6 +6,7 @@ import controllers.remboursementController.GetRemboursementFront;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -60,6 +61,27 @@ public class GetCreditFront {
         Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+    @FXML
+    void signout(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/login.fxml"));
+            Parent root = loader.load();
+
+            // Get the reference to the current stage
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Create a new stage for the login screen
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Bankify");
+            stage.show();
+
+            // Close the current stage
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

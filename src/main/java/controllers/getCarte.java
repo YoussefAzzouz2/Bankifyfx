@@ -2,8 +2,10 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import models.Carte;
@@ -14,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import javafx.scene.chart.PieChart;
@@ -58,6 +61,33 @@ public class getCarte {
 
     @FXML
     private PieChart pieChart;
+    @FXML
+    private Button btnOverview;
+
+    @FXML
+    private Button btnOrders;
+
+    @FXML
+    private Button btnCustomers;
+
+    @FXML
+    private Button btnMenus;
+
+
+
+    @FXML
+    private Pane pnlCustomer;
+
+    @FXML
+    private Pane pnlOrders;
+
+    @FXML
+    private Pane pnlOverview;
+
+    @FXML
+    private Pane pnlMenus;
+
+
 
 
 
@@ -218,6 +248,76 @@ public class getCarte {
         }}
 
     private void showAlert(String s) {
+    }
+
+    public void handleClicks(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == btnCustomers) {
+            try {
+                // Load aff.fxml
+                FXMLLoader loader = new FXMLLoader();
+                URL affFXMLUrl = getClass().getResource("/User/aff.fxml");
+                loader.setLocation(affFXMLUrl);
+                Pane affPane = loader.load();
+
+                // Set the loaded pane as the background of pnlCustomer
+                pnlCustomer.getChildren().setAll(affPane.getChildren());
+                pnlCustomer.toFront();
+            } catch (IOException e) {
+                e.printStackTrace(); // Handle the exception appropriately
+            }
+        }
+        if (actionEvent.getSource() == btnMenus) {
+            pnlMenus.setStyle("-fx-background-color : #53639F");
+            pnlMenus.toFront();
+        }
+        if (actionEvent.getSource() == btnOverview) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/back.fxml"));
+                Parent root = loader.load();
+
+                // Get the reference to the current stage
+                Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+                // Create a new stage for the login screen
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Bankify");
+                stage.show();
+
+                // Close the current stage
+                currentStage.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if(actionEvent.getSource()==btnOrders)
+        {
+            pnlOrders.setStyle("-fx-background-color : #464F67");
+            pnlOrders.toFront();
+        }
+
+
+    }
+    @FXML
+    void Signout(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/login.fxml"));
+            Parent root = loader.load();
+
+            // Get the reference to the current stage
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Create a new stage for the login screen
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Bankify");
+            stage.show();
+
+            // Close the current stage
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void handleClicksFF1(ActionEvent actionEvent) {
         try {

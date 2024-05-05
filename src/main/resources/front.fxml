@@ -7,6 +7,7 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Button?>
 <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-image: url('./Background_front.jpg'); -fx-background-size: 100% 100%;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Front">
    <children>
        <ImageView fx:id="tf_image" fitHeight="732.0" fitWidth="1084.0" pickOnBounds="true" preserveRatio="true">
@@ -53,5 +54,7 @@
                </Menu>
            </menus>
        </MenuBar>
+       <Button fx:id="signoutBtn" layoutX="977.0" layoutY="661.0" mnemonicParsing="false" onAction="#signout" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: red;" styleClass="modern-button" text="Sign Out" />
+
    </children>
 </AnchorPane>

@@ -25,7 +25,7 @@ module org.example {
     opens controllers.Cheques to javafx.fxml;
 
 
-
+    opens controllers.User to javafx.fxml;
     opens controllers.Compte to javafx.fxml;
     opens controllers.creditController to javafx.fxml;
     opens controllers.categorieCreditController to javafx.fxml;

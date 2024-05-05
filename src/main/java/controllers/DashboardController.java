@@ -194,12 +194,13 @@ public class DashboardController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
     public void handleClicks(ActionEvent actionEvent) {
         if (actionEvent.getSource() == btnCustomers) {
             try {
                 // Load aff.fxml
                 FXMLLoader loader = new FXMLLoader();
-                URL affFXMLUrl = getClass().getResource("/aff.fxml");
+                URL affFXMLUrl = getClass().getResource("/User/aff.fxml");
                 loader.setLocation(affFXMLUrl);
                 Pane affPane = loader.load();
 
@@ -215,8 +216,24 @@ public class DashboardController implements Initializable {
             pnlMenus.toFront();
         }
         if (actionEvent.getSource() == btnOverview) {
-            pnlOverview.setStyle("-fx-background-color : #02030A");
-            pnlOverview.toFront();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/back.fxml"));
+                Parent root = loader.load();
+
+                // Get the reference to the current stage
+                Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+                // Create a new stage for the login screen
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Bankify");
+                stage.show();
+
+                // Close the current stage
+                currentStage.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         if(actionEvent.getSource()==btnOrders)
         {
@@ -229,7 +246,7 @@ public class DashboardController implements Initializable {
     @FXML
     void Signout(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/login.fxml"));
             Parent root = loader.load();
 
             // Get the reference to the current stage

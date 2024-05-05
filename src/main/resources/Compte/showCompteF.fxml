@@ -58,7 +58,7 @@
                 </Menu>
             </menus>
         </MenuBar>
-      <VBox fx:id="panel_scroll" layoutX="7.0" layoutY="41.0" prefHeight="679.0" prefWidth="1080.0">
+      <VBox fx:id="panel_scroll" layoutX="7.0" layoutY="41.0" prefHeight="620.0" prefWidth="1080.0">
          <children>
               <Button mnemonicParsing="false" onAction="#NewCompte" prefHeight="25.0" prefWidth="126.0" text="Ajouter un Compte" />
               <!-- Fin de l'ajout du titre -->
@@ -80,5 +80,10 @@
               </TableView>
          </children>
       </VBox>
+
+        <Button fx:id="signoutBtn" layoutX="977.0" layoutY="661.0" mnemonicParsing="false" onAction="#signout" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: red;" styleClass="modern-button" text="Sign Out" />
+
     </children>
+
+
 </AnchorPane>

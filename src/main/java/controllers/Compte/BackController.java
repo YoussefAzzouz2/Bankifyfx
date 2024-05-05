@@ -152,7 +152,7 @@ public class BackController {
     @FXML
     void Signout(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/login.fxml"));
             Parent root = loader.load();
 
             // Get the reference to the current stage

@@ -97,5 +97,7 @@
                     <Button layoutX="488.0" layoutY="451.0" mnemonicParsing="false" onAction="#generatePDF" prefHeight="30.0" prefWidth="116.0" style="-fx-background-color: #fbe6de; -fx-text-fill: purple;" text="Generate PDF" />
          </children>
       </Pane>
+        <Button fx:id="signoutBtn" layoutX="977.0" layoutY="661.0" mnemonicParsing="false" onAction="#signout" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: red;" styleClass="modern-button" text="Sign Out" />
+
     </children>
 </AnchorPane>

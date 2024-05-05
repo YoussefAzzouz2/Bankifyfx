@@ -202,6 +202,27 @@ public class addTransaction {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    void signout(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/login.fxml"));
+            Parent root = loader.load();
+
+            // Get the reference to the current stage
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Create a new stage for the login screen
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Bankify");
+            stage.show();
+
+            // Close the current stage
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @FXML

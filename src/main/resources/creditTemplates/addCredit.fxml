@@ -90,5 +90,7 @@
          </font></Label>
       <ComboBox fx:id="categorieComboBox" layoutX="199.0" layoutY="276.0" prefWidth="150.0">
       </ComboBox>
+        <Button fx:id="signoutBtn" layoutX="977.0" layoutY="661.0" mnemonicParsing="false" onAction="#signout" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: red;" styleClass="modern-button" text="Sign Out" />
+
     </children>
 </AnchorPane>

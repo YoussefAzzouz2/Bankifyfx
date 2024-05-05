@@ -86,5 +86,7 @@
               <Button layoutX="107.0" layoutY="274.0" mnemonicParsing="false" onAction="#addTransaction" style="-fx-background-color: #FFC0CB; -fx-text-fill: black; -fx-border-color: #FFC0CB; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-weight: bold; -fx-padding: 8px 16px;" text="Ajouter" />
          </children>
       </Pane>
+        <Button fx:id="signoutBtn" layoutX="977.0" layoutY="661.0" mnemonicParsing="false" onAction="#signout" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: red;" styleClass="modern-button" text="Sign Out" />
+
     </children>
 </AnchorPane>

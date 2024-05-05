@@ -208,37 +208,26 @@ public class GetCreditAttente {
         }
     }
 
-    public void handleClicks(ActionEvent actionEvent) {
-        if (actionEvent.getSource() == btnCustomers) {
-            try {
-                // Load aff.fxml
-                FXMLLoader loader = new FXMLLoader();
-                URL affFXMLUrl = getClass().getResource("/aff.fxml");
-                loader.setLocation(affFXMLUrl);
-                Pane affPane = loader.load();
+    @FXML
+    void Signout(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/login.fxml"));
+            Parent root = loader.load();
 
-                // Set the loaded pane as the background of pnlCustomer
-                pnlCustomer.getChildren().setAll(affPane.getChildren());
-                pnlCustomer.toFront();
-            } catch (IOException e) {
-                e.printStackTrace(); // Handle the exception appropriately
-            }
-        }
-        if (actionEvent.getSource() == btnMenus) {
-            pnlMenus.setStyle("-fx-background-color : #53639F");
-            pnlMenus.toFront();
-        }
-        if (actionEvent.getSource() == btnOverview) {
-            pnlOverview.setStyle("-fx-background-color : #02030A");
-            pnlOverview.toFront();
-        }
-        if(actionEvent.getSource()==btnOrders)
-        {
-            pnlOrders.setStyle("-fx-background-color : #464F67");
-            pnlOrders.toFront();
-        }
+            // Get the reference to the current stage
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
+            // Create a new stage for the login screen
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Bankify");
+            stage.show();
 
+            // Close the current stage
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     void loadMacarte(ActionEvent event) {
@@ -355,5 +344,53 @@ public class GetCreditAttente {
         Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+    public void handleClicks(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == btnCustomers) {
+            try {
+                // Load aff.fxml
+                FXMLLoader loader = new FXMLLoader();
+                URL affFXMLUrl = getClass().getResource("/User/aff.fxml");
+                loader.setLocation(affFXMLUrl);
+                Pane affPane = loader.load();
+
+                // Set the loaded pane as the background of pnlCustomer
+                pnlCustomer.getChildren().setAll(affPane.getChildren());
+                pnlCustomer.toFront();
+            } catch (IOException e) {
+                e.printStackTrace(); // Handle the exception appropriately
+            }
+        }
+        if (actionEvent.getSource() == btnMenus) {
+            pnlMenus.setStyle("-fx-background-color : #53639F");
+            pnlMenus.toFront();
+        }
+        if (actionEvent.getSource() == btnOverview) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/back.fxml"));
+                Parent root = loader.load();
+
+                // Get the reference to the current stage
+                Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+                // Create a new stage for the login screen
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Bankify");
+                stage.show();
+
+                // Close the current stage
+                currentStage.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if(actionEvent.getSource()==btnOrders)
+        {
+            pnlOrders.setStyle("-fx-background-color : #464F67");
+            pnlOrders.toFront();
+        }
+
+
     }
 }
