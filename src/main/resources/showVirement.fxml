@@ -25,5 +25,6 @@
             </columns>
         </TableView>
       <Button layoutX="656.0" layoutY="16.0" mnemonicParsing="false" onAction="#NewVirement" text="Ajouter un Virement" />
+      <Button layoutX="103.0" layoutY="16.0" mnemonicParsing="false" onAction="#Excell" text="Generate Excell" />
     </children>
 </AnchorPane>

@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import org.controlsfx.control.Notifications;
+
 import javafx.util.Callback;
 import Models.Virement;
 import Services.VirementService;
@@ -13,9 +16,12 @@ import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import Utils.PDFGenerator;
+import Utils.ExcellGenerator;
 
 public class getVirement {
 
@@ -187,6 +193,29 @@ public class getVirement {
             ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    public void Excell(ActionEvent actionEvent) {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Excel File");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+            File file = fileChooser.showSaveDialog(new Stage());
+
+            if (file != null) {
+                ExcellGenerator.generateExcel(virementTable.getItems(), file);
+                showAlert("Excel file generated successfully!");
+                Notifications.create().title("Notification").text("Excel file generated successfully!").showInformation();
+            }
+        } catch (IOException e) {
+            showAlert("Error generating Excel file: " + e.getMessage());
         }
     }
 }
