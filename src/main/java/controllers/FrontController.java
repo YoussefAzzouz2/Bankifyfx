@@ -51,7 +51,47 @@ public class FrontController   implements Initializable {
 
         }
     }
+    public void openAjouterTransactionWindow(ActionEvent event) {
+        try {
+            // Load the FXML file for the Ajouter Transaction window
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/addTransaction.fxml"));
+            Parent root = loader.load();
 
+            // Get the current event's source
+            MenuItem menuItem = (MenuItem) event.getSource();
+
+            // Get the current scene and stage from the menu item
+            Scene scene = menuItem.getParentPopup().getOwnerWindow().getScene();
+            Stage stage = (Stage) scene.getWindow();
+
+            // Update the stage with the new scene for Ajouter Transaction
+            stage.setTitle("Ajouter Transaction");
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void openAfficherTransactionsWindow(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/getTransaction.fxml"));
+            Parent root = loader.load();
+
+            // Get the source of the event
+            MenuItem menuItem = (MenuItem) event.getSource();
+
+            // Get the scene from the source, and then get the stage from the scene
+            Scene scene = menuItem.getParentPopup().getOwnerWindow().getScene();
+            Stage stage = (Stage) scene.getWindow();
+
+            // Set the new scene on the existing stage
+            stage.setTitle("Afficher Transactions");
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception (e.g., log it)
+        }
+    }
 
     @FXML
     private void fillCheques(ActionEvent event) {
@@ -92,14 +132,10 @@ public class FrontController   implements Initializable {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Compte/showCompteF.fxml"));
             Parent root = loader.load();
-
-            // Create a new stage for the FrontAgence GUI
-            Stage stage = new Stage();
-            stage.setTitle("Liste des comptes");
+            MenuItem menuItem = (MenuItem) actionEvent.getSource();
+            Scene scene = menuItem.getParentPopup().getOwnerWindow().getScene();
+            Stage stage = (Stage) scene.getWindow();
             stage.setScene(new Scene(root));
-
-            // Show the new stage
-            stage.show();
 
             // Close the current window
         } catch (IOException e) {

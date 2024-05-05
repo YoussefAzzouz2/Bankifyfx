@@ -45,11 +45,7 @@
                 </Menu>
 
                 <!-- Chèque Menu -->
-                <Menu onAction="#fillCheques" style="-fx-text-fill: purple;" text="Chèque">
-                    <items>
-                        <MenuItem style="-fx-text-fill: purple;" text="Émettre Chèque" />
-                    </items>
-                </Menu>
+
 
                 <!-- Assurances Menu -->
                 <Menu style="-fx-text-fill: purple;" text="Assurances">

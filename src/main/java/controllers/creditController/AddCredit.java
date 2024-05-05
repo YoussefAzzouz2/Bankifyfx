@@ -302,14 +302,10 @@ public class AddCredit {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Compte/showCompteF.fxml"));
             Parent root = loader.load();
-
-            // Create a new stage for the FrontAgence GUI
-            Stage stage = new Stage();
-            stage.setTitle("Liste des comptes");
+            MenuItem menuItem = (MenuItem) actionEvent.getSource();
+            Scene scene = menuItem.getParentPopup().getOwnerWindow().getScene();
+            Stage stage = (Stage) scene.getWindow();
             stage.setScene(new Scene(root));
-
-            // Show the new stage
-            stage.show();
 
             // Close the current window
         } catch (IOException e) {

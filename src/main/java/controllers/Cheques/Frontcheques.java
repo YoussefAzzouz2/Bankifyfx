@@ -53,7 +53,7 @@ import static controllers.Cheques.cheques.list;
 public class Frontcheques {
 
 
-
+ public static int idC=1;
 
     @FXML
     private ComboBox<User> DestinationC1;
@@ -448,7 +448,7 @@ populateComboBox();
 
             a.setMontantC(MonatantC);
             a.setDestinationCID(selectedUser.getId());
-            a.setCompteID(1);
+            a.setCompteID(idC);
 
 
             c.add(a);
@@ -536,7 +536,7 @@ void addfill()
     public void action()throws SQLException
     {  Refresh.setOnAction(event -> {
         try {
-            afficher(c.getAll(1));
+            afficher(c.getAll(idC));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -568,7 +568,7 @@ void addfill()
 
         List.setOnAction(event -> {
             try {
-                afficher(c.getAll(1,1));
+                afficher(c.getAll(idC,1));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
@@ -600,7 +600,7 @@ void addfill()
 
         pdf.setOnAction(event -> {
             try {
-                generateChequeListPDF(c.getAll(1));
+                generateChequeListPDF(c.getAll(idC));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
@@ -680,18 +680,20 @@ void addfill()
 
             private final ImageView notificationBell1=new ImageView();
 
-            final File file1 = new File("C:\\Users\\Yassin\\Desktop\\bankify\\src\\main\\resources\\bankify\\Cheques\\Front\\Images\\star.png");
-            final File file2 = new File("C:\\Users\\Yassin\\Desktop\\bankify\\src\\main\\resources\\bankify\\Cheques\\Front\\Images\\star1.png");
+            final File file1 = new File("C:\\Users\\Yassin\\Desktop\\bankify -merge - -\\src\\main\\resources\\Cheques\\Front\\Images\\star.png");
+            final File file2 = new File("C:\\Users\\Yassin\\Desktop\\bankify -merge - -\\src\\main\\resources\\Cheques\\Front\\Images\\star1.png");
             final Image image1 = new Image(file1.toURI().toString());
             final Image image2 = new Image(file2.toURI().toString());
 
-            final File file = new File("C:\\Users\\Yassin\\Desktop\\bankify\\src\\main\\resources\\bankify\\Cheques\\Front\\Images\\bell.png");
+            final File file = new File("C:\\Users\\Yassin\\Desktop\\bankify -merge - -\\src\\main\\resources\\Cheques\\Front\\Images\\bell.png");
 
-            final File file11 = new File("C:\\Users\\Yassin\\Desktop\\bankify\\src\\main\\resources\\bankify\\Cheques\\Front\\Images\\notification.png");
+            final File file11 = new File("C:\\Users\\Yassin\\Desktop\\bankify -merge - -\\src\\main\\resources\\Cheques\\Front\\Images\\notification.png");
 
 
 
             final Image image = new Image(file.toURI().toString());
+
+
             final Image image11 = new Image(file11.toURI().toString());
 
 
