@@ -5,6 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import org.controlsfx.control.Notifications;
+
+import javafx.util.Callback;
 import models.Virement;
 import services.VirementService;
 import javafx.stage.Stage;
@@ -12,9 +16,12 @@ import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import utils.PDFGenerator;
+import utils.ExcellGenerator;
 
 public class getVirement {
 
@@ -150,7 +157,7 @@ public class getVirement {
     public void NewVirement(ActionEvent actionEvent) {
         try {
             // Load the FrontAgence GUI FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Compte/ajoutVirement.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajoutVirement.fxml"));
             Parent root = loader.load();
 
             // Create a new stage for the FrontAgence GUI
@@ -171,7 +178,7 @@ public class getVirement {
     public void NewwVirementF(ActionEvent actionEvent) {
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Compte/ajoutVirementF.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajoutVirementF.fxml"));
             Parent root = loader.load();
 
 
@@ -186,6 +193,29 @@ public class getVirement {
             ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    public void Excell(ActionEvent actionEvent) {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Excel File");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+            File file = fileChooser.showSaveDialog(new Stage());
+
+            if (file != null) {
+                ExcellGenerator.generateExcel(virementTable.getItems(), file);
+                showAlert("Excel file generated successfully!");
+                Notifications.create().title("Notification").text("Excel file generated successfully!").showInformation();
+            }
+        } catch (IOException e) {
+            showAlert("Error generating Excel file: " + e.getMessage());
         }
     }
 }
