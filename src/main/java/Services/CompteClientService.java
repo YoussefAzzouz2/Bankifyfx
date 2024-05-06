@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class CompteClientService implements IService<CompteClient> {
 
-    private Connection connection;
+    private static Connection connection;
 
     public CompteClientService() {
         connection = MyDataBase.getInstance().getConnection();
@@ -81,6 +81,31 @@ public class CompteClientService implements IService<CompteClient> {
             compteClients.add(compteClient);
         }
         return compteClients;
+    }
+    public static List<CompteClient> getAllCompte() {
+        List<CompteClient> Compte = new ArrayList<>();
+        String query = "SELECT * FROM compte_client";
+
+        try (Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                CompteClient compte = new CompteClient();
+                compte.setId(rs.getInt("id"));
+                compte.setNom(rs.getString("nom"));
+                compte.setPrenom(rs.getString("prenom"));
+                compte.setMail(rs.getString("mail"));
+                compte.setRib(rs.getString("rib"));
+                compte.setTel(rs.getString("tel"));
+                compte.setSolde(rs.getFloat("solde"));
+                compte.setSexe(rs.getString("sexe"));
+                Compte.add(compte);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Compte;
     }
 
     @Override

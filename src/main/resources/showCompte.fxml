@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-        <?import javafx.scene.control.*?>
-        <?import javafx.scene.image.*?>
-        <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.getCompteClient">
     <children>
@@ -11,8 +11,9 @@
                 <Image url="@img.png" />
             </image>
         </ImageView>
+        <TextField fx:id="tfrecherche" layoutX="112.0" layoutY="58.0" onAction="#recherche_avance" prefWidth="200" promptText="Search..." />
         <Label layoutX="212" layoutY="5" style="-fx-font-size: 20px; -fx-text-fill: #ffffff; -fx-font-weight: bold;" text="Liste des comptes Clients" />
-        <TableView fx:id="compteClientTable" layoutY="55.0" prefHeight="268.0" prefWidth="800.0" style="-fx-background-color: #fbe6de;">
+        <TableView fx:id="compteClientTable" layoutY="92.0" prefHeight="239.0" prefWidth="800.0" style="-fx-background-color: #fbe6de;">
             <columns>
                 <TableColumn fx:id="nomColumn" prefWidth="87.0" text="Nom" />
                 <TableColumn fx:id="prenomColumn" prefWidth="132.0" text="Prénom" />
@@ -21,9 +22,10 @@
                 <TableColumn fx:id="telColumn" prefWidth="98.0" text="Tel" />
                 <TableColumn fx:id="soldeColumn" prefWidth="108.0" text="Solde" />
                 <TableColumn fx:id="sexeColumn" prefWidth="100.0" text="Sexe" />
+                <TableColumn fx:id="qrCodeColumn" prefWidth="120" text="QR Code" />
                 <TableColumn fx:id="modifyColumn" prefWidth="108.0" text="Modifier" />
                 <TableColumn fx:id="deleteColumn" prefWidth="98.0" text="Supprimer" />
-                <TableColumn fx:id="qrCodeColumn" prefWidth="100" text="QR Code" />
+
             </columns>
         </TableView>
         <Button layoutX="478.0" layoutY="7.0" mnemonicParsing="false" onAction="#NewCompte" text="Ajouter un Compte" />

@@ -16,7 +16,7 @@
         <!-- Fin de l'ajout du titre -->
         <TableView fx:id="virementTable" layoutX="170.0" layoutY="63.0" prefHeight="355.0" prefWidth="596.0" style="-fx-background-color: #fbe6de;">
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="57.0" text="ID" />
+
                 <TableColumn fx:id="compteSourceColumn" prefWidth="87.0" text="Compte Source" />
                 <TableColumn fx:id="compteDestinationColumn" prefWidth="132.0" text="Compte Destination" />
                 <TableColumn fx:id="montantColumn" prefWidth="93.0" text="Montant" />

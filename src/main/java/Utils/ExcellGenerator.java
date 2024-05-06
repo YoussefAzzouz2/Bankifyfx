@@ -48,11 +48,12 @@ public class ExcellGenerator {
         // Populate data rows
         for (int i = 0; i < data.size(); i++) {
             Virement virement = data.get(i);
-            Row row = sheet.createRow(i + 2); // Data rows start from index 2
-            row.createCell(0).setCellValue(virement.getCompte_source());
-            row.createCell(1).setCellValue(virement.getCompte_destination());
-            row.createCell(2).setCellValue(virement.getMontant());
-
+            if (virement != null) {
+                Row row = sheet.createRow(i + 2); // Data rows start from index 2
+                row.createCell(0).setCellValue(virement.getCompte_source());
+                row.createCell(1).setCellValue(virement.getCompte_destination());
+                row.createCell(2).setCellValue(virement.getMontant());
+            }
         }
 
         // Auto-size columns

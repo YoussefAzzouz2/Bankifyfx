@@ -9,6 +9,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,9 +29,9 @@ import Utils.Statistics;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static java.time.zone.ZoneRulesProvider.refresh;
 
 public class getCompteClient {
 
@@ -78,6 +79,9 @@ public class getCompteClient {
     private Label otherCountLabel;
     @FXML
     private TableColumn<CompteClient, ImageView> qrCodeColumn;
+
+    @FXML
+    private  TextField tfrecherche;
 
     @FXML
     public void initialize() {
@@ -160,7 +164,49 @@ public class getCompteClient {
 
         loadData();
     }
+    private void refresh(Set<CompteClient> compte) {
+        // Convert the Set of Cartes to an ObservableList
+        ObservableList<CompteClient> observableCartes = FXCollections.observableArrayList(compte);
 
+        // Update the TableView with the new data
+        compteClientTable.setItems(observableCartes);
+
+        // If you're using a ComboBox for sorting criteria and want to refresh its selection, you can do that here
+        // Example: if you want to clear the ComboBox selection
+
+    }
+    public void recherche_avance(){
+
+
+        Set<CompteClient> CompteClientSet = new HashSet<>(CompteClientService.getAllCompte());
+
+        // Refresh the view with the set of Cartes
+        refresh(CompteClientSet);
+        ObservableList<CompteClient> data= FXCollections.observableArrayList(CompteClientService.getAllCompte());
+        FilteredList<CompteClient> filteredList=new FilteredList<>(data, c->true);
+        tfrecherche.textProperty().addListener((observable,oldValue,newValue)->{
+            filteredList.setPredicate(c->{
+                if(newValue.isEmpty()|| newValue==null){
+                    return true;
+                }
+                if(c.getNom().contains(newValue)){
+                    return true;
+                }
+                else if(c.getPrenom().contains(newValue)){
+                    return true;
+                }
+                else if(c.getRib().contains(newValue)){
+                    return true;
+                }
+
+                else{
+                    return false;
+                }
+            });
+
+            refresh(new HashSet<>(filteredList));
+        });
+    }
 
     private void handleModify(CompteClient compteClient) {
         try {

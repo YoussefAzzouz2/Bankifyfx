@@ -57,7 +57,7 @@ public class getVirement {
     @FXML
     public void initialize() {
         // Configure table columns
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+       // idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         compteSourceColumn.setCellValueFactory(new PropertyValueFactory<>("compte_source"));
         compteDestinationColumn.setCellValueFactory(new PropertyValueFactory<>("compte_destination"));
         montantColumn.setCellValueFactory(new PropertyValueFactory<>("montant"));
