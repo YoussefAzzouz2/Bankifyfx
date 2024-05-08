@@ -109,7 +109,8 @@ public class LoginController {
                 if (user.isVerified()) {
                     if (user.getIsActive()) { // Check if the user account is active
                         showAlert("Success", "Vous êtes connecté avec succès.");
-                        navigateToMainScreen(event, user.getRole());
+                        navigateToMainScreen(event, "client", user);
+
                     } else {
                         showAlert("Account Deactivated", "Votre compte est désactivé. Veuillez contacter un administrateur.");
                     }
@@ -148,7 +149,11 @@ public class LoginController {
                 serviceUser.setVerified(email, true); // Assuming you have a method to update user's verified status
 
                 showAlert("Success", "Vous êtes connecté avec succès.");
-                navigateToMainScreen(event, "client");
+                User authenticatedUser = serviceUser.getUserByEmail(email); // Replace this with your actual method to get user by email
+
+                // Navigate to the main screen (FrontController) with user information
+                navigateToMainScreen(event, "client", authenticatedUser);
+
             } else {
                 showAlert("Error", "Le code de vérification est incorrect.");
             }
@@ -157,11 +162,13 @@ public class LoginController {
         }
     }
 
-    private void navigateToMainScreen(ActionEvent event, String role) {
+    private void navigateToMainScreen(ActionEvent event, String role,User user) {
         String mainScreenPath = role.equalsIgnoreCase("admin") ? "/back.fxml" : "/front.fxml";
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(mainScreenPath));
             Parent root = loader.load();
+            FrontController frontController = loader.getController();
+            frontController.setCurrentUser(user);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Bankify");

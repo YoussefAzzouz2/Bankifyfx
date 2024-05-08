@@ -41,6 +41,11 @@
             <MenuItem text="Souscrire Assurance" />
             <MenuItem text="Résilier Assurance" />
         </Menu>
+        <Menu text="Profile">
+            <items>
+                <MenuItem text="Edit Profile" onAction="#goToProfileButtonClicked" />
+            </items>
+        </Menu>
 
     </MenuBar>
     <Button fx:id="signoutBtn" layoutX="669.0" layoutY="475.0" mnemonicParsing="false" onAction="#signout" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: red;" styleClass="modern-button" text="Sign Out" />

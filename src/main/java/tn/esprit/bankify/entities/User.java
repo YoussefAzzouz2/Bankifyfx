@@ -14,11 +14,12 @@ public class User {
     private boolean verified;
     private String role;
     private boolean isActive;
+    private String picture;
 
 
     public Button supprimer;
 
-    public User(int id, String nom, String prenom, String email, String password, Date dateNaissance, String genre, boolean verified,String role,boolean isActive) {
+    public User(int id, String nom, String prenom, String email, String password, Date dateNaissance, String genre, boolean verified,String role,boolean isActive,String picture) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -29,6 +30,7 @@ public class User {
         this.verified = verified;
         this.role = role;
         this.isActive = isActive;
+        this.picture= picture;
     }
 
     public Button getSupprimer() {
@@ -142,6 +144,9 @@ public class User {
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
+
+    public String getPicture() { return picture; }
+    public void setPicture(String picture) { this.picture = picture; }
 
     @Override
     public String toString() {

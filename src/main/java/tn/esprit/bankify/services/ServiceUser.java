@@ -41,23 +41,23 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void Modifier(User u) {
-        String req = "UPDATE user SET nom=?, prenom=?, email=?, dateNaissance=?, genre=? WHERE id=?";
+        String req = "UPDATE user SET nom=?, prenom=?, email=?, dateNaissance=?, genre=?, picture=? WHERE id=?";
         try {
-
             PreparedStatement preparedStatement = connection.prepareStatement(req);
             preparedStatement.setString(1, u.getNom());
             preparedStatement.setString(2, u.getPrenom());
             preparedStatement.setString(3, u.getEmail());
             preparedStatement.setDate(4, new java.sql.Date(u.getDateNaissance().getTime()));
             preparedStatement.setString(5, u.getGenre());
-            preparedStatement.setInt(6, u.getId());
+            preparedStatement.setString(6, u.getPicture()); // Set the picture attribute
+            preparedStatement.setInt(7, u.getId());
             preparedStatement.executeUpdate();
             System.out.println("User modifié");
         } catch (SQLException ex) {
             System.out.println(ex);
-
         }
     }
+
 
     @Override
     public void Supprimer(User u) {
@@ -200,9 +200,10 @@ public class ServiceUser implements IService<User> {
                 boolean verified = resultSet.getBoolean("verified");
                 String role = resultSet.getString("role");
                 boolean isActive = resultSet.getBoolean("isActive");
+                String picture = resultSet.getString("picture");
                 // Additional fields to fetch from database as needed
 
-                return new User(id, nom, prenom, email, password, dateNaissance, genre,verified,role,isActive);
+                return new User(id, nom, prenom, email, password, dateNaissance, genre,verified,role,isActive,picture);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -256,6 +257,32 @@ public class ServiceUser implements IService<User> {
         } catch (SQLException e) {
             System.out.println("Error updating user account status: " + e.getMessage());
         }
+    }
+    public User getUserByEmail(String email) {
+        String query = "SELECT * FROM user WHERE email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                // User found, return user object
+                int id = resultSet.getInt("id");
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                String password = resultSet.getString("password");
+                Date dateNaissance = resultSet.getDate("dateNaissance");
+                String genre = resultSet.getString("genre");
+                boolean verified = resultSet.getBoolean("verified");
+                String role = resultSet.getString("role");
+                boolean isActive = resultSet.getBoolean("isActive");
+                String picture = resultSet.getString("picture");
+
+                // Create and return the user object
+                return new User(id, nom, prenom, email, password, dateNaissance, genre, verified, role, isActive,picture);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // User not found
     }
 
 }
