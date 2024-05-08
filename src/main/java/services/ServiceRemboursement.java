@@ -2,6 +2,7 @@ package services;
 
 import entities.Credit;
 import entities.Remboursement;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import utils.MyDatabase;
 import java.text.SimpleDateFormat;
 import java.sql.*;
@@ -151,25 +152,79 @@ public class ServiceRemboursement implements IService<Remboursement> {
         try {
             PDDocument document = new PDDocument();
             PDPage page = new PDPage();
+            PDRectangle pageSize = page.getMediaBox();
             document.addPage(page);
-            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+            String title="Réçu de remboursement";
+            try (PDPageContentStream contentStream = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.OVERWRITE, true)) {
+                contentStream.setNonStrokingColor(new Color(128, 0, 128));
+                contentStream.addRect(0, 0, pageSize.getWidth(), pageSize.getHeight());
+                contentStream.fill();
+                float titleFontSize = 32;
+                float titleWidth = PDType1Font.HELVETICA_BOLD.getStringWidth(title) / 1000 * titleFontSize;
+                float titleX = (pageSize.getWidth() - titleWidth) / 2;
+                contentStream.setNonStrokingColor(new Color(207, 135, 196));
+                contentStream.beginText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, titleFontSize);
+                contentStream.newLineAtOffset(titleX, 730);
+                contentStream.showText(title);
+                contentStream.endText();
+
+                float boxWidth = 500;
+                float boxHeight = 200;
+                float boxX =60;
+                float boxY = 480;
+                float cornerRadius = 15;
+                contentStream.setNonStrokingColor(Color.WHITE);
+                contentStream.moveTo(boxX + cornerRadius, boxY);
+                contentStream.lineTo(boxX + boxWidth - cornerRadius, boxY);
+                contentStream.curveTo(boxX + boxWidth - cornerRadius / 2, boxY, boxX + boxWidth, boxY + cornerRadius / 2, boxX + boxWidth, boxY + cornerRadius);
+                contentStream.lineTo(boxX + boxWidth, boxY + boxHeight - cornerRadius);
+                contentStream.curveTo(boxX + boxWidth, boxY + boxHeight - cornerRadius / 2, boxX + boxWidth - cornerRadius / 2, boxY + boxHeight, boxX + boxWidth - cornerRadius, boxY + boxHeight);
+                contentStream.lineTo(boxX + cornerRadius, boxY + boxHeight);
+                contentStream.curveTo(boxX + cornerRadius / 2, boxY + boxHeight, boxX, boxY + boxHeight - cornerRadius / 2, boxX, boxY + boxHeight - cornerRadius);
+                contentStream.lineTo(boxX, boxY + cornerRadius);
+                contentStream.curveTo(boxX, boxY + cornerRadius / 2, boxX + cornerRadius / 2, boxY, boxX + cornerRadius, boxY);
+                contentStream.closeAndFillAndStroke();
+
+                contentStream.setNonStrokingColor(new Color(128, 0, 128));
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(165, 625);
+                contentStream.showText("Numéro de Remboursement: ");
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText("Numéro de Crédit: ");
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText("Montant Remboursé: ");
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText("Montant Restant: ");
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText("Date Remboursement: ");
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText("Durée Restante: ");
+                contentStream.endText();
+
+                contentStream.setNonStrokingColor(Color.BLACK);
+                contentStream.setFont(PDType1Font.HELVETICA, 10);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(395, 625);
+                contentStream.showText(String.valueOf(remboursement.getId()));
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText(String.valueOf(remboursement.getCredit().getId()));
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText(String.valueOf(remboursement.getMontantR()));
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText(String.valueOf(remboursement.getMontantRestant()));
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText(String.valueOf(remboursement.getDateR()));
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText(String.valueOf(remboursement.getDureeRestante()));
+                contentStream.endText();
+
+                contentStream.setNonStrokingColor(new Color(207, 135, 196));
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-                contentStream.newLineAtOffset(100, 700);
-                contentStream.showText("Réçu de remboursement");
-                contentStream.newLineAtOffset(0, -20);
-                contentStream.setFont(PDType1Font.HELVETICA, 10);
-                contentStream.showText("Id Remboursement: " + remboursement.getId());
-                contentStream.newLineAtOffset(0, -15);
-                contentStream.showText("Id Crédit: " + remboursement.getCredit().getId());
-                contentStream.newLineAtOffset(0, -15);
-                contentStream.showText("Montant Remboursé: " + remboursement.getMontantR());
-                contentStream.newLineAtOffset(0, -15);
-                contentStream.showText("Montant Restant: " + remboursement.getMontantRestant());
-                contentStream.newLineAtOffset(0, -15);
-                contentStream.showText("Date Remboursement: " + remboursement.getDateR());
-                contentStream.newLineAtOffset(0, -15);
-                contentStream.showText("Durée Restante: " + remboursement.getDureeRestante());
+                contentStream.newLineAtOffset(510, 440);
+                contentStream.showText("Signer");
                 contentStream.endText();
             }
             document.save("remboursement_"+remboursement.getId()+".pdf");
