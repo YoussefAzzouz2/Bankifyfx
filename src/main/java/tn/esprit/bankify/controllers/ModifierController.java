@@ -94,7 +94,7 @@ public class ModifierController {
             user.setDateNaissance(utilDate);
 
             // Update the user using the service
-            serviceUser.Modifier(user);
+            serviceUser.Modifier1(user);
             // Call the listener to notify about user modification
             if (onUserModifiedListener != null) {
                 onUserModifiedListener.onUserModified(user);

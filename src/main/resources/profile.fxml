@@ -53,6 +53,9 @@
                     </items>
                 </Menu>
                 <Menu text="Profile">
+                    <items>
+                        <MenuItem text="Edit Profile"  />
+                    </items>
                 </Menu>
             </menus>
         </MenuBar>

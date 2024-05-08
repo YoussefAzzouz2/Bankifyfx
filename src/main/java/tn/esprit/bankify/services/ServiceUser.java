@@ -58,6 +58,24 @@ public class ServiceUser implements IService<User> {
         }
     }
 
+    public void Modifier1(User u) {
+        String req = "UPDATE user SET nom=?, prenom=?, email=?, dateNaissance=?, genre=? WHERE id=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(req);
+            preparedStatement.setString(1, u.getNom());
+            preparedStatement.setString(2, u.getPrenom());
+            preparedStatement.setString(3, u.getEmail());
+            preparedStatement.setDate(4, new java.sql.Date(u.getDateNaissance().getTime()));
+            preparedStatement.setString(5, u.getGenre());
+             // Set the picture attribute
+            preparedStatement.setInt(6, u.getId());
+            preparedStatement.executeUpdate();
+            System.out.println("User modifié");
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
 
     @Override
     public void Supprimer(User u) {
@@ -89,7 +107,7 @@ public class ServiceUser implements IService<User> {
     public ObservableList<User> afficherUtilisateurs() {
         ObservableList<User> users = FXCollections.observableArrayList();
         try {
-            String req = "SELECT * FROM user";
+            String req = "SELECT * FROM user WHERE role = 'client'";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(req);
             while (rs.next()) {
@@ -105,11 +123,11 @@ public class ServiceUser implements IService<User> {
                 users.add(user);
             }
         } catch (SQLException ex) {
-
-            System.out.println("liste::" + users);
+            System.out.println("Error fetching users: " + ex.getMessage());
         }
         return users;
     }
+
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
         try {

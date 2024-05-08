@@ -109,7 +109,7 @@ public class LoginController {
                 if (user.isVerified()) {
                     if (user.getIsActive()) { // Check if the user account is active
                         showAlert("Success", "Vous êtes connecté avec succès.");
-                        navigateToMainScreen(event, "client", user);
+                        navigateToMainScreen(event, user.getRole(), user);
 
                     } else {
                         showAlert("Account Deactivated", "Votre compte est désactivé. Veuillez contacter un administrateur.");
@@ -167,8 +167,9 @@ public class LoginController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(mainScreenPath));
             Parent root = loader.load();
-            FrontController frontController = loader.getController();
-            frontController.setCurrentUser(user);
+            if (mainScreenPath.equals("/front.fxml")) {FrontController frontController = loader.getController();
+                frontController.setCurrentUser(user);}
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Bankify");
