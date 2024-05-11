@@ -22,7 +22,8 @@
       <Label layoutX="50.0" layoutY="162.0" text="Mail:" textFill="#ffffff" />
       <Label layoutX="37.0" layoutY="200.0" text="Téléphone:" textFill="#ffffff" />
       <Label layoutX="46.0" layoutY="251.0" text="Solde:" textFill="#ffffff" />
-      <Label layoutX="46.0" layoutY="282.0" text="Genre:" textFill="#ffffff" />
+      <Label layoutX="349.0" layoutY="72.0" text="Type Compte:" textFill="#ffffff" />
+      <Label layoutX="350.0" layoutY="144.0" text="Pack Compte:" textFill="#ffffff" />
       <TextField fx:id="nomTF" layoutX="150.0" layoutY="24.0" />
       <TextField fx:id="prenomTF" layoutX="150.0" layoutY="68.0" />
       <TextField fx:id="ribTF" layoutX="150.0" layoutY="115.0" />
@@ -30,12 +31,29 @@
       <TextField fx:id="telTF" layoutX="150.0" layoutY="205.0" />
       <TextField fx:id="soldeTF" layoutX="150.0" layoutY="247.0" />
       <!-- Combo box for gender selection -->
-      <ComboBox fx:id="genderComboBox" layoutX="183.0" layoutY="278.0">
+
+      <!-- Combo box for selecting account type -->
+      <ComboBox fx:id="typeCompteComboBox" layoutX="485.0" layoutY="68.0">
          <items>
             <FXCollections fx:factory="observableArrayList">
-               <String fx:value="Male" />
-               <String fx:value="Female" />
-               <String fx:value="Other" />
+               <String fx:value="Compte à terme" />
+               <String fx:value="Compte courant" />
+               <String fx:value="Compte d'entreprise" />
+               <String fx:value="Compte d'épargne" />
+               <String fx:value="Compte d'épargne retraite" />
+               <String fx:value="Compte de paiement mobile" />
+            </FXCollections>
+         </items>
+      </ComboBox>
+      <!-- Combo box for selecting account package -->
+      <ComboBox fx:id="packCompteComboBox" layoutX="506.0" layoutY="140.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="Pack Confort" />
+               <String fx:value="Pack Essentiel" />
+               <String fx:value="Pack Jeunes" />
+               <String fx:value="Pack Premium" />
+               <String fx:value="Pack Séniors" />
             </FXCollections>
          </items>
       </ComboBox>

@@ -4,5 +4,6 @@
 <?import javafx.scene.chart.PieChart?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.stat">
-    <PieChart fx:id="pieChart" title="Card Type Distribution" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.bottomAnchor="10.0"/>
+    <PieChart fx:id="typeComptePieChart" title="Type Compte Distribution" layoutX="14.0" layoutY="14.0" prefHeight="372.0" prefWidth="472.0"/>
+    <PieChart fx:id="packComptePieChart" title="Pack Compte Distribution" layoutX="510.0" layoutY="14.0" prefHeight="372.0" prefWidth="472.0"/>
 </AnchorPane>

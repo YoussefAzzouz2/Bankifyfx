@@ -21,7 +21,8 @@
                 <TableColumn fx:id="mailColumn" prefWidth="104.0" text="Mail" />
                 <TableColumn fx:id="telColumn" prefWidth="98.0" text="Tel" />
                 <TableColumn fx:id="soldeColumn" prefWidth="108.0" text="Solde" />
-                <TableColumn fx:id="sexeColumn" prefWidth="100.0" text="Sexe" />
+                <TableColumn fx:id="typeCompteColumn" prefWidth="100.0" text="Type Compte" />
+                <TableColumn fx:id="packCompteColumn" prefWidth="100.0" text="Pack Compte" />
                 <TableColumn fx:id="qrCodeColumn" prefWidth="120" text="QR Code" />
                 <TableColumn fx:id="modifyColumn" prefWidth="108.0" text="Modifier" />
                 <TableColumn fx:id="deleteColumn" prefWidth="98.0" text="Supprimer" />
@@ -29,7 +30,7 @@
             </columns>
         </TableView>
         <Button layoutX="478.0" layoutY="7.0" mnemonicParsing="false" onAction="#NewCompte" text="Ajouter un Compte" />
-        <Button layoutX="31.0" layoutY="7.0" onAction="#showSexeStatistics" text="Afficher les statistiques" />
+        <Button layoutX="31.0" layoutY="7.0" onAction="#showCompteStatistics" text="Afficher les statistiques" />
         <Button layoutX="638.0" layoutY="6.0" mnemonicParsing="false" onAction="#generatePDF" prefHeight="28.0" prefWidth="116.0" style="-fx-background-color: #fbe6de; -fx-text-fill: purple;" text="Generate PDF" />
     </children>
 </AnchorPane>

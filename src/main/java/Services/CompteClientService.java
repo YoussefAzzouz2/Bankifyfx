@@ -19,7 +19,7 @@ public class CompteClientService implements IService<CompteClient> {
 
     @Override
     public void add(CompteClient compteClient) throws SQLException {
-        String sql = "INSERT INTO compte_client (nom, prenom, rib,mail, tel, solde , sexe) VALUES (?, ?, ?, ? , ?, ? , ?)";
+        String sql = "INSERT INTO compte_client (nom, prenom, rib,mail, tel, solde , type_compte, pack_compte) VALUES (?, ?, ?, ? , ?, ? , ?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, compteClient.getNom());
         preparedStatement.setString(2, compteClient.getPrenom());
@@ -27,7 +27,8 @@ public class CompteClientService implements IService<CompteClient> {
         preparedStatement.setString(4, compteClient.getMail());
         preparedStatement.setString(5, compteClient.getTel());
         preparedStatement.setFloat(6, compteClient.getSolde());
-        preparedStatement.setString(7, compteClient.getSexe());
+        preparedStatement.setString(7, compteClient.getType_compte());
+        preparedStatement.setString(8, compteClient.getPack_compte());
         preparedStatement.executeUpdate();
 
         // Récupérer l'ID généré pour l'entité
@@ -41,7 +42,7 @@ public class CompteClientService implements IService<CompteClient> {
 
     @Override
     public void update(CompteClient compteClient) throws SQLException {
-        String sql = "UPDATE compte_client SET nom = ?, prenom = ?, rib = ?,mail = ? , tel = ?, solde = ? , sexe = ? WHERE id = ?";
+        String sql = "UPDATE compte_client SET nom = ?, prenom = ?, rib = ?,mail = ? , tel = ?, solde = ? , type_compte = ?, pack_compte = ? WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, compteClient.getNom());
         preparedStatement.setString(2, compteClient.getPrenom());
@@ -49,8 +50,9 @@ public class CompteClientService implements IService<CompteClient> {
         preparedStatement.setString(4, compteClient.getMail());
         preparedStatement.setString(5, compteClient.getTel());
         preparedStatement.setFloat(6, compteClient.getSolde());
-        preparedStatement.setString(7, compteClient.getSexe());
-        preparedStatement.setInt(8, compteClient.getId());
+        preparedStatement.setString(7, compteClient.getType_compte());
+        preparedStatement.setString(8, compteClient.getPack_compte());
+        preparedStatement.setInt(9, compteClient.getId());
         preparedStatement.executeUpdate();
     }
 
@@ -77,7 +79,9 @@ public class CompteClientService implements IService<CompteClient> {
             compteClient.setRib(rs.getString("rib"));
             compteClient.setTel(rs.getString("tel"));
             compteClient.setSolde(rs.getFloat("solde"));
-            compteClient.setSexe(rs.getString("sexe"));
+            compteClient.setType_compte(rs.getString("type_compte"));
+            compteClient.setPack_compte(rs.getString("pack_compte"));
+
             compteClients.add(compteClient);
         }
         return compteClients;
@@ -98,7 +102,8 @@ public class CompteClientService implements IService<CompteClient> {
                 compte.setRib(rs.getString("rib"));
                 compte.setTel(rs.getString("tel"));
                 compte.setSolde(rs.getFloat("solde"));
-                compte.setSexe(rs.getString("sexe"));
+                compte.setType_compte(rs.getString("type_compte"));
+                compte.setPack_compte(rs.getString("pack_compte"));
                 Compte.add(compte);
             }
         } catch (SQLException e) {
@@ -123,18 +128,19 @@ public class CompteClientService implements IService<CompteClient> {
             compteClient.setRib(resultSet.getString("rib"));
             compteClient.setTel(resultSet.getString("tel"));
             compteClient.setSolde(resultSet.getFloat("solde"));
-            compteClient.setSexe(resultSet.getString("sexe"));
+            compteClient.setType_compte(resultSet.getString("type_compte"));
+            compteClient.setPack_compte(resultSet.getString("pack_compte"));
             return compteClient;
         } else {
             return null;
         }
     }
 
-    public Map<String, Integer> getSexeStatistics() throws SQLException {
-        Map<String, Integer> sexeStatistics = new HashMap<>();
+    public Map<String, Integer> getTypeStatistics() throws SQLException {
+        Map<String, Integer> typeStatistics = new HashMap<>();
 
-        // Define the SQL query to count the number of accounts for each sexe category
-        String sql = "SELECT sexe, COUNT(*) AS count FROM compte_client GROUP BY sexe";
+        // Define the SQL query to count the number of accounts for each type_compte category
+        String sql = "SELECT type_compte, COUNT(*) AS count FROM compte_client GROUP BY type_compte";
 
         // Execute the query and process the results
         try (Statement statement = connection.createStatement()) {
@@ -142,13 +148,36 @@ public class CompteClientService implements IService<CompteClient> {
 
             // Iterate through the results and populate the map
             while (resultSet.next()) {
-                String sexe = resultSet.getString("sexe");
+                String type = resultSet.getString("type_compte");
                 int count = resultSet.getInt("count");
-                sexeStatistics.put(sexe, count);
+                typeStatistics.put(type, count);
             }
         }
 
-        return sexeStatistics;
+        return typeStatistics;
     }
+
+
+    public Map<String, Integer> getPackStatistics() throws SQLException {
+        Map<String, Integer> packStatistics = new HashMap<>();
+
+        // Define the SQL query to count the number of accounts for each pack_compte category
+        String sql = "SELECT pack_compte, COUNT(*) AS count FROM compte_client GROUP BY pack_compte";
+
+        // Execute the query and process the results
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            // Iterate through the results and populate the map
+            while (resultSet.next()) {
+                String pack = resultSet.getString("pack_compte");
+                int count = resultSet.getInt("count");
+                packStatistics.put(pack, count);
+            }
+        }
+
+        return packStatistics;
+    }
+
 
 }

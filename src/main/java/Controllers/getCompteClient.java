@@ -22,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -41,6 +42,11 @@ public class getCompteClient {
     @FXML
     private TableView<CompteClient> compteClientTable;
 
+    @FXML
+    private TableColumn<CompteClient, String> typeCompteColumn;
+
+    @FXML
+    private TableColumn<CompteClient, String> packCompteColumn;
 
     @FXML
     private TableColumn<CompteClient, String> nomColumn;
@@ -60,8 +66,6 @@ public class getCompteClient {
     @FXML
     private TableColumn<CompteClient, Float> soldeColumn;
 
-    @FXML
-    private TableColumn<CompteClient, String> sexeColumn;
 
     @FXML
     private TableColumn<CompteClient, Void> modifyColumn;
@@ -91,7 +95,10 @@ public class getCompteClient {
         mailColumn.setCellValueFactory(new PropertyValueFactory<>("mail"));
         telColumn.setCellValueFactory(new PropertyValueFactory<>("tel"));
         soldeColumn.setCellValueFactory(new PropertyValueFactory<>("solde"));
-        sexeColumn.setCellValueFactory(new PropertyValueFactory<>("sexe"));
+        typeCompteColumn.setCellValueFactory(new PropertyValueFactory<>("type_compte"));
+        packCompteColumn.setCellValueFactory(new PropertyValueFactory<>("pack_compte"));
+
+
 
         modifyColumn.setCellFactory(new Callback<TableColumn<CompteClient, Void>, TableCell<CompteClient, Void>>() {
             @Override
@@ -242,57 +249,78 @@ public class getCompteClient {
         }
     }
 
-    public void showSexeStatistics() {
-        // Create a stage for the pie chart
+    public void showCompteStatistics() {
+        // Create a stage for the pie charts
         Stage stage = new Stage();
-        stage.setTitle("Sexe Statistics");
-
-        // Create an ObservableList for the PieChart data
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        stage.setTitle("Compte Statistics");
 
         try {
-            // Get the sexe statistics from the CompteClientService
-            Map<String, Integer> sexeStatistics = compteClientService.getSexeStatistics();
+            // Get the type_compte statistics from the CompteClientService
+            Map<String, Integer> typeStatistics = compteClientService.getTypeStatistics();
+            // Get the pack_compte statistics from the CompteClientService
+            Map<String, Integer> packStatistics = compteClientService.getPackStatistics();
 
-            // Populate the pie chart data from the statistics
-            for (Map.Entry<String, Integer> entry : sexeStatistics.entrySet()) {
-                String sexe = entry.getKey();
-                int count = entry.getValue();
-                // Create a pie chart data object
-                PieChart.Data data = new PieChart.Data(sexe, count);
-                // Add the data to the ObservableList
-                pieChartData.add(data);
+            // Create the PieCharts with the data
+            PieChart typePieChart = createPieChart("Type Compte Distribution", typeStatistics);
+            PieChart packPieChart = createPieChart("Pack Compte Distribution", packStatistics);
+
+            // Set colors for typePieChart
+            ObservableList<PieChart.Data> typeData = typePieChart.getData();
+            for (int i = 0; i < typeData.size(); i++) {
+                typeData.get(i).getNode().setStyle("-fx-pie-color: " + getColorHexString(i));
             }
+
+            // Set colors for packPieChart
+            ObservableList<PieChart.Data> packData = packPieChart.getData();
+            for (int i = 0; i < packData.size(); i++) {
+                packData.get(i).getNode().setStyle("-fx-pie-color: " + getColorHexString(i));
+            }
+
+            // Customize tooltips to display count when hovering over segments
+            customizePieChartTooltip(typePieChart);
+            customizePieChartTooltip(packPieChart);
+
+            // Create a layout pane to hold the PieCharts
+            HBox root = new HBox();
+            root.setSpacing(20);
+            root.getChildren().addAll(typePieChart, packPieChart);
+
+            // Create a scene with the root pane and set it on the stage
+            Scene scene = new Scene(root, 1000, 400);
+            stage.setScene(scene);
+
+            // Show the stage with the pie charts
+            stage.show();
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle exceptions as needed
         }
+    }
 
-        // Create the PieChart with the data
+    private PieChart createPieChart(String title, Map<String, Integer> statistics) {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        for (Map.Entry<String, Integer> entry : statistics.entrySet()) {
+            pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
+        }
         PieChart pieChart = new PieChart(pieChartData);
-        pieChart.setTitle("Sexe Distribution");
+        pieChart.setTitle(title);
+        pieChart.setMinWidth(400);
+        pieChart.setMaxHeight(300);
+        return pieChart;
+    }
 
-        // Customize tooltips to display count when hovering over segments
+    private String getColorHexString(int index) {
+        // Here you can define your own color scheme
+        String[] colors = {"#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"};
+        return colors[index % colors.length];
+    }
+    private void customizePieChartTooltip(PieChart pieChart) {
         for (PieChart.Data data : pieChart.getData()) {
             String countText = String.valueOf((int) data.getPieValue());
             Tooltip tooltip = new Tooltip(countText);
             Tooltip.install(data.getNode(), tooltip);
         }
-
-        // Add the PieChart to a layout pane
-        StackPane root = new StackPane();
-        root.getChildren().add(pieChart);
-
-        // Create a scene with the root pane and set it on the stage
-        Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene);
-
-        // Show the stage with the pie chart
-        stage.show();
     }
-
-
-
 
     public void NewCompte(ActionEvent actionEvent) {
         try {

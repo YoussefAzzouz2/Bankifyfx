@@ -33,8 +33,12 @@ public class AjoutCompte {
     @FXML
     private TextField soldeTF;
 
+
     @FXML
-    private ComboBox<String> genderComboBox; // Inject the ComboBox for gender
+    private ComboBox<String> typeCompteComboBox; // Inject the ComboBox for account type
+
+    @FXML
+    private ComboBox<String> packCompteComboBox; // Inject the ComboBox for account package
 
     @FXML
     private Button confirmButton;
@@ -47,10 +51,11 @@ public class AjoutCompte {
             String rib = ribTF.getText();
             String mail = mailTF.getText();
             String tel = telTF.getText();
-            String sexe = genderComboBox.getValue(); // Retrieve the selected gender
+            String type_compte = typeCompteComboBox.getValue(); // Retrieve the selected account type
+            String pack_compte = packCompteComboBox.getValue(); // Retrieve the selected account package
 
             // Validating non-empty fields
-            if (nom.isEmpty() || prenom.isEmpty() || rib.isEmpty() || mail.isEmpty() || tel.isEmpty() || soldeTF.getText().isEmpty() || sexe == null){
+            if (nom.isEmpty() || prenom.isEmpty() || rib.isEmpty() || mail.isEmpty() || tel.isEmpty() || soldeTF.getText().isEmpty() || type_compte == null || pack_compte == null){
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
                 return;
             }
@@ -82,8 +87,8 @@ public class AjoutCompte {
             // Parsing the float value for solde
             float solde = Float.parseFloat(soldeTF.getText());
 
-            // Adding the new compteClient
-            CompteClient compteClient = new CompteClient(nom, prenom, rib, mail, tel, solde, sexe);
+            // Adding the new compteClient with type_compte and pack_compte
+            CompteClient compteClient = new CompteClient(nom, prenom, rib, mail, tel, solde, type_compte, pack_compte);
             compteClientService.add(compteClient);
             System.out.println("Compte client ajouté avec succès !");
 

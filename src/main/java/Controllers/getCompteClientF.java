@@ -43,8 +43,13 @@ public class getCompteClientF {
 
     @FXML
     private TableColumn<CompteClient, Float> soldeColumn;
+
     @FXML
-    private TableColumn<CompteClient, String> sexeColumn;
+    private TableColumn<CompteClient, String> typeCompteColumn;
+
+    @FXML
+    private TableColumn<CompteClient, String> packCompteColumn;
+
 
     @FXML
     private TableColumn<CompteClient, Void> modifyColumn;
@@ -61,7 +66,9 @@ public class getCompteClientF {
         mailColumn.setCellValueFactory(new PropertyValueFactory<>("mail"));
         telColumn.setCellValueFactory(new PropertyValueFactory<>("tel"));
         soldeColumn.setCellValueFactory(new PropertyValueFactory<>("solde"));
-        sexeColumn.setCellValueFactory(new PropertyValueFactory<>("sexe"));
+        typeCompteColumn.setCellValueFactory(new PropertyValueFactory<>("type_compte"));
+        packCompteColumn.setCellValueFactory(new PropertyValueFactory<>("pack_compte"));
+
 
         // Configure "Modifier" column
         modifyColumn.setCellFactory(new Callback<TableColumn<CompteClient, Void>, TableCell<CompteClient, Void>>() {

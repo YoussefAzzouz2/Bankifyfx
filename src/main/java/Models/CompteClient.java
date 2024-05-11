@@ -19,19 +19,22 @@ public class CompteClient {
     private String mail;
     private String tel;
     private float solde;
-    private  String sexe;
+   // private  String sexe;
+    private  String type_compte;
+    private  String pack_compte;
     // Constructors
     public CompteClient() {
     }
 
-    public CompteClient(String nom, String prenom, String rib,String mail, String tel, float solde,String sexe) {
+    public CompteClient(String nom, String prenom, String rib,String mail, String tel, float solde,String type_compte, String pack_compte) {
         this.nom = nom;
         this.prenom = prenom;
         this.rib = rib;
         this.mail = mail;
         this.tel = tel;
         this.solde = solde;
-        this.sexe = sexe;
+        this.type_compte = type_compte;
+        this.pack_compte = pack_compte;
     }
 
     // Getters and setters
@@ -85,15 +88,26 @@ public class CompteClient {
     public float getSolde() {
         return solde;
     }
-    public String getSexe() {
-        return sexe;
-    }
+
 
     public void setSolde(float solde) {
         this.solde = solde;
     }
-    public void setSexe(String sexe) {
-        this.sexe = sexe;
+
+    public String getType_compte() {
+        return type_compte;
+    }
+
+    public void setType_compte(String type_compte) {
+        this.type_compte = type_compte;
+    }
+
+    public String getPack_compte() {
+        return pack_compte;
+    }
+
+    public void setPack_compte(String pack_compte) {
+        this.pack_compte = pack_compte;
     }
     // toString method for debugging
     @Override
@@ -106,7 +120,8 @@ public class CompteClient {
                 ", mail='" + mail + '\'' +
                 ", tel='" + tel + '\'' +
                 ", solde=" + solde +
-                ", sexe=" + sexe +
+                ", type_compte" + type_compte +
+                ", pack_compte" + pack_compte +
                 '}';
     }
 }

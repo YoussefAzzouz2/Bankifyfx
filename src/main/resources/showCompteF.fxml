@@ -2,7 +2,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.getCompteClientF">
     <children>
         <ImageView fitHeight="572.0" fitWidth="966.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
@@ -21,11 +20,13 @@
                 <TableColumn fx:id="mailColumn" prefWidth="104.0" text="Mail" />
                 <TableColumn fx:id="telColumn" prefWidth="98.0" text="Tel" />
                 <TableColumn fx:id="soldeColumn" prefWidth="108.0" text="Solde" />
-                <!-- Add a new TableColumn for sexe -->
-                <TableColumn fx:id="sexeColumn" prefWidth="100.0" text="Sexe" />
+                <TableColumn fx:id="typeCompteColumn" prefWidth="100.0" text="Type Compte" />
+                <TableColumn fx:id="packCompteColumn" prefWidth="100.0" text="Pack Compte" />
                 <!-- Add columns for "Modifier" and "Supprimer" buttons -->
                 <TableColumn fx:id="modifyColumn" prefWidth="108.0" text="Modifier" />
                 <TableColumn fx:id="deleteColumn" prefWidth="98.0" text="Supprimer" />
+                <!-- Add columns for "Type Compte" and "Pack Compte" -->
+
             </columns>
         </TableView>
         <Button layoutX="570.0" layoutY="23.0" mnemonicParsing="false" onAction="#NewCompte" text="Ajouter un Compte" />

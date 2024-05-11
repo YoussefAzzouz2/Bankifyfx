@@ -34,15 +34,24 @@ public class modiCompte {
     @FXML
     private TextField soldeField;
 
+
     @FXML
-    private ComboBox<String> sexeComboBox;
+    private ComboBox<String> typeCompteComboBox;
+
+    @FXML
+    private ComboBox<String> packCompteComboBox;
 
     private final CompteClientService compteClientService = new CompteClientService();
     private CompteClient compteClient;
 
     public void initialize() {
-        // Populate the sexeComboBox with gender options
-        sexeComboBox.getItems().addAll("Male", "Female", "Other");
+
+
+        // Populate the typeCompteComboBox with type options
+        typeCompteComboBox.getItems().addAll("Compte à terme", "Compte courant", "Compte d'entreprise", "Compte d'épargne", "Compte d'épargne retraite", "Compte de paiement mobile");
+
+        // Populate the packCompteComboBox with pack options
+        packCompteComboBox.getItems().addAll("Pack Confort", "Pack Essentiel", "Pack Jeunes", "Pack Premium", "Pack Séniors");
     }
 
     public void initData(CompteClient compteClient) {
@@ -59,8 +68,7 @@ public class modiCompte {
         telField.setText(compteClient.getTel());
         soldeField.setText(String.valueOf(compteClient.getSolde()));
 
-        // Set the selected value of sexeComboBox based on the compteClient's gender
-        sexeComboBox.setValue(compteClient.getSexe());
+
     }
 
     @FXML
@@ -72,11 +80,12 @@ public class modiCompte {
             String rib = ribField.getText();
             String mail = mailField.getText();
             String tel = telField.getText();
-            String sexe = sexeComboBox.getValue();
             float solde = Float.parseFloat(soldeField.getText());
+            String type_compte = typeCompteComboBox.getValue();
+            String pack_compte = packCompteComboBox.getValue();
 
             // Validate non-empty fields
-            if (nom.isEmpty() || prenom.isEmpty() || rib.isEmpty() || mail.isEmpty() || tel.isEmpty() || soldeField.getText().isEmpty() || sexe == null) {
+            if (nom.isEmpty() || prenom.isEmpty() || rib.isEmpty() || mail.isEmpty() || tel.isEmpty() || soldeField.getText().isEmpty() ||  type_compte == null || pack_compte == null) {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
                 return;
             }
@@ -112,7 +121,8 @@ public class modiCompte {
             compteClient.setMail(mail);
             compteClient.setTel(tel);
             compteClient.setSolde(solde);
-            compteClient.setSexe(sexe);
+            compteClient.setType_compte(type_compte);
+            compteClient.setPack_compte(pack_compte);
 
             // Call the service to update the compteClient
             compteClientService.update(compteClient);
